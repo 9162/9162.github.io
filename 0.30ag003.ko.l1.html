@@ -1,0 +1,487 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Mirrored from gl-english.com/EXPRESSIONS/15.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Nov 2017 19:06:41 GMT -->
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<title>GL English Expressions</title>
+<meta content="Global Live English delivers materials for ESL, EFL, TOEFL, and English learners from around the world.  For all aspects of the everyday English language, GL English provides speaking topics for classroom or for self study, word memorization tool, expressions, idioms and slang, and classic novels." name="Description"/>
+<meta content="ESL, EFL, TOEFL, expressions, english expressions, free expressions, free english expressions, ESL expressions, EFL expressions, TOEFL expressions" name="Keywords"/>
+<link href="http://gl-english.com/Pictures/globe.ico" rel="shortcut icon" type="image/x-icon"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="text/javascript" http-equiv="Content-Script-Type"/>
+<meta content="text/css" http-equiv="Content-Style-Type"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<style type="text/css"> 
+a:link{
+color: #666;
+text-decoration: none;
+}
+a:visited{
+color: #666;
+text-decoration:none;
+}
+a:hover{
+color: #04A6DA;
+text-decoration: underline;
+}
+
+<!-- 
+body  {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+	background-color: #FFF;
+}
+
+/* Tips for Elastic layouts 
+1. Since the elastic layouts overall sizing is based on the user's default fonts size, they are more unpredictable. Used correctly, they are also more accessible for those that need larger fonts size since the line length remains proportionate.
+2. Sizing of divs in this layout are based on the 100% font size in the body element. If you decrease the text size overall by using a font-size: 80% on the body element or the #container, remember that the entire layout will downsize proportionately. You may want to increase the widths of the various divs to compensate for this.
+3. If font sizing is changed in differing amounts on each div instead of on the overall design (ie: #sidebar1 is given a 70% font size and #mainContent is given an 85% font size), this will proportionately change each of the divs overall size. You may want to adjust based on your final font sizing.
+*/
+.thrColElsHdr #container {
+	width: 970px;  /* this width will create a container that will fit in an 800px browser window if text is left at browser default font sizes */
+	background: #FFFFFF; /* the auto margins (in conjunction with a width) center the page */
+	
+	text-align: left; /* this overrides the text-align: center on the body element. */
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+} 
+.thrColElsHdr #header {
+	padding: 0 10px;  /* this padding matches the left alignment of the elements in the divs that appear beneath it. If an image is used in the #header instead of text, you may want to remove the padding. */
+	background-color: #FFF;
+} 
+.thrColElsHdr #header h1 {
+	margin: 0; /* zeroing the margin of the last element in the #header div will avoid margin collapse - an unexplainable space between divs. If the div has a border around it, this is not necessary as that also avoids the margin collapse */
+	padding: 10px 0; /* using padding instead of margin will allow you to keep the element away from the edges of the div */
+}
+
+/* Tips for sidebar1:
+1. Be aware that if you set a font-size value on this div, the overall width of the div will be adjusted accordingly.
+2. Since we are working in ems, it's best not to use padding on the sidebar itself. It will be added to the width for standards compliant browsers creating an unknown actual width. 
+3. Space between the side of the div and the elements within it can be created by placing a left and right margin on those elements as seen in the ".thrColElsHdr #sidebar1 p" rule.
+*/
+.thrColElsHdr #sidebar1 {
+	float: left;
+	width: 176px; /* top and bottom padding create visual space within this div */
+	background-color: #FFF;
+	background-image: url(http://gl-english.com/Pictures/sidemenublack.gif);
+	background-repeat: no-repeat;
+	background-position: 10px 46px;
+	padding-top: 15px;
+	padding-right: 0;
+	padding-bottom: 15px;
+	padding-left: 0;
+	line-height: 12px;
+	font-weight: bold;
+	font-size: 10px;
+	color: #666;
+
+}
+.thrColElsHdr #sidebar2 {
+
+	float: right; 
+	width: 11em; /* since this element is floated, a width must be given */
+	background: #FFF; /* the background color will be displayed for the length of the content in the column, but no further */
+	padding: 15px 0; /* top and bottom padding create visual space within this div */
+}
+.thrColElsHdr #sidebar1 h3, .thrColElsHdr #sidebar1 p, .thrColElsHdr #sidebar2 p, .thrColElsHdr #sidebar2 h3 {
+	margin-left: 10px; /* the left and right margin should be given to every element that will be placed in the side columns */
+	margin-right: 10px;
+	color: #666;
+}
+
+/* Tips for mainContent:
+1. If you give this #mainContent div a font-size value different than the #sidebar1 div, the margins of the #mainContent div will be based on its font-size and the width of the #sidebar1 div will be based on its font-size. You may wish to adjust the values of these divs.
+2. The space between the mainContent and sidebar1 is created with the left margin on the mainContent div.  No matter how much content the sidebar1 div contains, the column space will remain. You can remove this left margin if you want the #mainContent div's text to fill the #sidebar1 space when the content in #sidebar1 ends.
+3. To avoid float drop, you may need to test to determine the approximate maximum image/element size since this layout is based on the user's font sizing combined with the values you set. However, if the user has their browser font size set lower than normal, less space will be available in the #mainContent div than you may see on testing.
+4. In the Internet Explorer Conditional Comment below, the zoom property is used to give the mainContent "hasLayout." This avoids several IE-specific bugs that may occur.
+*/
+.thrColElsHdr #mainContent {
+	margin: 0 12em 0 12em; /* the right margin can be given in ems or pixels. It creates the space down the right side of the page. */
+	color: #666;
+} 
+.thrColElsHdr #footer {
+	padding: 0 10px;
+	background-color: #FFF;
+} 
+.thrColElsHdr #footer p {
+	margin: 0; /* zeroing the margins of the first element in the footer will avoid the possibility of margin collapse - a space between divs */
+	padding: 10px 0; /* padding on this element will create space, just as the the margin would have, without the margin collapse issue */
+}
+
+/* Miscellaneous classes for reuse */
+.fltrt { /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class should be placed on a div or break element and should be the final element before the close of a container that should fully contain a float */
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+.style11 {font-size: small}
+.style29 {font-size: 10px}
+.style35 {font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+.style46 {font-size: 10px;
+	color: #555555;
+}
+.thrColElsHdr #container #mainContent h1 {
+	font-size: x-large;
+	color: #F6C706;
+}
+.s {	font-size: large;
+	color: #666;
+}
+.style111 {	font-size: small;
+	color: #666;
+}
+.style111 {font-size: small;
+	color: #666;
+	font-weight: bold;
+}
+.style112 {	font-size: small;
+	color: #FFF;
+}
+--> 
+#shadow {
+	width: 1002px;
+	margin-right: auto;
+	margin-left: auto;
+	background-image: url(http://gl-english.com/Pictures/bbb.png);	background-repeat: repeat-y;
+}
+
+ 
+ul {
+	
+  list-style-type: none;
+
+  margin-left: 1px;
+  padding-left: 1px;
+  
+
+
+} 
+--> 
+</style><!--[if IE]>
+<style type="text/css"> 
+/* place css fixes for all versions of IE in this conditional comment */
+.thrColElsHdr #sidebar1, .thrColElsHdr #sidebar2 { padding-top: 30px; }
+.thrColElsHdr #mainContent { zoom: 1; padding-top: 15px; }
+/* the above proprietary zoom property gives IE the hasLayout it needs to avoid several bugs */
+</style>
+<![endif]-->
+
+<link href="http://gl-english.com/ubaplayer2/libs/css/styles.css" rel="stylesheet"/>
+
+
+
+</head><body class="thrColElsHdr" onload="MM_preloadImages('http://gl-english.com/Pictures/small-small2.gif','http://gl-english.com/Pictures/sample arrow11.png','http://gl-english.com/Pictures/sample arrow22.png','http://gl-english.com/Pictures/small-small-small2.gif','http://gl-english.com/Pictures/GlobeE.png')">
+
+<div class="thrColElsHdr" id="shadow">
+<div id="container">
+<div id="header">
+<br/>
+<center><h1><a href="../../30/index.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Spinning globe','','http://gl-english.com/Pictures/GlobeE.png',1)"></a><a href="../../30/index.html"></a><a href="../../30/index.html"></a><a href="../../30/index.html"></a><br/>
+<font size="1"><a href="../../30/index.html">Home</a>   <a href="../../01/Leveltest.html">Level Test</a>   <a href="../../68/WM%20intro.html">Memorize Vocabulary</a>   <a href="../../66/picture%20english.html">Picture English</a>   <a href="../../84/phrases.html">Phrases</a>  <a href="../../47/speakingtopics.html">Speaking Topics</a>   <a href="../../fc/novels.html">Readings</a>   <a href="../../8e/Links.html"></a><a href="../../8e/Links.html">Links</a></font></h1>
+</center>
+<!-- end #header --></div> <div id="sidebar1">
+<p> </p><br/>
+<table align="right" border="0" cellpadding="0" cellspacing="0" width="158">
+<tr>
+<td>LEVEL TEST</td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../../d0/Level%20Test%20Junior/readme.html">Junior Test</a></td>
+</tr>
+<tr>
+<td><a href="../../aa/Level%20Test%20Senior/readme.html">Senior Test</a></td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td>MEMORIZE VOCABULARY</td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../../a7/wordflash.html">Enter Words</a></td>
+</tr>
+<tr>
+<td><a href="../../0e/Wordflash%20Samples/wordflash%201.html">Sample 1</a></td>
+</tr>
+<tr>
+<td><a href="../../b6/Wordflash%20Samples/difficult%20words%201.html">Sample 2</a></td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td>PICTURE ENGLISH</td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../../f0/picture%20english/fruits/fruits.html">Fruits</a></td>
+</tr>
+<tr>
+<td><a href="../../1c/picture%20english/flags/flags.html">Flags of the World</a></td>
+</tr>
+<tr>
+<td><a href="../../65/picture%20english/flags/US.html">Flags of United States</a></td>
+</tr>
+<tr>
+<td><a href="../../93/picture%20english/flags/UK.html">Flags of UK</a></td>
+</tr>
+<tr>
+<td><a href="../../a6/worldmap/docs/worldmap.html">Map of the World</a></td>
+</tr>
+<tr>
+<td><a href="../../c4/worldmap/docs/usa.html">Map of USA</a></td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td>PHRASES</td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../../cf/EXPRESSIONS/1.html">Expressions</a></td>
+</tr>
+<tr>
+<td><a href="../../0e/IDOMS%20-%20SLANGS/1.html">Idioms</a></td>
+</tr>
+<tr>
+<td><a href="../../46/IDOMS%20-%20SLANGS/SLANG/1.html">Slang</a></td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td>SPEAKING TOPICS</td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../../13/speaking%20elementary.html">Elementary</a></td>
+</tr>
+<tr>
+<td><a href="../../38/speaking%20middle.html">Middle School</a></td>
+</tr>
+<tr>
+<td><a href="../../4e/speaking%20high%20school.html">High School~Adult</a></td>
+</tr>
+<tr>
+<td><a href="../../6d/speaking%20TOEFL%20level.html">TOEFL Level</a></td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td>READINGS</td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td><a href="../../8a/READINGS/women/forwomen.html">For Women</a></td>
+</tr>
+<tr>
+<td><a href="../../ba/READINGS/men/formen.html">For Men</a></td>
+</tr>
+<tr>
+<td><a href="../../29/READINGS/love.html">Love One Another</a></td>
+</tr>
+<tr>
+<td><a href="../../fb/READINGS/Great%20Expectations.html">Great Expectations</a></td>
+</tr>
+<tr>
+<td><a href="../../44/READINGS/The%20Wizard%20of%20Oz.html">The Wonderful Wizard<br/>
+    of Oz</a></td>
+</tr>
+<tr>
+<td><a href="../../37/READINGS/War%20and%20Peace.html">War and Peace</a></td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+<tr>
+<td> </td>
+</tr>
+</table>
+<p> </p>
+<p> </p>
+</div>
+<div id="sidebar2">
+<p>
+</p>
+</div>
+<div id="mainContent">
+<h1><a id="intro" name="intro"></a> Expressions</h1>
+<div id="ubaPlayer"></div>
+<p> </p>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/151.mp3"></a></li></ul></td>
+<td width="528">That's corny.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">그건 촌스러워.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/152.mp3"></a></li></ul></td>
+<td width="528">Stick with me.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">나에게 붙어있어.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/153.mp3"></a></li></ul></td>
+<td width="528">I'll hook you up.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">내가 연결 시켜 줄게.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/154.mp3"></a></li></ul></td>
+<td width="528">I cannot believe this happened to me.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">이런일이 나에게 일어나다니 믿을 수 없어.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/155.mp3"></a></li></ul></td>
+<td width="528">Is that for me?<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">그거 나를 위한 거니?</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/156.mp3"></a></li></ul></td>
+<td width="528">It's no longer available.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">더 이상 사용가능하지 않아.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/157.mp3"></a></li></ul></td>
+<td width="528">I just got off work.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">방금 일 마쳤어.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/158.mp3"></a></li></ul></td>
+<td width="528">There's nothing to be concerned about.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">전혀 걱정할 거 없어.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/159.mp3"></a></li></ul></td>
+<td width="528">You didn't have to.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">너 할 필요 없었는데.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/1510.mp3"></a></li></ul></td>
+<td width="528">That is not what I think it is.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">내가 생각하는 그것이 아니야..</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/1511.mp3"></a></li></ul></td>
+<td width="528">I never meant to hurt you.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">나 너에게 상처줄 의도는 절대 아니었어.</b></font> </td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="580">
+<tr>
+<td height="32" width="23"> </td>
+<td width="29"><ul class="controls">
+<li><a class="audioButton" href="http://gl-english.com/Sound/Expressions/1512.mp3"></a></li></ul></td>
+<td width="528">Go back to sleep.<br/>
+<font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">다시 자.</b></font> </td>
+</tr>
+</table>
+<p><font color="white"><b onmouseout="this.style.color = 'white';" onmouseover="this.style.color = 'white';">.</b></font>
+</p>
+<center>
+<p>15</p>
+<p><a href="../../68/EXPRESSIONS/14.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('arrows','','http://gl-english.com/Pictures/sample arrow1.png',1)"></a>                          <a href="../../5a/EXPRESSIONS/16.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('arrow22','','http://gl-english.com/Pictures/sample arrow2.png',1)"></a></p>
+</center>
+<p class="style111"> </p><center>
+<p class="style11"><a href="../../1e/EXPRESSIONS/12.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('small arrow','','http://gl-english.com/Pictures/small-small-small2.gif',1)"></a> Pages <a href="../../60/EXPRESSIONS/13.html">13</a> <a href="../../68/EXPRESSIONS/14.html">14</a> <a href="15.html">15</a> <a href="../../5a/EXPRESSIONS/16.html">16</a>
+<a href="../../ac/EXPRESSIONS/17.html">17</a> <a href="../../d4/EXPRESSIONS/18.html">18</a> <a href="../../94/EXPRESSIONS/19.html">19</a> <a href="../../bd/EXPRESSIONS/20.html">20</a> <a href="../../51/EXPRESSIONS/21.html">21</a> <a href="../../77/EXPRESSIONS/22.html">22</a> <a href="../../4d/EXPRESSIONS/23.html">23</a> <a href="../../84/EXPRESSIONS/24.html">24</a> <a href="../../f6/EXPRESSIONS/25.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('small small','','http://gl-english.com/Pictures/small-small2.gif',1)"></a></p>
+<p class="style11"> </p>
+</center>
+<!-- end #mainContent --></div>
+<!-- This clearing element should immediately follow the #mainContent div in order to force the #container div to contain all child floats --><br class="clearfloat"/>
+<div id="footer">
+<p></p><center><font size="1">Copyright ©  Global Live English. All rights reserved</font></center>
+<!-- end #footer --></div>
+<!-- end #container --></div>
+</div>
+
+</body>
+<!-- Mirrored from gl-english.com/EXPRESSIONS/15.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Nov 2017 19:06:41 GMT -->
+</html>

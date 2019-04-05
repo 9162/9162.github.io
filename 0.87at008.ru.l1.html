@@ -1,0 +1,765 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Mirrored from php5.kiev.ua/manual/ru/class.tokyotyrant.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Sep 2016 07:53:57 GMT -->
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title>PHP 7 на русском: The TokyoTyrant class</title>
+<meta content="The TokyoTyrant class, tokyo_tyrant, PHP Manual, php, пхп, Hypertext Preprocessor,php, php5, apache, mysql, session, скрипты, скачать, download, программирование, web технологии, php6, php4, функции php" name="keywords"/>
+<meta content="The TokyoTyrant class. tokyo_tyrant. PHP Manual. Сайт посвящен документации по PHP. Руссифицированное руководство с примерами на PHP. Фреймворки, шаблонизаторы, набор часто употребляемых функций." name="description"/>
+<meta content="russian" name="language"/><meta content="ru" http-equiv="Content-language"/>
+<link href="http://php5.kiev.ua/default.css" rel="stylesheet" type="text/css"/>
+<link href="http://php5.kiev.ua/Manual.css" rel="stylesheet" type="text/css"/>
+<link href="http://php5.kiev.ua/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+
+
+</head><body><!-- RotaBan -->
+
+<div class="clear" id="header">
+<div id="logo">
+<h1><a href="../../../41/index.html" name="top">PHP5</a></h1>
+<h2><a href="../../../41/index.html">Для web разработчика</a></h2>
+</div>
+<div id="adv728" title="Рекламная площадка 728x90"><!--RotaBan--><div class="rbrocks rotaban_faf76e5d37374477bf8cff1a27546c78" id="rotaban_231787"></div></div>
+</div>
+<div class="clear" id="navigator">
+<div id="current">
+<h3><div class="post-date"><span class="post-month">Sep</span>
+<span class="post-day">24</span></div>The TokyoTyrant class</h3>
+</div>
+<div id="menu">
+<ul>
+<li class="first"><a accesskey="1" href="../../../41/index.html" target="_top" title="Главная страница PHP портала">Главная</a></li>
+<li><a accesskey="2" href="../../../24/search/index.html" target="_top" title="Поиск по сайту">Поиск</a></li>
+<li class="active"><a accesskey="3" href="../../../75/php7/index.html" target="_top" title="Руководство по PHP7">PHP</a></li>
+<li><a accesskey="4" href="../../../d5/smarty/index.html" target="_top" title="Smarty Framework">Smarty</a></li>
+<li><a accesskey="5" href="../../../03/pear/index.html" target="_top" title="Pear Framework">Pear</a></li>
+<li><a accesskey="6" href="../../zend/index.html" target="_top" title="Zend Framework">Zend</a></li>
+<li><a accesskey="7" href="../../../de/phpdoc/index.html" target="_top" title="phpDocumentor">phpDoc</a></li>
+<li><a accesskey="9" href="../../../85/mysql/55/index.html" target="_top" title="СУБД MySQL">Mysql</a></li>
+<li><a accesskey="9" href="../../../30/pgsql/index.html" target="_top" title="СУБД PostgreSQL">Pgsql</a></li>
+<li><a href="../../../60/contacts.html" target="_top" title="Контактная информация">Контакты</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="manualnavbar" style="text-align: center;">
+<div class="prev" style="text-align: left; float: left;"><a href="../../../47/manual/ru/tokyo-tyrant.examples.html" rel="previous">Примеры</a></div>
+<div class="next" style="text-align: right; float: right;"><a href="../../../8d/manual/ru/tokyotyrant.add.html" rel="next">TokyoTyrant::add</a></div>
+<div class="up"><a href="../../../51/manual/ru/book.tokyo-tyrant.html" rel="up">tokyo_tyrant</a></div>
+<div class="home"><a href="../../../39/manual/ru/index.html" rel="home">PHP Manual</a></div>
+</div><hr/>
+<div id="manual"><div id="manbody">
+<div class="reference" id="class.tokyotyrant">
+<h1 class="title">The TokyoTyrant class</h1>
+<div class="partintro"><p class="verinfo">(PECL tokyo_tyrant &gt;= 0.1.0)</p>
+<div class="section" id="tokyotyrant.intro">
+<h2 class="title">Введение</h2>
+<p class="para">
+    The main Tokyo Tyrant class
+   </p>
+</div>
+<div class="section" id="tokyotyrant.synopsis">
+<h2 class="title">Обзор классов</h2>
+<div class="classsynopsis">
+<div class="ooclass"></div>
+<div class="classsynopsisinfo">
+<span class="ooclass">
+<strong class="classname">TokyoTyrant</strong>
+</span>
+     {</div>
+<div class="classsynopsisinfo classsynopsisinfo_comment">/* Константы */</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbdef-port"><var class="varname">RDBDEF_PORT</var></a></var>
+<span class="initializer"> = 1978</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-streq"><var class="varname">RDBQC_STREQ</var></a></var>
+<span class="initializer"> = 0</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-strinc"><var class="varname">RDBQC_STRINC</var></a></var>
+<span class="initializer"> = 1</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-strbw"><var class="varname">RDBQC_STRBW</var></a></var>
+<span class="initializer"> = 2</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-strew"><var class="varname">RDBQC_STREW</var></a></var>
+<span class="initializer"> = 3</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-strand"><var class="varname">RDBQC_STRAND</var></a></var>
+<span class="initializer"> = 4</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-stror"><var class="varname">RDBQC_STROR</var></a></var>
+<span class="initializer"> = 5</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-stroreq"><var class="varname">RDBQC_STROREQ</var></a></var>
+<span class="initializer"> = 6</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-strrx"><var class="varname">RDBQC_STRRX</var></a></var>
+<span class="initializer"> = 7</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-numeq"><var class="varname">RDBQC_NUMEQ</var></a></var>
+<span class="initializer"> = 8</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-numgt"><var class="varname">RDBQC_NUMGT</var></a></var>
+<span class="initializer"> = 9</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-numge"><var class="varname">RDBQC_NUMGE</var></a></var>
+<span class="initializer"> = 10</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-numlt"><var class="varname">RDBQC_NUMLT</var></a></var>
+<span class="initializer"> = 11</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-numle"><var class="varname">RDBQC_NUMLE</var></a></var>
+<span class="initializer"> = 12</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-numbt"><var class="varname">RDBQC_NUMBT</var></a></var>
+<span class="initializer"> = 13</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-numoreq"><var class="varname">RDBQC_NUMOREQ</var></a></var>
+<span class="initializer"> = 14</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-negate"><var class="varname">RDBQC_NEGATE</var></a></var>
+<span class="initializer"> = 16777216</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqc-noidx"><var class="varname">RDBQC_NOIDX</var></a></var>
+<span class="initializer"> = 33554432</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqo-strasc"><var class="varname">RDBQO_STRASC</var></a></var>
+<span class="initializer"> = 0</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqo-strdesc"><var class="varname">RDBQO_STRDESC</var></a></var>
+<span class="initializer"> = 1</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqo-numasc"><var class="varname">RDBQO_NUMASC</var></a></var>
+<span class="initializer"> = 2</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqo-numdesc"><var class="varname">RDBQO_NUMDESC</var></a></var>
+<span class="initializer"> = 3</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbit-lexical"><var class="varname">RDBIT_LEXICAL</var></a></var>
+<span class="initializer"> = 0</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbit-decimal"><var class="varname">RDBIT_DECIMAL</var></a></var>
+<span class="initializer"> = 1</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbit-token"><var class="varname">RDBIT_TOKEN</var></a></var>
+<span class="initializer"> = 2</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbit-qgram"><var class="varname">RDBIT_QGRAM</var></a></var>
+<span class="initializer"> = 3</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbit-opt"><var class="varname">RDBIT_OPT</var></a></var>
+<span class="initializer"> = 9998</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbit-void"><var class="varname">RDBIT_VOID</var></a></var>
+<span class="initializer"> = 9999</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbit-keep"><var class="varname">RDBIT_KEEP</var></a></var>
+<span class="initializer"> = 16777216</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqcfts-ph"><var class="varname">RDBQCFTS_PH</var></a></var>
+<span class="initializer"> = 15</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqcfts-and"><var class="varname">RDBQCFTS_AND</var></a></var>
+<span class="initializer"> = 16</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqcfts-or"><var class="varname">RDBQCFTS_OR</var></a></var>
+<span class="initializer"> = 17</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbqcfts-ex"><var class="varname">RDBQCFTS_EX</var></a></var>
+<span class="initializer"> = 18</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbxolck-rec"><var class="varname">RDBXO_LCKREC</var></a></var>
+<span class="initializer"> = 1</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbxolck-glb"><var class="varname">RDBXOLCK_GLB</var></a></var>
+<span class="initializer"> = 2</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbrec-int"><var class="varname">RDBREC_INT</var></a></var>
+<span class="initializer"> = 1</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbrec-dbl"><var class="varname">RDBREC_DBL</var></a></var>
+<span class="initializer"> = 2</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbms-union"><var class="varname">RDBMS_UNION</var></a></var>
+<span class="initializer"> = 0</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbms-isect"><var class="varname">RDBMS_ISECT</var></a></var>
+<span class="initializer"> = 1</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbms-diff"><var class="varname">RDBMS_DIFF</var></a></var>
+<span class="initializer"> = 2</span>
+    ;</div>
+<div class="fieldsynopsis">
+<span class="modifier">const</span>
+<span class="type">integer</span>
+<var class="fieldsynopsis_varname"><a href="class.tokyotyrant.html#tokyotyrant.constants.rdbt-recon"><var class="varname">RDBT_RECON</var></a></var>
+<span class="initializer"> = 1</span>
+    ;</div>
+<div class="classsynopsisinfo classsynopsisinfo_comment">/* Методы */</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">number</span> <span class="methodname"><a class="methodname" href="../../../8d/manual/ru/tokyotyrant.add.html">add</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>
+   , <span class="methodparam"><span class="type"><a class="type number" href="../../../10/manual/ru/language.pseudo-types.html#language.types.number">number</a></span> <code class="parameter">$increment</code></span>
+   [, <span class="methodparam"><span class="type">int</span> <code class="parameter">$type</code><span class="initializer"> = 0</span></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../4f/manual/ru/tokyotyrant.connect.html">connect</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$host</code></span>
+   [, <span class="methodparam"><span class="type">int</span> <code class="parameter">$port</code><span class="initializer"> = TokyoTyrant::RDBDEF_PORT</span></span>
+   [, <span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code></span>
+  ]] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../22/manual/ru/tokyotyrant.connecturi.html">connectUri</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$uri</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="methodname"><a class="methodname" href="../../../18/manual/ru/tokyotyrant.construct.html">__construct</a></span>
+    ([ <span class="methodparam"><span class="type">string</span> <code class="parameter">$host</code></span>
+   [, <span class="methodparam"><span class="type">int</span> <code class="parameter">$port</code><span class="initializer"> = TokyoTyrant::RDBDEF_PORT</span></span>
+   [, <span class="methodparam"><span class="type">array</span> <code class="parameter">$options</code></span>
+  ]]] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../2a/manual/ru/tokyotyrant.copy.html">copy</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$path</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><a class="methodname" href="../../../f9/manual/ru/tokyotyrant.ext.html">ext</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$name</code></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$options</code></span>
+   , <span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>
+   , <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><a class="methodname" href="../../../c6/manual/ru/tokyotyrant.fwmkeys.html">fwmKeys</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$prefix</code></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$max_recs</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">mixed</span> <span class="methodname"><a class="methodname" href="../../../90/manual/ru/tokyotyrant.get.html">get</a></span>
+    ( <span class="methodparam"><span class="type"><a class="type mixed" href="../../../10/manual/ru/language.pseudo-types.html#language.types.mixed">mixed</a></span> <code class="parameter">$keys</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrantIterator</span> <span class="methodname"><a class="methodname" href="../../../3a/manual/ru/tokyotyrant.getiterator.html">getIterator</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a class="methodname" href="../../../17/manual/ru/tokyotyrant.num.html">num</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../4a/manual/ru/tokyotyrant.out.html">out</a></span>
+    ( <span class="methodparam"><span class="type"><a class="type mixed" href="../../../10/manual/ru/language.pseudo-types.html#language.types.mixed">mixed</a></span> <code class="parameter">$keys</code></span>
+
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../e1/manual/ru/tokyotyrant.put.html">put</a></span>
+    ( <span class="methodparam"><span class="type"><a class="type mixed" href="../../../10/manual/ru/language.pseudo-types.html#language.types.mixed">mixed</a></span> <code class="parameter">$keys</code></span>
+   [, <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code><span class="initializer"> = NULL</span></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../6c/manual/ru/tokyotyrant.putcat.html">putCat</a></span>
+    ( <span class="methodparam"><span class="type"><a class="type mixed" href="../../../10/manual/ru/language.pseudo-types.html#language.types.mixed">mixed</a></span> <code class="parameter">$keys</code></span>
+   [, <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../26/manual/ru/tokyotyrant.putkeep.html">putKeep</a></span>
+    ( <span class="methodparam"><span class="type"><a class="type mixed" href="../../../10/manual/ru/language.pseudo-types.html#language.types.mixed">mixed</a></span> <code class="parameter">$keys</code></span>
+   [, <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../b4/manual/ru/tokyotyrant.putnr.html">putNr</a></span>
+    ( <span class="methodparam"><span class="type"><a class="type mixed" href="../../../10/manual/ru/language.pseudo-types.html#language.types.mixed">mixed</a></span> <code class="parameter">$keys</code></span>
+   [, <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code><span class="initializer"> = NULL</span></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">mixed</span> <span class="methodname"><a class="methodname" href="../../../2c/manual/ru/tokyotyrant.putshl.html">putShl</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>
+   , <span class="methodparam"><span class="type">string</span> <code class="parameter">$value</code></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$width</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">mixed</span> <span class="methodname"><a class="methodname" href="../../../f9/manual/ru/tokyotyrant.restore.html">restore</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$log_dir</code></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$timestamp</code></span>
+   [, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$check_consistency</code><span class="initializer"> = true</span></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">mixed</span> <span class="methodname"><a class="methodname" href="../../../97/manual/ru/tokyotyrant.setmaster.html">setMaster</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$host</code></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$port</code></span>
+   , <span class="methodparam"><span class="type">int</span> <code class="parameter">$timestamp</code></span>
+   [, <span class="methodparam"><span class="type">bool</span> <code class="parameter">$check_consistency</code><span class="initializer"> = true</span></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a class="methodname" href="../../../ab/manual/ru/tokyotyrant.size.html">size</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <code class="parameter">$key</code></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><a class="methodname" href="../../../0f/manual/ru/tokyotyrant.stat.html">stat</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">mixed</span> <span class="methodname"><a class="methodname" href="../../../1b/manual/ru/tokyotyrant.sync.html">sync</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">TokyoTyrant</span> <span class="methodname"><a class="methodname" href="../../../0e/manual/ru/tokyotyrant.tune.html">tune</a></span>
+    ( <span class="methodparam"><span class="type">float</span> <code class="parameter">$timeout</code></span>
+   [, <span class="methodparam"><span class="type">int</span> <code class="parameter">$options</code><span class="initializer"> = TokyoTyrant::RDBT_RECON</span></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+<span class="modifier">public</span> <span class="type">mixed</span> <span class="methodname"><a class="methodname" href="../../../5f/manual/ru/tokyotyrant.vanish.html">vanish</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+   }</div>
+</div>
+<div class="section" id="tokyotyrant.constants">
+<h2 class="title">Предопределенные константы</h2>
+<div class="section" id="tokyotyrant.constants.types">
+<h2 class="title">TokyoTyrant Constants</h2>
+<dl>
+<dt id="tokyotyrant.constants.rdbdef-port"><strong><code>TokyoTyrant::RDBDEF_PORT</code></strong></dt>
+<dd>
+<p class="para">The default port of the Tokyo Tyrant database</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-streq"><strong><code>TokyoTyrant::RDBQC_STREQ</code></strong></dt>
+<dd>
+<p class="para">string is equal to</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-strinc"><strong><code>TokyoTyrant::RDBQC_STRINC</code></strong></dt>
+<dd>
+<p class="para">string is included in</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-strbw"><strong><code>TokyoTyrant::RDBQC_STRBW</code></strong></dt>
+<dd>
+<p class="para">string begins with</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-strew"><strong><code>TokyoTyrant::RDBQC_STREW</code></strong></dt>
+<dd>
+<p class="para">string ends with</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-strand"><strong><code>TokyoTyrant::RDBQC_STRAND</code></strong></dt>
+<dd>
+<p class="para">string includes all tokens in</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-stror"><strong><code>TokyoTyrant::RDBQC_STROR</code></strong></dt>
+<dd>
+<p class="para">string includes at least one token in</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-stroreq"><strong><code>TokyoTyrant::RDBQC_STROREQ</code></strong></dt>
+<dd>
+<p class="para">string is equal to at least one token in</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-strrx"><strong><code>TokyoTyrant::RDBQC_STRRX</code></strong></dt>
+<dd>
+<p class="para">string matches regular expressions of</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-numeq"><strong><code>TokyoTyrant::RDBQC_NUMEQ</code></strong></dt>
+<dd>
+<p class="para">number is equal to</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-numgt"><strong><code>TokyoTyrant::RDBQC_NUMGT</code></strong></dt>
+<dd>
+<p class="para">number is greater than</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-numge"><strong><code>TokyoTyrant::RDBQC_NUMGE</code></strong></dt>
+<dd>
+<p class="para">number is greater than or equal to</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-numlt"><strong><code>TokyoTyrant::RDBQC_NUMLT</code></strong></dt>
+<dd>
+<p class="para">number is less than</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-numle"><strong><code>TokyoTyrant::RDBQC_NUMLE</code></strong></dt>
+<dd>
+<p class="para">number is less than or equal to</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-numbt"><strong><code>TokyoTyrant::RDBQC_NUMBT</code></strong></dt>
+<dd>
+<p class="para">number is between two tokens of</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-numoreq"><strong><code>TokyoTyrant::RDBQC_NUMOREQ</code></strong></dt>
+<dd>
+<p class="para">number is equal to at least one token in</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-negate"><strong><code>TokyoTyrant::RDBQC_NEGATE</code></strong></dt>
+<dd>
+<p class="para">negation flag</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqc-noidx"><strong><code>TokyoTyrant::RDBQC_NOIDX</code></strong></dt>
+<dd>
+<p class="para">no index flag</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqo-strasc"><strong><code>TokyoTyrant::RDBQO_STRASC</code></strong></dt>
+<dd>
+<p class="para">string ascending</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqo-strdesc"><strong><code>TokyoTyrant::RDBQO_STRDESC</code></strong></dt>
+<dd>
+<p class="para">string descending</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqo-numasc"><strong><code>TokyoTyrant::RDBQO_NUMASC</code></strong></dt>
+<dd>
+<p class="para">number ascending</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqo-numdesc"><strong><code>TokyoTyrant::RDBQO_NUMDESC</code></strong></dt>
+<dd>
+<p class="para">number descending</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbit-lexical"><strong><code>TokyoTyrant::RDBIT_LEXICAL</code></strong></dt>
+<dd>
+<p class="para">lexical string</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbit-decimal"><strong><code>TokyoTyrant::RDBIT_DECIMAL</code></strong></dt>
+<dd>
+<p class="para">decimal string</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbit-token"><strong><code>TokyoTyrant::RDBIT_TOKEN</code></strong></dt>
+<dd>
+<p class="para">token inverted index (Tokyo Tyrant &gt;= 1.1.29)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbit-qgram"><strong><code>TokyoTyrant::RDBIT_QGRAM</code></strong></dt>
+<dd>
+<p class="para">QGRAM inverted index (Tokyo Tyrant &gt;= 1.1.29)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbit-opt"><strong><code>TokyoTyrant::RDBIT_OPT</code></strong></dt>
+<dd>
+<p class="para">optimize</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbit-void"><strong><code>TokyoTyrant::RDBIT_VOID</code></strong></dt>
+<dd>
+<p class="para">void</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbit-keep"><strong><code>TokyoTyrant::RDBIT_KEEP</code></strong></dt>
+<dd>
+<p class="para">keep existing index</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqcfts-ph"><strong><code>TokyoTyrant::RDBQCFTS_PH</code></strong></dt>
+<dd>
+<p class="para">full-text search with the phrase of (Tokyo Tyrant &gt;= 1.1.29)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqcfts-and"><strong><code>TokyoTyrant::RDBQCFTS_AND</code></strong></dt>
+<dd>
+<p class="para">full-text search with all tokens in (Tokyo Tyrant &gt;= 1.1.29)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqcfts-or"><strong><code>TokyoTyrant::RDBQCFTS_OR</code></strong></dt>
+<dd>
+<p class="para">full-text search with at least one token in (Tokyo Tyrant &gt;= 1.1.29)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbqcfts-ex"><strong><code>TokyoTyrant::RDBQCFTS_EX</code></strong></dt>
+<dd>
+<p class="para">full-text search with the compound expression of (Tokyo Tyrant &gt;= 1.1.29)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbms-union"><strong><code>TokyoTyrant::RDBQCFTS_AND</code></strong></dt>
+<dd>
+<p class="para">Metasearch union between records (Tokyo Tyrant &gt;= 1.1.33)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbms-isect"><strong><code>TokyoTyrant::RDBQCFTS_OR</code></strong></dt>
+<dd>
+<p class="para">Metasearch intersection between records (Tokyo Tyrant &gt;= 1.1.33)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbms-diff"><strong><code>TokyoTyrant::RDBQCFTS_EX</code></strong></dt>
+<dd>
+<p class="para">Metasearch difference between records (Tokyo Tyrant &gt;= 1.1.33)</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbt-recon"><strong><code>TokyoTyrant::RDBT_RECON</code></strong></dt>
+<dd>
+<p class="para">Whether to reconnect on connection failure. 
+            It is recommended to have this parameter on for persistent connections</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbxolck-rec"><strong><code>TokyoTyrant::RDBXOLCK_REC</code></strong></dt>
+<dd>
+<p class="para">record locking</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbxolck-glb"><strong><code>TokyoTyrant::RDBXOLCK_GLB</code></strong></dt>
+<dd>
+<p class="para">global locking</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbrec-int"><strong><code>TokyoTyrant::RDBREC_INT</code></strong></dt>
+<dd>
+<p class="para">record type int</p>
+</dd>
+<dt id="tokyotyrant.constants.rdbrec-dbl"><strong><code>TokyoTyrant::RDBREC_DBL</code></strong></dt>
+<dd>
+<p class="para">record type float (double)</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-success"><strong><code>TokyoTyrant::TTE_SUCCESS</code></strong></dt>
+<dd>
+<p class="para">success</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-invalid"><strong><code>TokyoTyrant::TTE_INVALID</code></strong></dt>
+<dd>
+<p class="para">invalid operation</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-nohost"><strong><code>TokyoTyrant::TTE_NOHOST</code></strong></dt>
+<dd>
+<p class="para">host not found</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-refused"><strong><code>TokyoTyrant::TTE_REFUSED</code></strong></dt>
+<dd>
+<p class="para">connection refused</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-send"><strong><code>TokyoTyrant::TTE_SEND</code></strong></dt>
+<dd>
+<p class="para">send error</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-recv"><strong><code>TokyoTyrant::TTE_RECV</code></strong></dt>
+<dd>
+<p class="para">recv error</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-keep"><strong><code>TokyoTyrant::TTE_KEEP</code></strong></dt>
+<dd>
+<p class="para">record exist</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-norec"><strong><code>TokyoTyrant::TTE_NOREC</code></strong></dt>
+<dd>
+<p class="para">no record found</p>
+</dd>
+<dt id="tokyotyrant.constants.tte-misc"><strong><code>TokyoTyrant::TTE_MISC</code></strong></dt>
+<dd>
+<p class="para">miscellaneous error</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<h2>Содержание</h2><ul class="chunklist chunklist_reference"><li><a href="../../../8d/manual/ru/tokyotyrant.add.html">TokyoTyrant::add</a> — Adds to a numeric key</li><li><a href="../../../4f/manual/ru/tokyotyrant.connect.html">TokyoTyrant::connect</a> — Connect to a database</li><li><a href="../../../22/manual/ru/tokyotyrant.connecturi.html">TokyoTyrant::connectUri</a> — Connects to a database</li><li><a href="../../../18/manual/ru/tokyotyrant.construct.html">TokyoTyrant::__construct</a> — Construct a new TokyoTyrant object</li><li><a href="../../../2a/manual/ru/tokyotyrant.copy.html">TokyoTyrant::copy</a> — Copies the database</li><li><a href="../../../f9/manual/ru/tokyotyrant.ext.html">TokyoTyrant::ext</a> — Execute a remote script</li><li><a href="../../../c6/manual/ru/tokyotyrant.fwmkeys.html">TokyoTyrant::fwmKeys</a> — Returns the forward matching keys</li><li><a href="../../../90/manual/ru/tokyotyrant.get.html">TokyoTyrant::get</a> — The get purpose</li><li><a href="../../../3a/manual/ru/tokyotyrant.getiterator.html">TokyoTyrant::getIterator</a> — Get an iterator</li><li><a href="../../../17/manual/ru/tokyotyrant.num.html">TokyoTyrant::num</a> — Number of records in the database</li><li><a href="../../../4a/manual/ru/tokyotyrant.out.html">TokyoTyrant::out</a> — Removes records</li><li><a href="../../../e1/manual/ru/tokyotyrant.put.html">TokyoTyrant::put</a> — Puts values</li><li><a href="../../../6c/manual/ru/tokyotyrant.putcat.html">TokyoTyrant::putCat</a> — Concatenates to a record</li><li><a href="../../../26/manual/ru/tokyotyrant.putkeep.html">TokyoTyrant::putKeep</a> — Puts a record</li><li><a href="../../../b4/manual/ru/tokyotyrant.putnr.html">TokyoTyrant::putNr</a> — Puts value</li><li><a href="../../../2c/manual/ru/tokyotyrant.putshl.html">TokyoTyrant::putShl</a> — Concatenates to a record</li><li><a href="../../../f9/manual/ru/tokyotyrant.restore.html">TokyoTyrant::restore</a> — Restore the database</li><li><a href="../../../97/manual/ru/tokyotyrant.setmaster.html">TokyoTyrant::setMaster</a> — Set the replication master</li><li><a href="../../../ab/manual/ru/tokyotyrant.size.html">TokyoTyrant::size</a> — Returns the size of the value</li><li><a href="../../../0f/manual/ru/tokyotyrant.stat.html">TokyoTyrant::stat</a> — Get statistics</li><li><a href="../../../1b/manual/ru/tokyotyrant.sync.html">TokyoTyrant::sync</a> — Synchronize the database</li><li><a href="../../../0e/manual/ru/tokyotyrant.tune.html">TokyoTyrant::tune</a> — Tunes connection values</li><li><a href="../../../5f/manual/ru/tokyotyrant.vanish.html">TokyoTyrant::vanish</a> — Empties the database</li></ul>
+</div></div><!--EndManBody-->
+<!-- TOC -->
+<div id="toc">
+<ul class="parents">
+<li class="home"><a href="../../../04/manual/ru/index.html">PHP Руководство</a></li>
+<li class="abc"><a href="../../../7f/manual/ru/extensions.html">Функции по категориям</a></li>
+<li class="abc"><a href="../../../26/manual/ru/indexes.functions.html">Индекс функций</a></li>
+<li class="up"><a href="../../../18/manual/ru/funcref.html">Справочник функций</a></li>
+<li class="up"><a href="../../../d2/manual/ru/refs.database.html">Расширения для работы с базами данных</a></li>
+<li class="up"><a href="../../../ac/manual/ru/refs.database.vendors.html">Расширения для работы с базами данных отдельных производителей</a></li>
+</ul>
+<ul class="rel">
+<ul class="toc">
+<li class="toc"><a href="../../../b3/manual/ru/intro.tokyo-tyrant.html" title="Введение">Введение</a></li>
+<li class="toc"><a href="../../../77/manual/ru/tokyo-tyrant.setup.html" title="Установка и настройка">Установка и настройка</a></li>
+<li class="toc"><a href="../../../e7/manual/ru/tokyo-tyrant.constants.html" title="Предопределенные константы">Предопределенные константы</a></li>
+<li class="toc"><a href="../../../47/manual/ru/tokyo-tyrant.examples.html" title="Примеры">Примеры</a></li>
+<li class="toc"><a href="class.tokyotyrant.html" title="The TokyoTyrant class">The TokyoTyrant class</a></li>
+<li class="toc"><a href="../../../41/manual/ru/class.tokyotyranttable.html" title="The TokyoTyrantTable class">The TokyoTyrantTable class</a></li>
+<li class="toc"><a href="../../../2c/manual/ru/class.tokyotyrantquery.html" title="The TokyoTyrantQuery class">The TokyoTyrantQuery class</a></li>
+<li class="toc"><a href="../../../60/manual/ru/class.tokyotyrantiterator.html" title="The TokyoTyrantIterator class">The TokyoTyrantIterator class</a></li>
+<li class="toc"><a href="../../../66/manual/ru/class.tokyotyrantexception.html" title="The TokyoTyrantException class">The TokyoTyrantException class</a></li>
+</ul>
+<div align="center">
+<div class="rbrocks rotaban_faf76e5d37374477bf8cff1a27546c78" id="rotaban_210164"></div>
+</div>
+</ul></div>
+<div class="cb"></div><!--endtoc-->
+</div><!--EndManual-->
+<div id="comments"><h2 class="cmthead">Коментарии</h2><div class="comment hreview">
+<div class="post-date"><a name="id97955" title="2010-05-18 06:52:52"><span class="post-month">May</span> <span class="post-day">18</span></a></div>
+<div class="head"><span class="author reviewer vcard">Автор: <a class="fn nickname email" href="mailto:">Min He</a></span></div>
+<div class="text description"><code><span>
+TokyoTyrant::RDBQC_STREQ is case sensitive. The key in TokyoCabinet is case sensitive too. <br/>
+<br/>
+For instance: <br/>
+<br/>
+<span style="color: #0000BB">&lt;?php<br/>
+$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">"test"</span><span style="color: #007700">,array(</span><span style="color: #DD0000">"column1"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"data1"</span><span style="color: #007700">));<br/>
+</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">"Test"</span><span style="color: #007700">,array(</span><span style="color: #DD0000">"Column1"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"data1"</span><span style="color: #007700">));<br/>
+</span><span style="color: #0000BB">?&gt;<br/>
+</span><br/>
+added 2 rows in tc. <br/>
+<br/>
+<span style="color: #0000BB">&lt;?php<br/>
+$query</span><span style="color: #007700">=</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getQuery</span><span style="color: #007700">();<br/>
+</span><span style="color: #0000BB">$query</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addCond</span><span style="color: #007700">(</span><span style="color: #DD0000">"Column1"</span><span style="color: #007700">, </span><span style="color: #0000BB">TokyoTyrant</span><span style="color: #007700">::</span><span style="color: #0000BB">RDBQC_STREQ</span><span style="color: #007700">, </span><span style="color: #DD0000">"data1"</span><span style="color: #007700">);<br/>
+</span><span style="color: #0000BB">$query</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">search</span><span style="color: #007700">();<br/>
+</span><span style="color: #0000BB">?&gt;<br/>
+</span><br/>
+there will be only one result, and it's the row with key="Test".</span>
+</code></div>
+<div class="dtreviewed">2010-05-18 06:52:52</div>
+<a class="url" href="class.tokyotyrant.html">http://php5.kiev.ua/manual/ru/class.tokyotyrant.html</a>
+</div>
+<div class="cb"></div>
+</div>
+<!--endcomment--><hr/><div class="manualnavbar" style="text-align: center;">
+<div class="prev" style="text-align: left; float: left;"><a href="../../../47/manual/ru/tokyo-tyrant.examples.html" rel="previous">Примеры</a></div>
+<div class="next" style="text-align: right; float: right;"><a href="../../../8d/manual/ru/tokyotyrant.add.html" rel="next">TokyoTyrant::add</a></div>
+<div class="up"><a href="../../../51/manual/ru/book.tokyo-tyrant.html" rel="up">tokyo_tyrant</a></div>
+<div class="home"><a href="../../../39/manual/ru/index.html" rel="home">PHP Manual</a></div>
+</div>
+<div id="saperu"></div>
+</div>
+<!-- AddThis Fav -->
+<div class="addthis_toolbox addthis_default_style addthis_32x32_style noprint"><noindex>
+<a class="addthis_button_vk" rel="nofollow" title="ВКонтакте"></a>
+<a class="addthis_button_facebook" rel="nofollow"></a>
+<a class="addthis_button_twitter" rel="nofollow"></a>
+<a class="addthis_button_livejournal" rel="nofollow"></a>
+<a class="addthis_button_google" rel="nofollow"></a>
+<a class="addthis_button_linkedin" rel="nofollow"></a>
+<a class="addthis_button_myspace" rel="nofollow"></a>
+<a class="addthis_button_mymailru" rel="nofollow" title="Мой Мир @Mail.ru"></a>
+<span class="addthis_separator"> </span>
+<a class="addthis_button_email" rel="nofollow" title="Переслать @ другу"></a>
+<a class="addthis_button_print" rel="nofollow" title="Отправить на печать"></a>
+<a class="addthis_button_favorites" rel="nofollow" title="В закладки браузера"></a>
+<span class="addthis_separator"> </span>
+<a class="addthis_button_compact" rel="nofollow"></a></noindex>
+<span class="right"><a href="http://lib.misto.kiev.ua/DONATIONS/" target="_blank">Поддержать сайт</a> на родительском проекте <acronym title="Киевская Городская Библиотека">КГБ</acronym></span>
+</div><p class="cb"></p>
+<div align="center"><a name="apicomments"></a>
+<div class="c-twocol-container"><div class="c-twosecond"><noindex></noindex></div>
+<div class="c-twofirst"><div id="disqus_thread"></div>
+
+<!--iframe src='/api/comments.php?page=http://php5.kiev.ua/manual/ru/class.tokyotyrant.html' width='95%' height='400'
+ name='apicomment' frameborder='0' scrolling='auto' class='comment' onload='cmsIframeMaximize(this,window.frames.apicomment);'>Фрейм с коментариями</iframe--></div>
+</div>
+</div>
+<div align="center" class="advert"><noindex>
+<div class="rbrocks rotaban_faf76e5d37374477bf8cff1a27546c78" id="rotaban_202656"></div></noindex>
+</div>
+<div id="b-footer"><noindex>
+<div id="counters"><!-- I.UA counter --><a href="http://www.i.ua/" onclick="this.href='http://i.ua/r.php?27463';" rel="nofollow" target="_blank" title="Rated by I.UA">
+</a><!-- End of I.UA counter --></div><noindex>
+<div class="vcard"><p>©2016 <a class="org" href="http://lib.misto.kiev.ua/" target="_blank">КГБ: Киевская городская библиотека</a>.
+ All Rights Reserved - <span class="category">Справочники</span>
+<a class="url" href="../../../41/index.html" rel="me">php5.kiev.ua</a>.
+ <span class="adr"><span class="locality">Киев</span>, <span class="country-name">Украина</span>.</span> <span class="note">Ua-IX</span>.
+ <span class="geo hidden">GEO:<span class="latitude">50,433334</span><span class="longitude">30,516666</span></span> </p>
+<p></p><address>Webmaster <a class="sndemail email" href="mailto:lecha@mambursoft.org.ua?subj=php5">email</a></address> |
+ <span class="fn"><b>Рекламная служба</b></span> <span class="tel home mobiletel">+38 050 4468872</span>
+<span class="workhours hidden">9:00 - 21:00</span> |
+ <noindex><a href="http://goo.gl/xtJg6" rel="nofollow" target="_blank">Обмен ссылками</a></noindex></div>
+</noindex></noindex></div>
+
+
+
+<!--
+WARNING: DO NOT SEND MAIL TO THE FOLLOWING EMAIL ADDRESS! YOU WILL
+BE BLOCKED INSTANTLY AND PERMANENTLY!
+<a href="mailto:aaaatrap-4dc0f9956e8a4652@kde.org">Block me</a>
+WARNING END
+-->
+</body>
+<!-- Mirrored from php5.kiev.ua/manual/ru/class.tokyotyrant.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Sep 2016 07:53:57 GMT -->
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<!-- Mirrored from html5.firejune.com/electron.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 Jun 2018 19:16:47 GMT -->
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<title>Electron</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+
+<link href="http://html5.firejune.com/img/electron.ico" rel="shortcut icon"/>
+<link href="http://html5.firejune.com/src/style.css?4" rel="stylesheet" type="text/css"/>
+</head><body>
+<div class="presentation">
+<div class="slides">
+<div class="slide">
+<section class="center intro">
+<hgroup>
+<h1 style="font-size:32px;">Electron 기반의 모바일 앱 테스트 자동화 S/W 개발</h1>
+<h2 style="font-size:28px;">“Ship better apps faster with automated testing.”</h2>
+</hgroup>
+</section>
+</div>
+<div class="slide">
+<section class="center">
+<h1>Agenda</h1>
+<ul class="summary" style="line-height: 1.3; text-align: left; margin-left: 180px;">
+<li>Test Automation with ATDD</li>
+<li>Node Based Desktop Application</li>
+<li>Introduction to Project Psyclone</li>
+<li>Test Cloud Service with Psyclone</li>
+<li>QA</li>
+</ul>
+</section>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>Test Automation with ATDD</h1>
+<h2>“ATDD: Acceptance Test Driven Development”</h2>
+</section>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>"Where is Test?"</h1>
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>"What is Dynamic Test?"</h1>
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide" style="background: #fff">
+<section class="center">
+<div style="width:290px; float: left; line-height: 1;">
+
+<span style="font-size: 28px; margin-bottom: -80px;">TDD Cycle</span><br/>
+<span style="font-size: 16px;"><i>Test Driven Development</i></span>
+</div>
+<div style="width:290px; float: left; line-height: 1;">
+
+<span style="font-size: 28px;">BDD Cycle</span><br/>
+<span style="font-size: 16px;"><i>Behaviour Driven Development</i></span>
+</div>
+<div style="width:290px; float: left; line-height: 1;">
+
+<span style="font-size: 28px;">ATDD Cycle</span><br/>
+<span style="font-size: 16px;"><i>Acceptance Test Driven Development</i></span>
+</div>
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>Web E2E Testing Tools</h1>
+<ul class="summary" style="line-height: 1.3; text-align: left; margin-left: 20px;">
+<li><a href="http://www.seleniumhq.org/">Selenium</a> - Web Browser Test Automation Tool</li>
+<li><a href="http://www.seleniumhq.org/projects/webdriver/">WebDriver</a> - Remote control interface of Web Browser</li>
+<li><a href="https://github.com/paypal/nemo">Nemo</a> - Selenium-webdriver based automation in NodeJS</li>
+<li><a href="http://nightwatchjs.org/">Nightwatch</a> - Browser automated testing done easy</li>
+<li><a href="http://www.protractortest.org/#/">Protractor</a> - End-to-end Test For AngularJS Apps</li>
+<li><a href="http://webdriver.io/">WebdriverIO</a> - Selenium 2.0 bindings for NodeJS</li>
+</ul>
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide" style="background: #F8F8F8">
+<header>
+<h1>What is Selenium?</h1>
+<h2>“Easy to combine with popular program language”</h2>
+</header>
+<section class="center intro" style="padding-top: 40px;">
+
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide" style="background: #fff">
+<header>
+<h1>What is WebDriver?</h1>
+<h2>“It supports almost all popular browsers”</h2>
+</header>
+<section class="center intro" style="padding-top: 40px;">
+
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide">
+<header>
+<h1>Nightwatch Script</h1>
+<h2 style="line-height: 1.5;">The test below navigates to google.com and searches for "rembrandt van rijn", then verifies if the term first result is the Wikipedia page of Rembrandt.</h2>
+</header>
+<section style="padding-top: 120px;">
+<pre style="font-size: 15px;">module.exports = {
+  'Demo test Google' : function (client) {
+    client
+      .url('http://www.google.com')
+      <b>.waitForElementVisible('body', 1000)</b>
+
+      .assert.title('Google')
+      .assert.visible('input[type=text]')
+      .setValue('input[type=text]', 'rembrandt van rijn')
+      <b>.waitForElementVisible('button[name=btnG]', 1000)</b>
+
+      .click('button[name=btnG]')
+      <b>.pause(1000)</b>
+
+      .assert.containsText('ol#rso li:first-child', 'Rembrandt - Wikipedia')
+      .end();
+  }
+};</pre>
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>E2E Test Automation Demo</h1>
+</section>
+<footer>Test Automation with ATDD</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>Node Based Desktop Application</h1>
+<h2>“Build cross platform desktop apps with web technologies”</h2>
+</section>
+</div>
+<div class="slide">
+<header>
+<h1>Awesome Electron</h1>
+</header>
+<section class="center intro" style="padding-top: 30px;">
+
+</section>
+<footer>Node Based Desktop Application</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>Electron(Atom-Shell)</h1>
+<h2 style="line-height:1.8; margin: 20px 80px; font-size: 28px; text-align: left;">
+Electron은 자바스크립트와 함께 제공된 풍부한 네이티브 API를 사용하여 멋진 데스크탑 어플리케이션을 만들 수 있도록 해주는 프레임워크입니다.<br/><br/>
+이 프레임워크의 node.js는 웹 서버 개발이 아닌 데스크탑 어플리케이션 개발에 초점을 맞췄습니다.<br/><br/>
+- Atom
+</h2>
+</section>
+<footer>Node Based Desktop Application</footer>
+</div>
+<div class="slide">
+<header>
+<h1>Electron</h1>
+<h2 style="line-height: 1.5;">Implementation details</h2>
+</header>
+<section style="padding-top: 60px;">
+<pre style="font-size: 15px; width: 620px; margin: 0 auto;">  +-------------------------+            +-----------------------+
+  |          node           |            |       atom-shell      |
+  +--------------------------            +-----------------------+
+  +--------+   +------------+            +---------+  +----------+
+  |        | +-+ node-shell |  | wrapper +--+   atom   |
+  |        | | +------------+     RPC    |   app   |  |   api    |
+  |  your  +-+                           +---------+  +----+-----+
+  | app.js | | +------------+                 +--------+---+
+  |        | +-+ other deps |                 |        |
+  |        |   +------------+             +---+--+ +---+--+
+  |        |        ...                   | winA | | winB |   ...
+  +--------+                              +------+ +------+
+</pre>
+<h2 style="line-height:1.8; margin: 40px 80px; font-size: 24px; text-align: left;">
+Electron에는 메인 프로세스와 랜더러 프로세스간에 통신을 할 수 있도록 ipc 모듈을 제공하고 있습니다. 또한 remote 모듈을 사용하여 RPC 스타일로 통신할 수도 있습니다.
+</h2>
+</section>
+<footer>Node Based Desktop Application</footer>
+</div>
+<div class="slide">
+<header>
+<h1>Architecture</h1>
+</header>
+<section class="center intro" style="padding-top: 20px;">
+
+</section>
+<footer>Node Based Desktop Application</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>Introduction to Project Psyclone</h1>
+<h2>“Automated Dynamic Testing Solution”</h2>
+</section>
+</div>
+<div class="slide">
+<header>
+<h1>Purpose</h1>
+<h2 style="line-height: 1.5;">Ship better apps faster with automated testing.</h2>
+</header>
+<section>
+<ul class="summary" style="line-height: 1.3; padding-top: 20px; margin-left: 40px;">
+<li>No test codes in your app.</li>
+<li>Write test script easy as user interact.</li>
+<li>Support Cross-Platform.</li>
+<li>End-to-End Test with ATDD.</li>
+<li>Realtime debugging and analysis.</li>
+<li>Possible stress test(continuously).</li>
+<li>Manual debugging anywhere anytime.</li>
+<li>Mobile game testing.</li>
+</ul>
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide" style="background: #fff">
+<header>
+<h1>Idea Mockup #1</h1>
+</header>
+<section class="center intro" style="padding-top: 50px;">
+
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide" style="background: #fff">
+<header>
+<h1>Idea Mockup #2</h1>
+</header>
+<section class="center intro" style="padding-top: 10px;">
+
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide">
+<header>
+<h1>Environments</h1>
+</header>
+<section>
+<ul class="summary" style="line-height: 1.2; margin-left: 20px;">
+<li><b>React + Redux</b>: User Interface</li>
+<li><b>Mocha + Should</b>: Assertion Test</li>
+<li><b>Node Canvas</b>: Compare Images</li>
+<li><b>OpenCV</b>: Object Tracking</li>
+<li><b>PTY.js</b>: VT100 Terminal</li>
+<li><b>HighCharts</b>: System Resource Monitor</li>
+<li>Fallow W3C's WebDriver Spec.</li>
+<li>Use next generation JavaScript</li>
+<li>And Custom NPM Modules</li>
+</ul>
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide" style="background: #fff">
+<header>
+<h1>Automation Workflow</h1>
+</header>
+<section class="center intro" style="padding-top: 10px;">
+
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide">
+<header>
+<h1>Use next generation JavaScript</h1>
+<h2 style="line-height: 1.5;">Code style in Workspace.jsx</h2>
+</header>
+<section style="padding-top: 40px;">
+
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide">
+<header>
+<h1>Custom NPM Modules</h1>
+<h2 style="line-height: 1.5;">Lookup package.json</h2>
+</header>
+<section style="padding-top: 40px;">
+
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide" style="background: #fff">
+<header>
+<h1>OpenCV</h1>
+</header>
+<section class="center intro" style="padding-top: 30px;">
+
+
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>Psyclone Studio Demo</h1>
+</section>
+<footer>Introduction to Project Psyclone</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1>Test Cloud Service with Psyclone</h1>
+<h2>“Ship better apps faster with automated testing.”</h2>
+</section>
+</div>
+<div class="slide">
+<header>
+<h1>Test Cloud Service</h1>
+</header>
+<section class="center intro" style="padding-top: 10px;">
+
+</section>
+<footer>Test Cloud Service with Psyclone</footer>
+</div>
+<div class="slide">
+<header>
+<h1>Roadmap</h1>
+</header>
+<section class="center intro" style="padding-top: 10px;">
+
+</section>
+<footer>Test Cloud Service with Psyclone</footer>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1 style="font-size: 120px;">QA</h1>
+</section>
+</div>
+<div class="slide">
+<section class="center intro">
+<h1 style="font-size: 96px;">Thank You</h1>
+<h2 style="margin-left: -20px;">
+<a href="electron.html">https://html5.firejune.com/electron.html</a>
+</h2>
+</section>
+</div>
+</div>
+</div>
+
+</body>
+<!-- Mirrored from html5.firejune.com/electron.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 Jun 2018 19:16:47 GMT -->
+</html>

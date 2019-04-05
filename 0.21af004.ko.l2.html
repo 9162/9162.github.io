@@ -1,0 +1,4030 @@
+<?xml version="1.0" encoding="utf-8"?><html><body><rss version="2.0" xml:base="http://oops.org/SERVICE/jsboard/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+<atom:link href="http://oops.org/SERVICE/jsboard/rss.php?table=jsboard_oopsQnA" rel="self" type="application/rss+xml"></atom:link>
+<title>OOPS QnA Board</title>
+<link/>http://oops.org/SERVICE/jsboard/list.php?table=jsboard_oopsQnA
+    <description>QnA 게시판</description>
+<language>ko</language>
+<copyright>1999-2016 JSBoard Open Project</copyright>
+<lastbuilddate>Thu, 24 Nov 2016 01:13:56 +0900</lastbuilddate>
+<generator>JSBoard 2.1.0</generator>
+<item>
+<title>Re^3: possible SYN flooding 에러가 납니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53494
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53494</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53494 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53494&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53494 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53494&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+음. 핀트가 좀 어긋난 것이..
+
+possible SYN flooding on port 80. Sending cookies.
+
+이 로그의 의미는, tcp backlog가 꽉 찾기 때문에, 비정상 적인 접근을 제한하기 위하여
+tcp_syncookies를 발행해서 달고 오도록 하는 것입니다.
+
+즉, backlog를 꽉 차게 만든 packet들은 drop 되어 보이지 않을 수도 있다는 의미입니다.
+정상적인 IP들이니까 syn_cookie를 달고 들어와서 보일 수 있다는 얘기입니다.
+
+SYN_RECV를 달고 있는 IP들은 backlog에 들어 왔다는 것을 의미하니까요.
+
+그러므로 OS level에서 판단하기는 힘들고, network level에서 확인을 하셔야 합니다.
+
+[quote=&amp;quot;최형식&amp;quot;]답변주셔서 감사합니다.
+
+먼저 net.ipv4.tcp_tw_recycle 설정을 off하였습니다만
+에러메세지와 SYN_REV 수치는 변화가 없습니다.
+
+사내 아이피대역으로 접속 정보를 확인해보니
+SYN_REV가 발생하는 아이피는 없었습니다.
+
+시간별로 SYN_REV가 발생하는 아이피들을 
+계속 살펴보고 있는데 매시간마다 접속되는 아이피주소가 전부 다릅니다.
+모두 국내 정상아이피로 조회됩니다.
+
+아파치로그에서 해당아이피를 찾아보면
+에이전트나 아파치 응답 코드도 (200, 301) 모두 정상입니다
+
+1-2달전부터 갑자기 발생하기 시작했는데
+그전에 큰 변경사항은 없었던것 같은데 좀더 확인해 보겠습니다.
+
+
+혹시 필요하신 정보가 있으시면
+말씀주시면 올려드리겠습니다.
+
+
+감사합니다.
+
+
+[quote=&amp;quot;김정균&amp;quot;][quote=&amp;quot;최형식&amp;quot;]안녕하세요?
+
+최근들어 kernel로그에 아래와 같은 로그가 찍히고 있습니다.
+kernel: possible SYN flooding on port 80. Sending cookies.
+대략 1-2분에 한번씩 위로그가 찍힙니다.
+
+처음에는 DDos를 의심해서 backlog값을 올려줬는데 해결이 안되어서
+SYN로그가 발생하는 아이피들을 확인해 봣는데
+모두 존재하는 국내 정상아이피들이었습니다.[/quote]
+
+국내 IP라고 해서 정상 IP라고 확정 지을 수는 없습니다. 국내 IP 주에서도
+수많은 공유기들이 zombie bot이 되어 버려 있기 때문에..
+
+[quote=&amp;quot;최형식&amp;quot;]netstat로 SYN_RECV를 찾아보면 대략 200 ~ 250개씩 나옵니다.
+
+재미난건 오전 10시부터 오후 6시까지 에러가 발생하고
+이후에는 더이상 SYN flooding 에러가 발생하지 않습니다.
+
+사용하는 운영체제는 안녕2.x최신버젼에 oops-firewall사용중입니다.
+
+특별히 변경된 설정은 없고 대부분 기본설정입니다.
+관재업체나 방화벽, DPX, IDS장비등에는 특이사항은 없다고 합니다.
+
+웹서버 설정 문제일까요?[/quote]
+
+혹시 net.ipv4.tcp_tw_recycle 설정 값이 on 으로 설정이 되어 있나요? 이 값이 설정 되어
+있을 경우, client 환경이 NAT 인 곳에서 많은 접속이 들어올 경우, 의도적으로 reset을
+만드는 경우가 많아 재접속이 많아질 수 있습니다. 이 값이 On이라면 off로 변경해 보시기
+바랍니다.
+
+일단 근무 시간 중에 발생하는 문제라면, 사내에서의 문제도 확인해 보아야 합니다.
+딱시 해당 로그 메시지만 가지고 조언을 해 드릴 만한 사항은 그리 많지 않네요 :-)
+해당 로그가 발생할 수 있는 경우의 수가 너무 많은지라..[/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 18 Nov 2016 04:06:45 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>Re^4: possible SYN flooding 에러가 납니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53495
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53495</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53495 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53495&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53495 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53495&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+네 알겠습니다.
+
+다각도로 원인을 찾아봐야 할거 같습니다.
+답변 주셔서 감사합니다.
+
+[quote=&amp;quot;기정균&amp;quot;]음. 핀트가 좀 어긋난 것이..
+
+possible SYN flooding on port 80. Sending cookies.
+
+이 로그의 의미는, tcp backlog가 꽉 찾기 때문에, 비정상 적인 접근을 제한하기 위하여
+tcp_syncookies를 발행해서 달고 오도록 하는 것입니다.
+
+즉, backlog를 꽉 차게 만든 packet들은 drop 되어 보이지 않을 수도 있다는 의미입니다.
+정상적인 IP들이니까 syn_cookie를 달고 들어와서 보일 수 있다는 얘기입니다.
+
+SYN_RECV를 달고 있는 IP들은 backlog에 들어 왔다는 것을 의미하니까요.
+
+그러므로 OS level에서 판단하기는 힘들고, network level에서 확인을 하셔야 합니다.
+
+[quote=&amp;quot;최형식&amp;quot;]답변주셔서 감사합니다.
+
+먼저 net.ipv4.tcp_tw_recycle 설정을 off하였습니다만
+에러메세지와 SYN_REV 수치는 변화가 없습니다.
+
+사내 아이피대역으로 접속 정보를 확인해보니
+SYN_REV가 발생하는 아이피는 없었습니다.
+
+시간별로 SYN_REV가 발생하는 아이피들을 
+계속 살펴보고 있는데 매시간마다 접속되는 아이피주소가 전부 다릅니다.
+모두 국내 정상아이피로 조회됩니다.
+
+아파치로그에서 해당아이피를 찾아보면
+에이전트나 아파치 응답 코드도 (200, 301) 모두 정상입니다
+
+1-2달전부터 갑자기 발생하기 시작했는데
+그전에 큰 변경사항은 없었던것 같은데 좀더 확인해 보겠습니다.
+
+
+혹시 필요하신 정보가 있으시면
+말씀주시면 올려드리겠습니다.
+
+
+감사합니다.
+
+
+[quote=&amp;quot;김정균&amp;quot;][quote=&amp;quot;최형식&amp;quot;]안녕하세요?
+
+최근들어 kernel로그에 아래와 같은 로그가 찍히고 있습니다.
+kernel: possible SYN flooding on port 80. Sending cookies.
+대략 1-2분에 한번씩 위로그가 찍힙니다.
+
+처음에는 DDos를 의심해서 backlog값을 올려줬는데 해결이 안되어서
+SYN로그가 발생하는 아이피들을 확인해 봣는데
+모두 존재하는 국내 정상아이피들이었습니다.[/quote]
+
+국내 IP라고 해서 정상 IP라고 확정 지을 수는 없습니다. 국내 IP 주에서도
+수많은 공유기들이 zombie bot이 되어 버려 있기 때문에..
+
+[quote=&amp;quot;최형식&amp;quot;]netstat로 SYN_RECV를 찾아보면 대략 200 ~ 250개씩 나옵니다.
+
+재미난건 오전 10시부터 오후 6시까지 에러가 발생하고
+이후에는 더이상 SYN flooding 에러가 발생하지 않습니다.
+
+사용하는 운영체제는 안녕2.x최신버젼에 oops-firewall사용중입니다.
+
+특별히 변경된 설정은 없고 대부분 기본설정입니다.
+관재업체나 방화벽, DPX, IDS장비등에는 특이사항은 없다고 합니다.
+
+웹서버 설정 문제일까요?[/quote]
+
+혹시 net.ipv4.tcp_tw_recycle 설정 값이 on 으로 설정이 되어 있나요? 이 값이 설정 되어
+있을 경우, client 환경이 NAT 인 곳에서 많은 접속이 들어올 경우, 의도적으로 reset을
+만드는 경우가 많아 재접속이 많아질 수 있습니다. 이 값이 On이라면 off로 변경해 보시기
+바랍니다.
+
+일단 근무 시간 중에 발생하는 문제라면, 사내에서의 문제도 확인해 보아야 합니다.
+딱시 해당 로그 메시지만 가지고 조언을 해 드릴 만한 사항은 그리 많지 않네요 :-)
+해당 로그가 발생할 수 있는 경우의 수가 너무 많은지라..[/quote][/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 14 Oct 2016 17:13:11 +0900</pubdate>
+<dc:creator>최형식</dc:creator>
+</item>
+<item>
+<title>Re^2: possible SYN flooding 에러가 납니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53493
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53493</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53493 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53493&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53493 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53493&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+답변주셔서 감사합니다.
+
+먼저 net.ipv4.tcp_tw_recycle 설정을 off하였습니다만
+에러메세지와 SYN_REV 수치는 변화가 없습니다.
+
+사내 아이피대역으로 접속 정보를 확인해보니
+SYN_REV가 발생하는 아이피는 없었습니다.
+
+시간별로 SYN_REV가 발생하는 아이피들을 
+계속 살펴보고 있는데 매시간마다 접속되는 아이피주소가 전부 다릅니다.
+모두 국내 정상아이피로 조회됩니다.
+
+아파치로그에서 해당아이피를 찾아보면
+에이전트나 아파치 응답 코드도 (200, 301) 모두 정상입니다
+
+1-2달전부터 갑자기 발생하기 시작했는데
+그전에 큰 변경사항은 없었던것 같은데 좀더 확인해 보겠습니다.
+
+
+혹시 필요하신 정보가 있으시면
+말씀주시면 올려드리겠습니다.
+
+
+감사합니다.
+
+
+[quote=&amp;quot;김정균&amp;quot;][quote=&amp;quot;최형식&amp;quot;]안녕하세요?
+
+최근들어 kernel로그에 아래와 같은 로그가 찍히고 있습니다.
+kernel: possible SYN flooding on port 80. Sending cookies.
+대략 1-2분에 한번씩 위로그가 찍힙니다.
+
+처음에는 DDos를 의심해서 backlog값을 올려줬는데 해결이 안되어서
+SYN로그가 발생하는 아이피들을 확인해 봣는데
+모두 존재하는 국내 정상아이피들이었습니다.[/quote]
+
+국내 IP라고 해서 정상 IP라고 확정 지을 수는 없습니다. 국내 IP 주에서도
+수많은 공유기들이 zombie bot이 되어 버려 있기 때문에..
+
+[quote=&amp;quot;최형식&amp;quot;]netstat로 SYN_RECV를 찾아보면 대략 200 ~ 250개씩 나옵니다.
+
+재미난건 오전 10시부터 오후 6시까지 에러가 발생하고
+이후에는 더이상 SYN flooding 에러가 발생하지 않습니다.
+
+사용하는 운영체제는 안녕2.x최신버젼에 oops-firewall사용중입니다.
+
+특별히 변경된 설정은 없고 대부분 기본설정입니다.
+관재업체나 방화벽, DPX, IDS장비등에는 특이사항은 없다고 합니다.
+
+웹서버 설정 문제일까요?[/quote]
+
+혹시 net.ipv4.tcp_tw_recycle 설정 값이 on 으로 설정이 되어 있나요? 이 값이 설정 되어
+있을 경우, client 환경이 NAT 인 곳에서 많은 접속이 들어올 경우, 의도적으로 reset을
+만드는 경우가 많아 재접속이 많아질 수 있습니다. 이 값이 On이라면 off로 변경해 보시기
+바랍니다.
+
+일단 근무 시간 중에 발생하는 문제라면, 사내에서의 문제도 확인해 보아야 합니다.
+딱시 해당 로그 메시지만 가지고 조언을 해 드릴 만한 사항은 그리 많지 않네요 :-)
+해당 로그가 발생할 수 있는 경우의 수가 너무 많은지라..[/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 14 Oct 2016 10:25:18 +0900</pubdate>
+<dc:creator>최형식</dc:creator>
+</item>
+<item>
+<title>Re: possible SYN flooding 에러가 납니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53492
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53492</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53492 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53492&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53492 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53492&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+[quote=&amp;quot;최형식&amp;quot;]안녕하세요?
+
+최근들어 kernel로그에 아래와 같은 로그가 찍히고 있습니다.
+kernel: possible SYN flooding on port 80. Sending cookies.
+대략 1-2분에 한번씩 위로그가 찍힙니다.
+
+처음에는 DDos를 의심해서 backlog값을 올려줬는데 해결이 안되어서
+SYN로그가 발생하는 아이피들을 확인해 봣는데
+모두 존재하는 국내 정상아이피들이었습니다.[/quote]
+
+국내 IP라고 해서 정상 IP라고 확정 지을 수는 없습니다. 국내 IP 주에서도
+수많은 공유기들이 zombie bot이 되어 버려 있기 때문에..
+
+[quote=&amp;quot;최형식&amp;quot;]netstat로 SYN_RECV를 찾아보면 대략 200 ~ 250개씩 나옵니다.
+
+재미난건 오전 10시부터 오후 6시까지 에러가 발생하고
+이후에는 더이상 SYN flooding 에러가 발생하지 않습니다.
+
+사용하는 운영체제는 안녕2.x최신버젼에 oops-firewall사용중입니다.
+
+특별히 변경된 설정은 없고 대부분 기본설정입니다.
+관재업체나 방화벽, DPX, IDS장비등에는 특이사항은 없다고 합니다.
+
+웹서버 설정 문제일까요?[/quote]
+
+혹시 net.ipv4.tcp_tw_recycle 설정 값이 on 으로 설정이 되어 있나요? 이 값이 설정 되어
+있을 경우, client 환경이 NAT 인 곳에서 많은 접속이 들어올 경우, 의도적으로 reset을
+만드는 경우가 많아 재접속이 많아질 수 있습니다. 이 값이 On이라면 off로 변경해 보시기
+바랍니다.
+
+일단 근무 시간 중에 발생하는 문제라면, 사내에서의 문제도 확인해 보아야 합니다.
+딱시 해당 로그 메시지만 가지고 조언을 해 드릴 만한 사항은 그리 많지 않네요 :-)
+해당 로그가 발생할 수 있는 경우의 수가 너무 많은지라..
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 14 Oct 2016 02:14:40 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>possible SYN flooding 에러가 납니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53491
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53491</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53491 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53491&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53491 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53491&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+안녕하세요?
+
+최근들어 kernel로그에 아래와 같은 로그가 찍히고 있습니다.
+kernel: possible SYN flooding on port 80. Sending cookies.
+대략 1-2분에 한번씩 위로그가 찍힙니다.
+
+처음에는 DDos를 의심해서 backlog값을 올려줬는데 해결이 안되어서
+SYN로그가 발생하는 아이피들을 확인해 봣는데
+모두 존재하는 국내 정상아이피들이었습니다.
+
+netstat로 SYN_RECV를 찾아보면 대략 200 ~ 250개씩 나옵니다.
+
+재미난건 오전 10시부터 오후 6시까지 에러가 발생하고
+이후에는 더이상 SYN flooding 에러가 발생하지 않습니다.
+
+사용하는 운영체제는 안녕2.x최신버젼에 oops-firewall사용중입니다.
+
+특별히 변경된 설정은 없고 대부분 기본설정입니다.
+관재업체나 방화벽, DPX, IDS장비등에는 특이사항은 없다고 합니다.
+
+웹서버 설정 문제일까요?
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Thu, 13 Oct 2016 10:32:47 +0900</pubdate>
+<dc:creator>최형식</dc:creator>
+</item>
+<item>
+<title>우와~ 감사합니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53490
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53490</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53490 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53490&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53490 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53490&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+안녕하세요 
+먼저 개발 및 공유에 감사드립니다.
+
+QNA 게시판에 이런글 올려 죄송합니다만..
+다른 게시판이 없어서...
+
+mysql 5.5 에서 AES-256을 구현해야 해서 찾다가 정균님의 블로그 글을 발견하게 되었습니다.
+아직 적용은 못해봤지만...잘 되리라 믿습니다.
+
+적용후에 다시 글 올리겠습니다.
+감사합니다.
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 29 Aug 2016 11:21:28 +0900</pubdate>
+<dc:creator>권기진</dc:creator>
+</item>
+<item>
+<title>Re^3: AES-256bit 테스트 질문입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53489
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53489</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53489 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53489&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53489 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53489&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+libmysqludf-aes256 1.0.3 이 MariaDB 10.1 에서 정상 동작하는 것을 확인 했다는 의미입니다.
+최신 정보는 &lt;a href="https://github.com/Joungkyun/lib_mysqludf_aes256/releases" target="_blank"&gt;https://github.com/Joungkyun/lib_mysqludf_aes256/releases&lt;/a&gt; 에서 확인 하십시오.
+블러그 정보는 그 당시의 정보일 뿐 입니다. :-)
+
+[quote=&amp;quot;최우범&amp;quot;]답변 감사드립니다. 덕분에 설치와 테스트가 잘 마무리되었습니다. 마지막으로 하나만 더 여쭈어보겠습니다. &lt;a href="https://my.oops.org/158" target="_blank"&gt;https://my.oops.org/158&lt;/a&gt; 해당 링크의 코멘츠 리스트에 보시면 김정균님이 MairaDB 1.0.3에서 정상동작한다고 말씀하셨는데 이 버전이 10.0.3을 말씀하시는거 맞나요?
+
+[quote=&amp;quot;김정균&amp;quot;]설치 후에 UDF 등록 해 주셨나요? User define fucntion은 mysql &amp;gt; func 테이블에
+등록을 별도로 해 줘야 사용이 가능 합니다.
+
+&lt;a href="https://github.com/Joungkyun/lib_mysqludf_aes256/blob/master/README.md" target="_blank"&gt;https://github.com/Joungkyun/lib_mysqludf_aes256/blob/master/README.md&lt;/a&gt;
+
+문서의 Installation 항목에 보시면 UDF 를 등록하는 방법에 대한 부분이 있으니 참조
+하십시오.
+
+소스 디렉토리의 doc 에 보시면, aes256_install.sql 과 aes256_uninstall.sql 이 있으니
+이를 이용하시면 됩니다.
+
+P.S.
+&lt;a href="https://travis-ci.org/Joungkyun/lib_mysqludf_aes256" target="_blank"&gt;https://travis-ci.org/Joungkyun/lib_mysqludf_aes256&lt;/a&gt; 에서 확인이 가능하겠지만 현재
+mariadb 10.2 까지 테스트가 되고 있습니다.
+
+
+[quote=&amp;quot;최우범&amp;quot;]안녕하세요 리눅스와 DB를 공부하고 있는 신입사원입니다.
+
+김정균님의 블로그로 공부하던 중 궁금한 내용이 있어서 질문드립니다.
+
+AES-256지원은 Mariadb같은 경우는 아예 지원이 안되므로
+올려주신 UDF를 통해서 지원가능하게 할 수 있다고 했습니다.
+
+하지만 테스트 결과 컴파일 할 때는 문제없이 잘 설치까지 헀는데
+MariaDB&amp;gt; select HEX(AES256_ENCRYPT('strings', '0123456789abcdef'));
+과 같은 명령어를 입력하면 &amp;quot;ERROR 1305 (42000): FUNCTION AES256_ENCRYPT does not exist&amp;quot;
+라는 오류와 함께 실행되지 않습니다.
+
+혹시 제가 모르고 놓친 부분이나, 해결방법을 알고 계셔서 답글을 달아주시면 매우 감사하겠습니다.
+MairaDB 버전은 10.1.16입니다.
+
+읽어주셔서 감사합니다.[/quote][/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Tue, 23 Aug 2016 14:46:46 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>Re^2: AES-256bit 테스트 질문입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53488
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53488</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53488 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53488&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53488 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53488&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+답변 감사드립니다. 덕분에 설치와 테스트가 잘 마무리되었습니다. 마지막으로 하나만 더 여쭈어보겠습니다. &lt;a href="https://my.oops.org/158" target="_blank"&gt;https://my.oops.org/158&lt;/a&gt; 해당 링크의 코멘츠 리스트에 보시면 김정균님이 MairaDB 1.0.3에서 정상동작한다고 말씀하셨는데 이 버전이 10.0.3을 말씀하시는거 맞나요?
+
+[quote=&amp;quot;김정균&amp;quot;]설치 후에 UDF 등록 해 주셨나요? User define fucntion은 mysql &amp;gt; func 테이블에
+등록을 별도로 해 줘야 사용이 가능 합니다.
+
+&lt;a href="https://github.com/Joungkyun/lib_mysqludf_aes256/blob/master/README.md" target="_blank"&gt;https://github.com/Joungkyun/lib_mysqludf_aes256/blob/master/README.md&lt;/a&gt;
+
+문서의 Installation 항목에 보시면 UDF 를 등록하는 방법에 대한 부분이 있으니 참조
+하십시오.
+
+소스 디렉토리의 doc 에 보시면, aes256_install.sql 과 aes256_uninstall.sql 이 있으니
+이를 이용하시면 됩니다.
+
+P.S.
+&lt;a href="https://travis-ci.org/Joungkyun/lib_mysqludf_aes256" target="_blank"&gt;https://travis-ci.org/Joungkyun/lib_mysqludf_aes256&lt;/a&gt; 에서 확인이 가능하겠지만 현재
+mariadb 10.2 까지 테스트가 되고 있습니다.
+
+
+[quote=&amp;quot;최우범&amp;quot;]안녕하세요 리눅스와 DB를 공부하고 있는 신입사원입니다.
+
+김정균님의 블로그로 공부하던 중 궁금한 내용이 있어서 질문드립니다.
+
+AES-256지원은 Mariadb같은 경우는 아예 지원이 안되므로
+올려주신 UDF를 통해서 지원가능하게 할 수 있다고 했습니다.
+
+하지만 테스트 결과 컴파일 할 때는 문제없이 잘 설치까지 헀는데
+MariaDB&amp;gt; select HEX(AES256_ENCRYPT('strings', '0123456789abcdef'));
+과 같은 명령어를 입력하면 &amp;quot;ERROR 1305 (42000): FUNCTION AES256_ENCRYPT does not exist&amp;quot;
+라는 오류와 함께 실행되지 않습니다.
+
+혹시 제가 모르고 놓친 부분이나, 해결방법을 알고 계셔서 답글을 달아주시면 매우 감사하겠습니다.
+MairaDB 버전은 10.1.16입니다.
+
+읽어주셔서 감사합니다.[/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Tue, 23 Aug 2016 08:39:10 +0900</pubdate>
+<dc:creator>최우범</dc:creator>
+</item>
+<item>
+<title>Re: AES-256bit 테스트 질문입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53485
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53485</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53485 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53485&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53485 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53485&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+설치 후에 UDF 등록 해 주셨나요? User define fucntion은 mysql &amp;gt; func 테이블에
+등록을 별도로 해 줘야 사용이 가능 합니다.
+
+&lt;a href="https://github.com/Joungkyun/lib_mysqludf_aes256/blob/master/README.md" target="_blank"&gt;https://github.com/Joungkyun/lib_mysqludf_aes256/blob/master/README.md&lt;/a&gt;
+
+문서의 Installation 항목에 보시면 UDF 를 등록하는 방법에 대한 부분이 있으니 참조
+하십시오.
+
+소스 디렉토리의 doc 에 보시면, aes256_install.sql 과 aes256_uninstall.sql 이 있으니
+이를 이용하시면 됩니다.
+
+P.S.
+&lt;a href="https://travis-ci.org/Joungkyun/lib_mysqludf_aes256" target="_blank"&gt;https://travis-ci.org/Joungkyun/lib_mysqludf_aes256&lt;/a&gt; 에서 확인이 가능하겠지만 현재
+mariadb 10.2 까지 테스트가 되고 있습니다.
+
+
+[quote=&amp;quot;최우범&amp;quot;]안녕하세요 리눅스와 DB를 공부하고 있는 신입사원입니다.
+
+김정균님의 블로그로 공부하던 중 궁금한 내용이 있어서 질문드립니다.
+
+AES-256지원은 Mariadb같은 경우는 아예 지원이 안되므로
+올려주신 UDF를 통해서 지원가능하게 할 수 있다고 했습니다.
+
+하지만 테스트 결과 컴파일 할 때는 문제없이 잘 설치까지 헀는데
+MariaDB&amp;gt; select HEX(AES256_ENCRYPT('strings', '0123456789abcdef'));
+과 같은 명령어를 입력하면 &amp;quot;ERROR 1305 (42000): FUNCTION AES256_ENCRYPT does not exist&amp;quot;
+라는 오류와 함께 실행되지 않습니다.
+
+혹시 제가 모르고 놓친 부분이나, 해결방법을 알고 계셔서 답글을 달아주시면 매우 감사하겠습니다.
+MairaDB 버전은 10.1.16입니다.
+
+읽어주셔서 감사합니다.[/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 19 Aug 2016 17:13:12 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>AES-256bit 테스트 질문입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53484
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53484</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53484 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53484&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53484 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53484&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+안녕하세요 리눅스와 DB를 공부하고 있는 신입사원입니다.
+
+김정균님의 블로그로 공부하던 중 궁금한 내용이 있어서 질문드립니다.
+
+AES-256지원은 Mariadb같은 경우는 아예 지원이 안되므로
+올려주신 UDF를 통해서 지원가능하게 할 수 있다고 했습니다.
+
+하지만 테스트 결과 컴파일 할 때는 문제없이 잘 설치까지 헀는데
+MariaDB&amp;gt; select HEX(AES256_ENCRYPT('strings', '0123456789abcdef'));
+과 같은 명령어를 입력하면 &amp;quot;ERROR 1305 (42000): FUNCTION AES256_ENCRYPT does not exist&amp;quot;
+라는 오류와 함께 실행되지 않습니다.
+
+혹시 제가 모르고 놓친 부분이나, 해결방법을 알고 계셔서 답글을 달아주시면 매우 감사하겠습니다.
+MairaDB 버전은 10.1.16입니다.
+
+읽어주셔서 감사합니다.
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Wed, 17 Aug 2016 13:55:05 +0900</pubdate>
+<dc:creator>최우범</dc:creator>
+</item>
+<item>
+<title>Re^5: PHP 실행시간 설정 가능한가요?</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53482
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53482</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53482 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53482&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53482 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53482&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+set_time_limit()를 호출하지 않으면 안되는 상황이 apache module 에서 인가요?
+apache module에서 정상 작동 확인이 되는데요.
+
+cli의 경우에는 cli_main.c 에서 php.ini 의 값과 상관 없이 강제로 max_execution_time을
+0 으로 설정 합니다. 그러므로 cli에서는 코드상에서 set_time_limit() 을  호출해 줘야
+하는 것이 맞습니다.
+
+[quote=&amp;quot;최형식&amp;quot;]답변 감사합니다.
+
+올려주신 php소스로 확인해 보니 정상 작동합니다.
+
+그런데 소스상 set_time_limit항목을 빼면
+php.ini에 설정된 기본값 max_execution_time 30 일경우
+30초가 넘어가도 동작이 멈추지를 않습니다.
+
+무조건 set_time_limit설정을 해야 되는것 같습니다 ^^~
+
+
+[quote=&amp;quot;김정균&amp;quot;]일단, 버그는 아닙니다. :-)
+
+set_time_limit 함수 설명에 보면 다음과 같은 구문이 있습니다.
+
+[quote]
+Any time spent on activity that happens outside the execution of the script such as system calls using system(), stream operations, database queries, etc. is not included when determining the maximum time that the script has been running.
+[/quote]
+
+즉, 시스템 콜(sleep 등), db 쿼리 지연, 파일/소켓 스트림 지연등에 대해서는 적용이 되지 않으므로,
+이 상황에 대해서는 코드상에서 방어 코드를 별도로 작성해 주어야 한다는 말이네요.
+
+
+그리고, apache module로 사용할 경우에는, TimeOut 옵션을 설정해 주는 것도 한 방법
+이라고 하네요 :-)
+
+일단 다음 코드로 확인을 하시면 동작 여부는 확인이 됩니다.
+
+[code]&amp;lt;?php
+
+set_time_limit (5);
+echo &amp;quot;start\n&amp;quot;;
+
+$dummy = 2;
+for ( $i=0; $i&amp;lt;10000000; $i++ )
+    $dummy *= 2;
+
+echo &amp;quot;end\n&amp;quot;;
+?&amp;gt;
+[/code]
+
+[quote=&amp;quot;최형식&amp;quot;]환경은 cli와 apache 모두 입니다.
+
+fpm은 아니고 기존 php5.so로 사용중입니다.
+
+[quote=&amp;quot;김정균&amp;quot;]음 정말 그러네요. :-) 증상은 확인했으니 원인 파악 해 보겠습니다.
+
+P.S.
+제가 확인환 환경은 cli 환경 입니다. 정확하게 PHP를 cli로 사용하는지 apache module 로
+사용하는지 아니면 fpm으로 사용하는지 여부를 알려 주세요.
+
+[quote=&amp;quot;최형식&amp;quot;]PHP실행시간 설정이 가능한지 문의 드립니다.
+
+예전에는 set_time_limit함수나
+php.ini에 max_execution_time 값을 조정하는 방법으로
+php의 실행시간을 조정하였는데
+
+현재 사용중인 php버젼에서는 작동하지 않는것 같습니다.
+
+30초내 php페이지가 응답하지 않으면
+페이지가 더이상실행되지 않고 종료하게 하고 싶은데
+위 함수들이나 다른방법이 있는지 문의 드립니다.
+
+사용환경
+안녕2.3 / php 5.5 입니다.
+
+감사합니다.[/quote][/quote][/quote][/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 18 Jul 2016 18:16:27 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>Re^4: PHP 실행시간 설정 가능한가요?</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53481
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53481</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53481 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53481&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53481 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53481&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+답변 감사합니다.
+
+올려주신 php소스로 확인해 보니 정상 작동합니다.
+
+그런데 소스상 set_time_limit항목을 빼면
+php.ini에 설정된 기본값 max_execution_time 30 일경우
+30초가 넘어가도 동작이 멈추지를 않습니다.
+
+무조건 set_time_limit설정을 해야 되는것 같습니다 ^^~
+
+
+[quote=&amp;quot;김정균&amp;quot;]일단, 버그는 아닙니다. :-)
+
+set_time_limit 함수 설명에 보면 다음과 같은 구문이 있습니다.
+
+[quote]
+Any time spent on activity that happens outside the execution of the script such as system calls using system(), stream operations, database queries, etc. is not included when determining the maximum time that the script has been running.
+[/quote]
+
+즉, 시스템 콜(sleep 등), db 쿼리 지연, 파일/소켓 스트림 지연등에 대해서는 적용이 되지 않으므로,
+이 상황에 대해서는 코드상에서 방어 코드를 별도로 작성해 주어야 한다는 말이네요.
+
+
+그리고, apache module로 사용할 경우에는, TimeOut 옵션을 설정해 주는 것도 한 방법
+이라고 하네요 :-)
+
+일단 다음 코드로 확인을 하시면 동작 여부는 확인이 됩니다.
+
+[code]&amp;lt;?php
+
+set_time_limit (5);
+echo &amp;quot;start\n&amp;quot;;
+
+$dummy = 2;
+for ( $i=0; $i&amp;lt;10000000; $i++ )
+    $dummy *= 2;
+
+echo &amp;quot;end\n&amp;quot;;
+?&amp;gt;
+[/code]
+
+[quote=&amp;quot;최형식&amp;quot;]환경은 cli와 apache 모두 입니다.
+
+fpm은 아니고 기존 php5.so로 사용중입니다.
+
+[quote=&amp;quot;김정균&amp;quot;]음 정말 그러네요. :-) 증상은 확인했으니 원인 파악 해 보겠습니다.
+
+P.S.
+제가 확인환 환경은 cli 환경 입니다. 정확하게 PHP를 cli로 사용하는지 apache module 로
+사용하는지 아니면 fpm으로 사용하는지 여부를 알려 주세요.
+
+[quote=&amp;quot;최형식&amp;quot;]PHP실행시간 설정이 가능한지 문의 드립니다.
+
+예전에는 set_time_limit함수나
+php.ini에 max_execution_time 값을 조정하는 방법으로
+php의 실행시간을 조정하였는데
+
+현재 사용중인 php버젼에서는 작동하지 않는것 같습니다.
+
+30초내 php페이지가 응답하지 않으면
+페이지가 더이상실행되지 않고 종료하게 하고 싶은데
+위 함수들이나 다른방법이 있는지 문의 드립니다.
+
+사용환경
+안녕2.3 / php 5.5 입니다.
+
+감사합니다.[/quote][/quote][/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 18 Jul 2016 17:52:36 +0900</pubdate>
+<dc:creator>최형식</dc:creator>
+</item>
+<item>
+<title>Re^3: PHP 실행시간 설정 가능한가요?</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53480
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53480</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53480 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53480&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53480 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53480&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+일단, 버그는 아닙니다. :-)
+
+set_time_limit 함수 설명에 보면 다음과 같은 구문이 있습니다.
+
+[quote]
+Any time spent on activity that happens outside the execution of the script such as system calls using system(), stream operations, database queries, etc. is not included when determining the maximum time that the script has been running.
+[/quote]
+
+즉, 시스템 콜(sleep 등), db 쿼리 지연, 파일/소켓 스트림 지연등에 대해서는 적용이 되지 않으므로,
+이 상황에 대해서는 코드상에서 방어 코드를 별도로 작성해 주어야 한다는 말이네요.
+
+
+그리고, apache module로 사용할 경우에는, TimeOut 옵션을 설정해 주는 것도 한 방법
+이라고 하네요 :-)
+
+일단 다음 코드로 확인을 하시면 동작 여부는 확인이 됩니다.
+
+[code]&amp;lt;?php
+
+set_time_limit (5);
+echo &amp;quot;start\n&amp;quot;;
+
+$dummy = 2;
+for ( $i=0; $i&amp;lt;10000000; $i++ )
+    $dummy *= 2;
+
+echo &amp;quot;end\n&amp;quot;;
+?&amp;gt;
+[/code]
+
+[quote=&amp;quot;최형식&amp;quot;]환경은 cli와 apache 모두 입니다.
+
+fpm은 아니고 기존 php5.so로 사용중입니다.
+
+[quote=&amp;quot;김정균&amp;quot;]음 정말 그러네요. :-) 증상은 확인했으니 원인 파악 해 보겠습니다.
+
+P.S.
+제가 확인환 환경은 cli 환경 입니다. 정확하게 PHP를 cli로 사용하는지 apache module 로
+사용하는지 아니면 fpm으로 사용하는지 여부를 알려 주세요.
+
+[quote=&amp;quot;최형식&amp;quot;]PHP실행시간 설정이 가능한지 문의 드립니다.
+
+예전에는 set_time_limit함수나
+php.ini에 max_execution_time 값을 조정하는 방법으로
+php의 실행시간을 조정하였는데
+
+현재 사용중인 php버젼에서는 작동하지 않는것 같습니다.
+
+30초내 php페이지가 응답하지 않으면
+페이지가 더이상실행되지 않고 종료하게 하고 싶은데
+위 함수들이나 다른방법이 있는지 문의 드립니다.
+
+사용환경
+안녕2.3 / php 5.5 입니다.
+
+감사합니다.[/quote][/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 18 Jul 2016 17:19:25 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>Re^2: PHP 실행시간 설정 가능한가요?</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53479
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53479</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53479 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53479&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53479 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53479&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+환경은 cli와 apache 모두 입니다.
+
+fpm은 아니고 기존 php5.so로 사용중입니다.
+
+[quote=&amp;quot;김정균&amp;quot;]음 정말 그러네요. :-) 증상은 확인했으니 원인 파악 해 보겠습니다.
+
+P.S.
+제가 확인환 환경은 cli 환경 입니다. 정확하게 PHP를 cli로 사용하는지 apache module 로
+사용하는지 아니면 fpm으로 사용하는지 여부를 알려 주세요.
+
+[quote=&amp;quot;최형식&amp;quot;]PHP실행시간 설정이 가능한지 문의 드립니다.
+
+예전에는 set_time_limit함수나
+php.ini에 max_execution_time 값을 조정하는 방법으로
+php의 실행시간을 조정하였는데
+
+현재 사용중인 php버젼에서는 작동하지 않는것 같습니다.
+
+30초내 php페이지가 응답하지 않으면
+페이지가 더이상실행되지 않고 종료하게 하고 싶은데
+위 함수들이나 다른방법이 있는지 문의 드립니다.
+
+사용환경
+안녕2.3 / php 5.5 입니다.
+
+감사합니다.[/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 18 Jul 2016 16:10:05 +0900</pubdate>
+<dc:creator>최형식</dc:creator>
+</item>
+<item>
+<title>Re: PHP 실행시간 설정 가능한가요?</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53478
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53478</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53478 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53478&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53478 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53478&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+음 정말 그러네요. :-) 증상은 확인했으니 원인 파악 해 보겠습니다.
+
+P.S.
+제가 확인환 환경은 cli 환경 입니다. 정확하게 PHP를 cli로 사용하는지 apache module 로
+사용하는지 아니면 fpm으로 사용하는지 여부를 알려 주세요.
+
+[quote=&amp;quot;최형식&amp;quot;]PHP실행시간 설정이 가능한지 문의 드립니다.
+
+예전에는 set_time_limit함수나
+php.ini에 max_execution_time 값을 조정하는 방법으로
+php의 실행시간을 조정하였는데
+
+현재 사용중인 php버젼에서는 작동하지 않는것 같습니다.
+
+30초내 php페이지가 응답하지 않으면
+페이지가 더이상실행되지 않고 종료하게 하고 싶은데
+위 함수들이나 다른방법이 있는지 문의 드립니다.
+
+사용환경
+안녕2.3 / php 5.5 입니다.
+
+감사합니다.[/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 18 Jul 2016 16:02:30 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>PHP 실행시간 설정 가능한가요?</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53477
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53477</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53477 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53477&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53477 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53477&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+PHP실행시간 설정이 가능한지 문의 드립니다.
+
+예전에는 set_time_limit함수나
+php.ini에 max_execution_time 값을 조정하는 방법으로
+php의 실행시간을 조정하였는데
+
+현재 사용중인 php버젼에서는 작동하지 않는것 같습니다.
+
+30초내 php페이지가 응답하지 않으면
+페이지가 더이상실행되지 않고 종료하게 하고 싶은데
+위 함수들이나 다른방법이 있는지 문의 드립니다.
+
+사용환경
+안녕2.3 / php 5.5 입니다.
+
+감사합니다.
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 18 Jul 2016 15:41:03 +0900</pubdate>
+<dc:creator>최형식</dc:creator>
+</item>
+<item>
+<title>Re: 안녕 1.3R5 에서 mysql 5.1 을 쓰려면</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53476
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53476</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53476 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53476&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53476 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53476&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+직접 compile 하시는 수 밖에 없습니다. :-)
+
+일단 binary 버전을 이용해서 LD_LIBRARY_PATH를 이용하는 방법은 stack smashing attack patch 때문에 동작을 못하기 때문에, 어떡하든 빌드들 하시는 수 밖에는 없습니다.
+
+안녕 1 지원 종료를 한지도 3년 반정도 지났고, 올해 초에 안녕 1.3 build machine을 정리를 한 터라 5.1 빌드가 될지 여부도 확인을 해 드리기는 힘드네요 :-)
+
+단발성 유상 지원 여부도 수요가 별로 없기 때문에 배보다 배꼽이 더 클 것 같습니다. :-)
+
+차라리 DB 서버를 분리 migration 하는 것을 권장 합니다.
+
+P.S.
+장기적인 유지보수 계약 의사가 있으시면 얘기는 좀 다를 수 있을 것 같습니다. :-)
+대기업 대졸 초임 평균 연봉 정도 수준에서, 안녕 리눅스 버전 1에만 국한하지 않고,
+시스템 구성 전반에 대한 기술 지원이 가능 합니다. 싼 가격에 고급 인력을 활용하고
+싶으시다면 ㅋㅋ
+
+개인적 사정으로 full time 근무가 어려워 재취업은 고려하고 있지 않아서 프리랜서로
+일을 하려고 준비 중이라서요 :-)
+
+[quote=&amp;quot;김진수&amp;quot;]
+ 안녕하세요 
+
+ 아직도 안녕 1.3 R5 를 쓰고 있습니다 
+ ( 안녕 2 로 가고 싶어도, 이게 운영중인 서버고 , 여러가지 얽혀 있고 해서 
+ 아직도 1.3 을 쓰고 있답니다 )
+
+
+ 현재 사용중인 mysql 버전이 5.0.90 인데 
+
+ 이걸 5.1 버전으로 업그레이드를 좀 하고 싶습니다 
+
+
+ 방법이 있을까요 ?[/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Sat, 16 Jul 2016 00:56:50 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>안녕 1.3R5 에서 mysql 5.1 을 쓰려면</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53475
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53475</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53475 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53475&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53475 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53475&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+
+ 안녕하세요 
+
+ 아직도 안녕 1.3 R5 를 쓰고 있습니다 
+ ( 안녕 2 로 가고 싶어도, 이게 운영중인 서버고 , 여러가지 얽혀 있고 해서 
+ 아직도 1.3 을 쓰고 있답니다 )
+
+
+ 현재 사용중인 mysql 버전이 5.0.90 인데 
+
+ 이걸 5.1 버전으로 업그레이드를 좀 하고 싶습니다 
+
+
+ 방법이 있을까요 ?
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 15 Jul 2016 15:41:50 +0900</pubdate>
+<dc:creator>김진수</dc:creator>
+</item>
+<item>
+<title>Re: http://devel.oops.org 에러 납니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53474
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53474</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53474 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53474&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53474 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53474&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+처리햇습니다. 리포팅 감사합니다. .(__).
+
+[quote=&amp;quot;김준현&amp;quot;]안녕하세요 김정균님 
+&lt;a href="http://devel.oops.org" target="_blank"&gt;http://devel.oops.org&lt;/a&gt; 에러 납니다.
+즐거운 하루 보내세요
+
+phpBB : Critical Error 
+
+ Error creating new session
+
+DEBUG MODE
+
+SQL Error : 1114 �뀒�씠釉� 'phpbb_sessions'媛� full�궗�뒿�땲�떎. 
+
+INSERT INTO phpbb_sessions (session_id, session_user_id, session_start, session_time, session_ip, session_page, session_logged_in, session_admin) VALUES ('f64bebf7c2e6f781c41e3e0e93a5f51b', -1, 1466556435, 1466556435, 'de700d33', 0, 0, 0)
+
+Line : 187
+File : sessions.php[/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Wed, 22 Jun 2016 15:03:43 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>http://devel.oops.org 에러 납니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53473
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53473</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53473 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53473&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53473 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53473&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+안녕하세요 김정균님 
+&lt;a href="http://devel.oops.org" target="_blank"&gt;http://devel.oops.org&lt;/a&gt; 에러 납니다.
+즐거운 하루 보내세요
+
+phpBB : Critical Error 
+
+ Error creating new session
+
+DEBUG MODE
+
+SQL Error : 1114 �뀒�씠釉� 'phpbb_sessions'媛� full�궗�뒿�땲�떎. 
+
+INSERT INTO phpbb_sessions (session_id, session_user_id, session_start, session_time, session_ip, session_page, session_logged_in, session_admin) VALUES ('f64bebf7c2e6f781c41e3e0e93a5f51b', -1, 1466556435, 1466556435, 'de700d33', 0, 0, 0)
+
+Line : 187
+File : sessions.php
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Wed, 22 Jun 2016 09:48:51 +0900</pubdate>
+<dc:creator>김준현</dc:creator>
+</item>
+<item>
+<title>Re^2: 안녕3에서 PHP 사용 문의 (자답)</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53472
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53472</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53472 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53472&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53472 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53472&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+고생 하셨네요. 안녕 3는 apache + php-fpm 사용시에, proxy_module과 proxy_fcgi_module 만
+활성화 시키면 php-fpm과 알아서 연동이 되도록 되어 있습니다. ^^;
+
+즉, 간단하게..
+
+[code]
+[root@host ~]$ yum install httpd php-fpm
+[root@host ~]$ echo &amp;quot;listen = /var/run/php-fpm-default.sock&amp;quot; &amp;gt;&amp;gt; /etc/php.d/fpm.d/local.conf
+[root@host ~]$ echo &amp;quot;listen.mode = 0666&amp;quot; &amp;gt;&amp;gt; /etc/php.d/fpm.d/local.conf
+[root@host ~]$ service php-fpm start
+[root@host ~]$ vi /etc/httpd/LoadModules.conf
+...
+LoadModule  proxy_module            modules/mod_proxy.so
+LoadModule  proxy_fcgi_module       modules/mod_proxy_fcgi.so
+```
+[root@host ~]$ service httpd restart
+[/code]
+
+요 과정으로 .php, .php3 에서 PHP가 동작하도록 되어 있습니다. php-fpm은 기본으로
+unix socket을 사용하도록 되어 있고, /etc/httpd/conf.d/php.conf 에서 unix socket
+을 이용하여 apache 와 연동을 하도록 되어 있습니다.
+
+&lt;a href="https://joungkyun.gitbooks.io/annyung-3-user-guide/content/chapter3-4-php.html" target="_blank"&gt;https://joungkyun.gitbooks.io/annyung-3-user-guide/content/chapter3-4-php.html&lt;/a&gt;
+
+참고 하세요. 이제 안녕 리눅스도 사용자 가이드가 있습니다. ^^;
+
+[quote=&amp;quot;안성모&amp;quot;]PHP-FPM에 대한 개념정리가 안된 상태에서 진행하려고 했더니 안되는 문제였네요. 여기저기 FPM 에 대한 글들을 읽어보고 대충 테스트는 완료했습니다. 아래는 제가 진행했던 순서를 요역해 놓은 글 입니다.
+
+1. apache 설치
+
+$ yum -y install httpd httpd-devel httpd-conf
+$ service httpd start
+
+2. LoadModules.conf 수정
+$ vi /etc/httpd/conf.d/LoadModules.conf
+LoadModule  proxy_module            modules/mod_proxy.so
+LoadModule  proxy_fcgi_module       modules/mod_proxy_fcgi.so
+* 주석제거 (php-fpm 적용을 위해)
+
+2. php-fpm 설치
+
+$ yum -y install php-common php-fpm php-fpm-conf
+
+3. vhost.conf 수정
+
+$ vi vhost.conf
+
+&amp;lt;VirtualHost *:80&amp;gt;
+    DocumentRoot        /home/httpd/html
+    &amp;lt;IfModule proxy_fcgi_module&amp;gt;
+        ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/home/httpd/html/$1
+    &amp;lt;/IfModule&amp;gt;
+&amp;lt;/VirtualHost&amp;gt;
+
+4. fpm-conf 추가
+
+$ vi /etc/php.d/fpm.d/local.conf
+listen = 127.0.0.1:9000
+
+5. 테스트
+
+$ vi /home/httpd/html/info.php
+&amp;lt;?php ___phpinfo(); ?&amp;gt;
+
+$ service httpd restart
+$ service php-fpm start
+
+http://localhost/info.php 접속 후 phpinfo 정보 확인
+
+
+
+[quote=&amp;quot;안성모&amp;quot;]아래와 같이 안녕3 + PHP를 설정하였는데 유독 apache에서 PHP 코드가 실행이 안되네요
+
+* yum 을 이용해서 apache, php-fpm 설치
+httpd-2.4.18-3.an3.x86_64
+php-fpm-7.0.4-1.an3.x86_64
+
+/home/httpd/html/index.php 에 &amp;lt;?php echo &amp;quot;aaa&amp;quot;; ?&amp;gt; 로 테스트
+
+* 설정파일을 아무것도 건드리지 않은 상태에서 html은 잘 나오는데 php 파일은 소스만 나오는 것으로 보아 apache 설정에 문제가 있는 듯 합니다.
+
+/usr/bin/php -f /home/httpd/html/index.php 하면 php가 정상 작동합니다.
+
+기본설정이 open_basedir 에 /home/httpd도 열려 있는데 무엇이 문제일까요? 
+
+혹시 추가적으로 뭘 확인해 봐야 할까요?[/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Tue, 21 Jun 2016 22:10:52 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>Re: 안녕3에서 PHP 사용 문의 (자답)</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53471
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53471</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53471 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53471&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53471 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53471&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+PHP-FPM에 대한 개념정리가 안된 상태에서 진행하려고 했더니 안되는 문제였네요. 여기저기 FPM 에 대한 글들을 읽어보고 대충 테스트는 완료했습니다. 아래는 제가 진행했던 순서를 요역해 놓은 글 입니다.
+
+1. apache 설치
+
+$ yum -y install httpd httpd-devel httpd-conf
+$ service httpd start
+
+2. LoadModules.conf 수정
+$ vi /etc/httpd/conf.d/LoadModules.conf
+LoadModule  proxy_module            modules/mod_proxy.so
+LoadModule  proxy_fcgi_module       modules/mod_proxy_fcgi.so
+* 주석제거 (php-fpm 적용을 위해)
+
+2. php-fpm 설치
+
+$ yum -y install php-common php-fpm php-fpm-conf
+
+3. vhost.conf 수정
+
+$ vi vhost.conf
+
+&amp;lt;VirtualHost *:80&amp;gt;
+    DocumentRoot        /home/httpd/html
+    &amp;lt;IfModule proxy_fcgi_module&amp;gt;
+        ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/home/httpd/html/$1
+    &amp;lt;/IfModule&amp;gt;
+&amp;lt;/VirtualHost&amp;gt;
+
+4. fpm-conf 추가
+
+$ vi /etc/php.d/fpm.d/local.conf
+listen = 127.0.0.1:9000
+
+5. 테스트
+
+$ vi /home/httpd/html/info.php
+&amp;lt;?php ___phpinfo(); ?&amp;gt;
+
+$ service httpd restart
+$ service php-fpm start
+
+http://localhost/info.php 접속 후 phpinfo 정보 확인
+
+
+
+[quote=&amp;quot;안성모&amp;quot;]아래와 같이 안녕3 + PHP를 설정하였는데 유독 apache에서 PHP 코드가 실행이 안되네요
+
+* yum 을 이용해서 apache, php-fpm 설치
+httpd-2.4.18-3.an3.x86_64
+php-fpm-7.0.4-1.an3.x86_64
+
+/home/httpd/html/index.php 에 &amp;lt;?php echo &amp;quot;aaa&amp;quot;; ?&amp;gt; 로 테스트
+
+* 설정파일을 아무것도 건드리지 않은 상태에서 html은 잘 나오는데 php 파일은 소스만 나오는 것으로 보아 apache 설정에 문제가 있는 듯 합니다.
+
+/usr/bin/php -f /home/httpd/html/index.php 하면 php가 정상 작동합니다.
+
+기본설정이 open_basedir 에 /home/httpd도 열려 있는데 무엇이 문제일까요? 
+
+혹시 추가적으로 뭘 확인해 봐야 할까요?[/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Tue, 21 Jun 2016 16:56:21 +0900</pubdate>
+<dc:creator>안성모</dc:creator>
+</item>
+<item>
+<title>안녕3에서 PHP 사용 문의</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53470
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53470</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53470 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53470&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53470 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53470&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+아래와 같이 안녕3 + PHP를 설정하였는데 유독 apache에서 PHP 코드가 실행이 안되네요
+
+* yum 을 이용해서 apache, php-fpm 설치
+httpd-2.4.18-3.an3.x86_64
+php-fpm-7.0.4-1.an3.x86_64
+
+/home/httpd/html/index.php 에 &amp;lt;?php echo &amp;quot;aaa&amp;quot;; ?&amp;gt; 로 테스트
+
+* 설정파일을 아무것도 건드리지 않은 상태에서 html은 잘 나오는데 php 파일은 소스만 나오는 것으로 보아 apache 설정에 문제가 있는 듯 합니다.
+
+/usr/bin/php -f /home/httpd/html/index.php 하면 php가 정상 작동합니다.
+
+기본설정이 open_basedir 에 /home/httpd도 열려 있는데 무엇이 문제일까요? 
+
+혹시 추가적으로 뭘 확인해 봐야 할까요?
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Mon, 20 Jun 2016 17:05:29 +0900</pubdate>
+<dc:creator>안성모</dc:creator>
+</item>
+<item>
+<title>Re^7: 보안서버 ssl 적용중 오류 문의입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53469
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53469</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53469 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53469&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53469 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53469&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+에구. 답변을 야간까지 해주셔서 몸둘바를 모르겠네요.
+
+별도로 소스 컴파일을 따로 한적은 없네요. 
+어느놈일까 참 궁금하네요. 
+
+[code]
+[root@tom ~]# whereis curl
+curl: /usr/bin/curl /usr/include/curl /usr/share/man/man1/curl.1.gz
+[root@tom ~]# ls -al /usr/bin/curl
+-rwxr-xr-x 1 root root 119872 2015-07-24 14:08 /usr/bin/curl*
+[root@tom ~]# ldd /usr/bin/curl
+        linux-vdso.so.1 =&amp;gt;  (0x00007fff2a9ff000)
+        libcurl.so.4 =&amp;gt; /usr/lib64/libcurl.so.4 (0x00007fe1a6bfd000)
+        libidn.so.11 =&amp;gt; /lib64/libidn.so.11 (0x00007fe1a69cb000)
+        libldap-2.4.so.2 =&amp;gt; /lib64/libldap-2.4.so.2 (0x00007fe1a677a000)
+        librt.so.1 =&amp;gt; /lib64/librt.so.1 (0x00007fe1a6572000)
+        libgssapi_krb5.so.2 =&amp;gt; /lib64/libgssapi_krb5.so.2 (0x00007fe1a632e000)
+        libkrb5.so.3 =&amp;gt; /lib64/libkrb5.so.3 (0x00007fe1a6046000)
+        libk5crypto.so.3 =&amp;gt; /lib64/libk5crypto.so.3 (0x00007fe1a5e1a000)
+        libcom_err.so.2 =&amp;gt; /lib64/libcom_err.so.2 (0x00007fe1a5c16000)
+        libssl3.so =&amp;gt; /usr/lib64/libssl3.so (0x00007fe1a59d2000)
+        libsmime3.so =&amp;gt; /usr/lib64/libsmime3.so (0x00007fe1a57a6000)
+        libnss3.so =&amp;gt; /usr/lib64/libnss3.so (0x00007fe1a5466000)
+        libnssutil3.so =&amp;gt; /usr/lib64/libnssutil3.so (0x00007fe1a5239000)
+        libplds4.so =&amp;gt; /lib64/libplds4.so (0x00007fe1a5035000)
+        libplc4.so =&amp;gt; /lib64/libplc4.so (0x00007fe1a4e30000)
+        libnspr4.so =&amp;gt; /lib64/libnspr4.so (0x00007fe1a4bf1000)
+        libpthread.so.0 =&amp;gt; /lib64/libpthread.so.0 (0x00007fe1a49d4000)
+        libdl.so.2 =&amp;gt; /lib64/libdl.so.2 (0x00007fe1a47d0000)
+        libssh2.so.1 =&amp;gt; /usr/lib64/libssh2.so.1 (0x00007fe1a45a7000)
+        libz.so.1 =&amp;gt; /lib64/libz.so.1 (0x00007fe1a4391000)
+        libc.so.6 =&amp;gt; /lib64/libc.so.6 (0x00007fe1a3ffd000)
+        liblber-2.4.so.2 =&amp;gt; /lib64/liblber-2.4.so.2 (0x00007fe1a3ded000)
+        libresolv.so.2 =&amp;gt; /lib64/libresolv.so.2 (0x00007fe1a3bd3000)
+        libsasl2.so.2 =&amp;gt; /usr/lib64/libsasl2.so.2 (0x00007fe1a39b9000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fe1a6e5a000)
+        libkrb5support.so.0 =&amp;gt; /lib64/libkrb5support.so.0 (0x00007fe1a37ad000)
+        libkeyutils.so.1 =&amp;gt; /lib64/libkeyutils.so.1 (0x00007fe1a35aa000)
+        libssl.so.10 =&amp;gt; /usr/lib64/libssl.so.10 (0x00007fe1a333d000)
+        libcrypto.so.10 =&amp;gt; /usr/lib64/libcrypto.so.10 (0x00007fe1a2f59000)
+        libcrypt.so.1 =&amp;gt; /lib64/libcrypt.so.1 (0x00007fe1a2d22000)
+        libselinux.so.1 =&amp;gt; /lib64/libselinux.so.1 (0x00007fe1a2b02000)
+        libfreebl3.so =&amp;gt; /lib64/libfreebl3.so (0x00007fe1a28ff000)
+
+[root@tom ~]# whereis openssl
+openssl: /usr/bin/openssl /usr/lib64/openssl /usr/include/openssl /usr/share/man/man1/openssl.1ssl.gz
+[root@tom ~]# ls -al /usr/bin/openssl
+-rwxr-xr-x 1 root root 525600 2016-03-01 23:59 /usr/bin/openssl*
+[root@tom ~]# ldd /usr/bin/openssl
+        linux-vdso.so.1 =&amp;gt;  (0x00007ffffd3ff000)
+        libssl.so.10 =&amp;gt; /usr/lib64/libssl.so.10 (0x00007fdb7ab77000)
+        libgssapi_krb5.so.2 =&amp;gt; /lib64/libgssapi_krb5.so.2 (0x00007fdb7a933000)
+        libkrb5.so.3 =&amp;gt; /lib64/libkrb5.so.3 (0x00007fdb7a64b000)
+        libcom_err.so.2 =&amp;gt; /lib64/libcom_err.so.2 (0x00007fdb7a447000)
+        libk5crypto.so.3 =&amp;gt; /lib64/libk5crypto.so.3 (0x00007fdb7a21b000)
+        libcrypto.so.10 =&amp;gt; /usr/lib64/libcrypto.so.10 (0x00007fdb79e36000)
+        libdl.so.2 =&amp;gt; /lib64/libdl.so.2 (0x00007fdb79c32000)
+        libz.so.1 =&amp;gt; /lib64/libz.so.1 (0x00007fdb79a1c000)
+        libc.so.6 =&amp;gt; /lib64/libc.so.6 (0x00007fdb79687000)
+        libkrb5support.so.0 =&amp;gt; /lib64/libkrb5support.so.0 (0x00007fdb7947c000)
+        libkeyutils.so.1 =&amp;gt; /lib64/libkeyutils.so.1 (0x00007fdb79279000)
+        libresolv.so.2 =&amp;gt; /lib64/libresolv.so.2 (0x00007fdb7905e000)
+        libpthread.so.0 =&amp;gt; /lib64/libpthread.so.0 (0x00007fdb78e41000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fdb7adeb000)
+        libselinux.so.1 =&amp;gt; /lib64/libselinux.so.1 (0x00007fdb78c21000)
+
+
+[root@tom ~]# /usr/bin/curl -v --tlsv1 &lt;a href="https://www.domain.com" target="_blank"&gt;https://www.domain.com&lt;/a&gt;
+* About to connect() to www.domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to www.domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+[root@tom ~]# /usr/bin/openssl s_client -connect www.domain.com:443 -status
+CONNECTED(00000003)
+140281143777096:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:769:
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 256 bytes
+---
+New, (NONE), Cipher is (NONE)
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+---
+[root@tom ~]#
+
+[/code]
+
+신경써 주셔서 감사합니다. (__);
+
+참. uptime 420일이고, kernel 부팅버젼이 
+Linux version 2.6.32-504.12.2.el6.x86_64 (&lt;a href="javascript:sendform('mockbuild','c6b9.bsys.dev.centos.org','');"&gt;mockbuild&amp;#0064;c6b9.bsys.dev.centos.org&lt;/a&gt;) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-11) (GCC) )
+
+이런데, 리붓하면 커널이 update 되면서, 효과가 딱 나올수도 있을것 같은, 은근한 희망이 생깁니다.;;
+감사하고, 고맙습니다. ^^
+
+
+
+
+[quote=&amp;quot;김정균&amp;quot;]혹시 openssl을 소스 컴파일 한 적이 있나요? ldd curl 을 해서 openssl library가
+openssl rpm 의 경로가 맞는지 확인해 보세요. 그리고 openssl도 full path로 실행
+해 보시고요.
+
+그리고, curl 실행시에 --tlsv1 옵션을 줘서 강제로 tls v1 으로 communication 을
+하도록 해 보세요. 일단 이 문제는 s_client나 curl이 강제로 ssl v2/v3 로 고정이
+된 것 같은 것이 문제인듯 싶으니까요.
+
+들어가서 보면 좀 더 상황을 파악하기 쉽겠지만.. 일단은 여기까지가 한계인듯 싶습니다.
+정 애매하면 서버를 재설치 하고 clean 환경에서 다시 해 보시는 것도 한 방법 입니다.
+
+[quote=&amp;quot;손희태&amp;quot;]인증서를 설정한 서버의 로컬에서, curl 및 openssl 로 https 접근 테스트를 하고 있습니다.
+인증서는 변조가 없는것 같으나, 삭제후 재설치를 해보았습니다.
+
+[code]
+[root@tom ~]# rpm -V ca-certificates
+[root@tom ~]#
+
+[root@tom ~]# rpm -e --nodeps ca-certificates
+[root@tom ~]# yum install ca-certificates
+...
+openssl-1.0.1e-42.el6_7.4.x86_64 has missing requires of ca-certificates &amp;gt;= ('0', '2008', '5')
+  Installing : ca-certificates-2015.2.6-65.0.1.el6_7.noarch                                                                                               1/1
+  Verifying  : ca-certificates-2015.2.6-65.0.1.el6_7.noarch                                                                                               1/1
+
+Installed:
+  ca-certificates.noarch 0:2015.2.6-65.0.1.el6_7
+
+Complete!
+[/code]
+-&amp;gt; 웹재시작후 접근시, 동일접근에러
+
+
+# 인증서 새롭게 재생성
+[code]
+[root@tom cre3]# openssl genrsa -aes128 2048 &amp;gt; ssl.key.encrypt
+Generating RSA private key, 2048 bit long modulus
+..............................+++
+................................+++
+e is 65537 (0x10001)
+Enter pass phrase:
+Verifying - Enter pass phrase:
+[root@tom cre3]#
+
+[root@tom cre3]# openssl rsa -in ssl.key.encrypt -out ssl.key
+Enter pass phrase for ssl.key.encrypt:
+writing RSA key
+[root@tom cre3]#
+
+[root@tom cre3]# openssl req -utf8 -new -key ssl.key -x509 -sha256 -days 3650 -out ssl.crt -set_serial 0
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:KR
+State or Province Name (full name) []:
+Locality Name (eg, city) [Default City]:Seoul
+Organization Name (eg, company) [Default Company Ltd]:test company inc.,
+Organizational Unit Name (eg, section) []:Cert team
+Common Name (eg, your name or your server's hostname) []:www.domain.com
+Email Address []:&lt;a href="javascript:sendform('master','domain.com','');"&gt;master&amp;#0064;domain.com&lt;/a&gt;
+
+[root@tom cre3]# pwd
+/home1/tomweb/ssl/cre3
+[root@tom cre3]# cp -a ssl.key ssl.crt ../ [enter] # 인증서 적용위치로 복사
+[/code]
+-&amp;gt; 웹재시작후 접근시, 동일접근에러
+
+
+# openssl // curl https 접근 로그
+[code]
+[root@tom ssl]# openssl s_client -connect www.domain.com:443 -status
+CONNECTED(00000003)
+140346001782600:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:769:
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 256 bytes
+---
+New, (NONE), Cipher is (NONE)
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+---
+
+[root@tom ssl]# curl -v &lt;a href="https://www.domain.com" target="_blank"&gt;https://www.domain.com&lt;/a&gt;
+* About to connect() to www.domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to www.domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+error_log
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] Connection to child 12 established (server www.domain.com:443)
+[Fri May 27 10:26:30 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f6511a41740 [mem: 7f65124795f0] (BIO dump follows)
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server www.domain.com:443)
+[Fri May 27 10:26:30 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] Connection closed to child 12 with abortive shutdown (server www.domain.com:443)
+^C
+[/code]
+
+
+# ssl 관련 파일 무결성 검사
+[code]
+[root@tom ssl]# for i in $( rpm -qa|grep ssl ) ; do echo $i ; rpm -V $i ; done
+openssl-1.0.1e-42.el6_7.4.x86_64
+nss_compat_ossl-0.9.6-2.el6_7.x86_64
+nss_compat_ossl-devel-0.9.6-2.el6_7.x86_64
+openssl-devel-1.0.1e-42.el6_7.4.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/ssl.conf
+.....U...    /var/cache/mod_ssl
+
+[root@tom ssl]# for i in $( rpm -qa|grep curl ) ; do echo $i ; rpm -V $i ; done
+curl-7.19.7-46.el6.x86_64
+libcurl-7.19.7-46.el6.x86_64
+libcurl-devel-7.19.7-46.el6.x86_64
+python-pycurl-7.19.0-8.el6.x86_64
+
+[root@tom ssl]# for i in $( rpm -qa|grep http ) ; do echo $i ; rpm -V $i ; done
+httpd-devel-2.2.31-1.an2.x86_64
+httpd-tools-2.2.31-1.an2.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/ssl.conf
+.....U...    /var/cache/mod_ssl
+httpd-2.2.31-1.an2.x86_64
+httpd-manual-2.2.31-1.an2.x86_64
+httpd-url-1.21-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/url.conf
+httpd-conf-1.4-2.an2.noarch
+S.5....T.  c /etc/httpd/conf.d/LoadImbededModule.conf
+SM5....T.  c /etc/httpd/conf/httpd.conf
+S.5....T.  c /etc/httpd/user.d/Default.conf
+S.5....T.  c /etc/httpd/user.d/vhost.conf
+.......T.  c /etc/httpd/user.d/welcome.conf
+S.5....T.    /etc/rc.d/init.d/httpd
+missing   c /home/httpd/html/robots.txt
+S.5....T.    /usr/share/httpd/error/error.shtml
+.M.......    /var/log/httpd
+[/code]
+
+
+ssl 구동을 위한 관련 패키지가 더 있을까요?
+우선 변조된 파일을 체크 하는것이 좋을것 같습니다.
+
+보안서버 구축을 위해, startssl 에서 발급받은 인증서로 먼저
+테스트를 진행하다가 안되어, 인증서 문제인지 확인을 위해 사설 인증서로
+추가 검증을 하다가, 문의를 드리게 되었습니다.
+
+말씀해 주신대로, 인증서나 ssl 설정의 문제가 아닌듯 하네요. ㅠ.ㅠ
+
+
+
+
+
+
+[quote=&amp;quot;김정균&amp;quot;]일단, 먼저 ca-certificates 패키지 중 변경되거나 제거된 파일이 있는지 확인 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -V ca-certificates
+[/code]
+
+아무런 결과가 나오지 않았으면 싶군요 ^^; 만약 변경되거나 제거된 파일이 있다면, 삭제 후
+재설치를 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -e --nodeps ca-certificates
+[root@tom ~]$ yum install ca-certificates
+[/code]
+
+다음, 인증서를 다음의 명령으로 생성해 주세요.
+
+[code]
+[root@tom ~]$ cd /home1/id/ssl
+[root@tom ssl]$ openssl genrsa -aes128 2048 &amp;gt; ssl.key.encrypt
+Generating RSA private key, 2048 bit long modulus
+.............................+++
+...............................................+++
+e is 65537 (0x10001)
+Enter pass phrase: [암호입력]
+Verifying - Enter pass phrase: [암호재입력]
+[root@tom ssl]$ 
+[root@tom ssl]$ # ssl.key 암호 제거
+[root@tom ssl]$ openssl rsa -in ssl.key.encrypt -out ssl.key
+Enter pass phrase for server.key: [ssl.key.encrytp 암호 입력]
+writing RSA key
+[root@tom ssl]$ 
+[root@tom ssl]$ # 인증서 생성
+[root@tom ssl]$ /usr/bin/openssl req -utf8 -new -key server.key -x509 -sha256 -days 3650 -out server.crt -set_serial 0
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]: KR
+State or Province Name (full name) []: [값 없이 ENTER]
+Locality Name (eg, city) [Default City]: Seoul
+Organization Name (eg, company) [Default Company Ltd]: TEST company Inc.,
+Organizational Unit Name (eg, section) []: Cert team
+Common Name (eg, your name or your server's hostname) []: your.domain.com
+Email Address []: &lt;a href="javascript:sendform('user','email.com','');"&gt;user&amp;#0064;email.com&lt;/a&gt;
+[root@tom ssl]$ 
+[/code]
+
+이렇게 인증서 생성 후, 서버 설정은 현재 상태로 나두시고, (동일한 경로에 인증서 생성 했으니
+설정 변경 필요 없을 겁니다...) apache를 재시작 해 주십시오.
+
+다음, ssl 설정을 한 호스트에서(오차를 줄이기 위함입니다.) curl test와 openssl s_client test
+결과를 다시 올려 주세요. openssl s_client 를 실행 시켰을 경우에 base64로 인코딩된 인증서
+출력이 되어야 합니다.
+
+위의 설정 처럼 했을 경우, 서버 설정을 동일하게 하고 테스트를 했을 하면 apache debug log에는
+다음과 같이 남습니다. (curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;)
+
+[code]
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection to child 0 established (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb90] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 16 03 01 00 a5 01 00 00-a1 03 03                 ...........      |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 159/159 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb9e] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 2b a1 2c 09 29 1e 1a 8c-1e 67 e0 e6 db 1b 59 82  +.,.)....g....Y. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0010: ee 37 71 e9 c7 07 72 c5-55 d1 66 5b 20 d1 6b c0  .7q...r.U.f[ .k. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0020: 00 00 2e c0 2b c0 2f 00-9e 00 9c c0 0a c0 14 00  ....+./......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0030: 39 00 6b 00 38 00 35 00-3d c0 09 c0 13 00 33 00  9.k.8.5.=.....3. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0040: 67 00 32 00 2f 00 3c 00-05 00 04 00 16 00 13 00  g.2./.&amp;lt;......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0050: 0a 01 00 00 4a 00 00 00-15 00 13 00 00 10 61 6e  ....J.........an |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0060: 32 2e 70 6b 67 2e 6f 6f-70 73 2e 6f 72 67 ff 01  2.pkg.oops.org.. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0070: 00 01 00 00 0a 00 08 00-06 00 17 00 18 00 19 00  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0080: 0b 00 02 01 00 00 0d 00-16 00 14 04 01 05 01 06  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0090: 01 02 01 04 03 05 03 06-03 02 03 04 02 02 02     ...............  |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1955): [client 172.16.13.3] SSL virtual host for servername an2.pkg.oops.org found
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 read client hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write key exchange A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server done A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 flush data
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 5/5 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb93] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 15 03 03 00 02                                   .....            |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 2/2 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb98] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 02 30                                            .0               |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1847): OpenSSL: Read: SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1866): OpenSSL: Exit: failed in SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] SSL library error 1 in handshake (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] SSL Library Error: 336151576 error:14094418:SSL routines:SSL3_READ_BYTES:tlsv1 alert unknown ca
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection closed to child 0 with abortive shutdown (server an2.pkg.oops.org:443)
+[/code]
+
+curl -v &lt;a href="https://domain.com" target="_blank"&gt;https://domain.com&lt;/a&gt; 의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;
+* About to connect() to an2.pkg.oops.org port 443 (#0)
+*   Trying 172.16.13.3... connected
+* Connected to an2.pkg.oops.org (172.16.13.3) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* Certificate is signed by an untrusted issuer: 'E=&lt;a href="javascript:sendform('admin','oops.org','');"&gt;admin&amp;#0064;oops.org&lt;/a&gt;,CN=an2.pkg.oops.org,OU=Cert Team,O=OOPS.ORG,L=Seoul,C=KR'
+* NSS error -8172
+* Closing connection #0
+* Peer certificate cannot be authenticated with known CA certificates
+curl: (60) Peer certificate cannot be authenticated with known CA certificates
+More details here: &lt;a href="http://curl.haxx.se/docs/sslcerts.html" target="_blank"&gt;http://curl.haxx.se/docs/sslcerts.html&lt;/a&gt;
+
+curl performs SSL certificate verification by default, using a &amp;quot;bundle&amp;quot;
+ of Certificate Authority (CA) public keys (CA certs). If the default
+ bundle file isn't adequate, you can specify an alternate file
+ using the --cacert option.
+If this HTTPS server uses a certificate signed by a CA represented in
+ the bundle, the certificate verification probably failed due to a
+ problem with the certificate (it might be expired, or the name might
+ not match the domain name in the URL).
+If you'd like to turn off curl's verification of the certificate, use
+ the -k (or --insecure) option.
+[root@an2 zzz]#
+[/code]
+
+이 에러는 인증서가 CA sign이 되어 있지 않기 때문에 발생하는 문제로,
+--insecure 옵션을 주면 페이지 출력이 되게 됩니다. 이 테스트를 좀 더
+의미있게 하시려면, self sign CA 인증서를 만드셔서 sign을 하든지 또는
+공인 인증서로 테스트 하시기 바랍니다. (wosign.com 이나 lets encrypt,
+startssl을 이용하면 무료로 공인 SSL 인증서를 발급 받을 수 있습니다.
+개인적으로는 wosign이나 startssl을 선호합니다. lets-encrypt는 서버에
+X package를 설치하라고 강요를 해서..)
+
+물론, 이 메시지와 희태님의 curl 결과 메시지는 전혀 다른 것입니다.
+희태님이 올려주신 결과는 말 그대로 SSL 서비스가 제대로 되지 않는
+상태 입니다.
+
+openssl s_client test의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# openssl s_client -connect an2.pkg.oops.org:443 | openssl x509
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify return:1
+-----BEGIN CERTIFICATE-----
+MIIDxzCCAq+gAwIBAgIBADANBgkqhkiG9w0BAQsFADB+MQswCQYDVQQGEwJLUjEO
+MAwGA1UEBwwFU2VvdWwxETAPBgNVBAoMCE9PUFMuT1JHMRIwEAYDVQQLDAlDZXJ0
+IFRlYW0xGTAXBgNVBAMMEGFuMi5wa2cub29wcy5vcmcxHTAbBgkqhkiG9w0BCQEW
+DmFkbWluQG9vcHMub3JnMB4XDTE2MDUyNjE2NTE1M1oXDTE3MDUyNjE2NTE1M1ow
+fjELMAkGA1UEBhMCS1IxDjAMBgNVBAcMBVNlb3VsMREwDwYDVQQKDAhPT1BTLk9S
+RzESMBAGA1UECwwJQ2VydCBUZWFtMRkwFwYDVQQDDBBhbjIucGtnLm9vcHMub3Jn
+MR0wGwYJKoZIhvcNAQkBFg5hZG1pbkBvb3BzLm9yZzCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBALKyUTnuZmpsSU7RimQshTYgtRFQEFy8UaOxECKj3wXO
+DAdVvl8wVE/6s/gfVEpgMG8USCwbWtjTfPqRXqAbkw8Wy/GYT/mHLJpFngGDfs1W
+qO1wn+BFAR8ioGLX0UkcvWVQ20hMIvHzZaMmcyaGcYN2L27PgO0Xmq7zAQRY0KOB
+5UUy2UxcejtUHGFttAEp4AqOAIAGERBDYW7U60JJGokRp0S5q/4QCbQybkNmz85Q
+9S5wRhcaLvtzAy81ZCL7eQ/zmRHYelqcAGRICmukfyMtvPFpBHBllorbazMAWyre
+N1GFlK1re0L76JaqHtHrAimotGq86nfv1v8YJ2exuTcCAwEAAaNQME4wHQYDVR0O
+BBYEFA6D260MmaKoj1kMHILLGLs11OJFMB8GA1UdIwQYMBaAFA6D260MmaKoj1kM
+HILLGLs11OJFMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAB2cCRNj
+HRbTHkFC1zZgtq81b1Sdm0dri9xq68oqS9pi/HzBF903OWMbLzQ1FDBuHCBb/s0E
+z/kzENvDByLrBAUcaBsPFXWa573Wv/Iul+cnjShN966EweoIOZf3M6VSz2Rj1+QV
+rhT9UpyFO+IAS647sfqJwK1prG3PlUAPkGXvg4r0vIL9m1qrUFAMsFKLouEwAlT7
+c8eIU8tFb77dRVYbCEYeTyUEqxQ5fosBojIKPP3U6tApdx7uF1RS3AXWm7DKRdLU
+3bPyDiq9by0ohytQ6jqzitbjgUvEjc+W8JG5mpDDeg0bYvzT4oF22VM3FOU01IbK
+uIDgve3mtYwrmmg=
+-----END CERTIFICATE-----
+quit
+[root@an2 zzz]#
+[/code]
+
+위의 결과 처럼 openssl s_client 명령 실행시에, base64 인코딩된 서버 인증서가 출력이 된다면,
+테스트에 크게 문제가 없습니다. 아파치 로그는 SSLv3 로 실패하고 TSL 1.2로 진행한 것이니까요.
+
+일단, 이 조건에서의 결과를 보고 다시 한번 판단을 해 봐야 할 듯 싶습니다.[/quote][/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 27 May 2016 14:33:39 +0900</pubdate>
+<dc:creator>손희태</dc:creator>
+</item>
+<item>
+<title>Re^6: 보안서버 ssl 적용중 오류 문의입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53468
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53468</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53468 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53468&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53468 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53468&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+혹시 openssl을 소스 컴파일 한 적이 있나요? ldd curl 을 해서 openssl library가
+openssl rpm 의 경로가 맞는지 확인해 보세요. 그리고 openssl도 full path로 실행
+해 보시고요.
+
+그리고, curl 실행시에 --tlsv1 옵션을 줘서 강제로 tls v1 으로 communication 을
+하도록 해 보세요. 일단 이 문제는 s_client나 curl이 강제로 ssl v2/v3 로 고정이
+된 것 같은 것이 문제인듯 싶으니까요.
+
+들어가서 보면 좀 더 상황을 파악하기 쉽겠지만.. 일단은 여기까지가 한계인듯 싶습니다.
+정 애매하면 서버를 재설치 하고 clean 환경에서 다시 해 보시는 것도 한 방법 입니다.
+
+[quote=&amp;quot;손희태&amp;quot;]인증서를 설정한 서버의 로컬에서, curl 및 openssl 로 https 접근 테스트를 하고 있습니다.
+인증서는 변조가 없는것 같으나, 삭제후 재설치를 해보았습니다.
+
+[code]
+[root@tom ~]# rpm -V ca-certificates
+[root@tom ~]#
+
+[root@tom ~]# rpm -e --nodeps ca-certificates
+[root@tom ~]# yum install ca-certificates
+...
+openssl-1.0.1e-42.el6_7.4.x86_64 has missing requires of ca-certificates &amp;gt;= ('0', '2008', '5')
+  Installing : ca-certificates-2015.2.6-65.0.1.el6_7.noarch                                                                                               1/1
+  Verifying  : ca-certificates-2015.2.6-65.0.1.el6_7.noarch                                                                                               1/1
+
+Installed:
+  ca-certificates.noarch 0:2015.2.6-65.0.1.el6_7
+
+Complete!
+[/code]
+-&amp;gt; 웹재시작후 접근시, 동일접근에러
+
+
+# 인증서 새롭게 재생성
+[code]
+[root@tom cre3]# openssl genrsa -aes128 2048 &amp;gt; ssl.key.encrypt
+Generating RSA private key, 2048 bit long modulus
+..............................+++
+................................+++
+e is 65537 (0x10001)
+Enter pass phrase:
+Verifying - Enter pass phrase:
+[root@tom cre3]#
+
+[root@tom cre3]# openssl rsa -in ssl.key.encrypt -out ssl.key
+Enter pass phrase for ssl.key.encrypt:
+writing RSA key
+[root@tom cre3]#
+
+[root@tom cre3]# openssl req -utf8 -new -key ssl.key -x509 -sha256 -days 3650 -out ssl.crt -set_serial 0
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:KR
+State or Province Name (full name) []:
+Locality Name (eg, city) [Default City]:Seoul
+Organization Name (eg, company) [Default Company Ltd]:test company inc.,
+Organizational Unit Name (eg, section) []:Cert team
+Common Name (eg, your name or your server's hostname) []:www.domain.com
+Email Address []:&lt;a href="javascript:sendform('master','domain.com','');"&gt;master&amp;#0064;domain.com&lt;/a&gt;
+
+[root@tom cre3]# pwd
+/home1/tomweb/ssl/cre3
+[root@tom cre3]# cp -a ssl.key ssl.crt ../ [enter] # 인증서 적용위치로 복사
+[/code]
+-&amp;gt; 웹재시작후 접근시, 동일접근에러
+
+
+# openssl // curl https 접근 로그
+[code]
+[root@tom ssl]# openssl s_client -connect www.domain.com:443 -status
+CONNECTED(00000003)
+140346001782600:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:769:
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 256 bytes
+---
+New, (NONE), Cipher is (NONE)
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+---
+
+[root@tom ssl]# curl -v &lt;a href="https://www.domain.com" target="_blank"&gt;https://www.domain.com&lt;/a&gt;
+* About to connect() to www.domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to www.domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+error_log
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] Connection to child 12 established (server www.domain.com:443)
+[Fri May 27 10:26:30 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f6511a41740 [mem: 7f65124795f0] (BIO dump follows)
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server www.domain.com:443)
+[Fri May 27 10:26:30 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] Connection closed to child 12 with abortive shutdown (server www.domain.com:443)
+^C
+[/code]
+
+
+# ssl 관련 파일 무결성 검사
+[code]
+[root@tom ssl]# for i in $( rpm -qa|grep ssl ) ; do echo $i ; rpm -V $i ; done
+openssl-1.0.1e-42.el6_7.4.x86_64
+nss_compat_ossl-0.9.6-2.el6_7.x86_64
+nss_compat_ossl-devel-0.9.6-2.el6_7.x86_64
+openssl-devel-1.0.1e-42.el6_7.4.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/ssl.conf
+.....U...    /var/cache/mod_ssl
+
+[root@tom ssl]# for i in $( rpm -qa|grep curl ) ; do echo $i ; rpm -V $i ; done
+curl-7.19.7-46.el6.x86_64
+libcurl-7.19.7-46.el6.x86_64
+libcurl-devel-7.19.7-46.el6.x86_64
+python-pycurl-7.19.0-8.el6.x86_64
+
+[root@tom ssl]# for i in $( rpm -qa|grep http ) ; do echo $i ; rpm -V $i ; done
+httpd-devel-2.2.31-1.an2.x86_64
+httpd-tools-2.2.31-1.an2.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/ssl.conf
+.....U...    /var/cache/mod_ssl
+httpd-2.2.31-1.an2.x86_64
+httpd-manual-2.2.31-1.an2.x86_64
+httpd-url-1.21-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/url.conf
+httpd-conf-1.4-2.an2.noarch
+S.5....T.  c /etc/httpd/conf.d/LoadImbededModule.conf
+SM5....T.  c /etc/httpd/conf/httpd.conf
+S.5....T.  c /etc/httpd/user.d/Default.conf
+S.5....T.  c /etc/httpd/user.d/vhost.conf
+.......T.  c /etc/httpd/user.d/welcome.conf
+S.5....T.    /etc/rc.d/init.d/httpd
+missing   c /home/httpd/html/robots.txt
+S.5....T.    /usr/share/httpd/error/error.shtml
+.M.......    /var/log/httpd
+[/code]
+
+
+ssl 구동을 위한 관련 패키지가 더 있을까요?
+우선 변조된 파일을 체크 하는것이 좋을것 같습니다.
+
+보안서버 구축을 위해, startssl 에서 발급받은 인증서로 먼저
+테스트를 진행하다가 안되어, 인증서 문제인지 확인을 위해 사설 인증서로
+추가 검증을 하다가, 문의를 드리게 되었습니다.
+
+말씀해 주신대로, 인증서나 ssl 설정의 문제가 아닌듯 하네요. ㅠ.ㅠ
+
+
+
+
+
+
+[quote=&amp;quot;김정균&amp;quot;]일단, 먼저 ca-certificates 패키지 중 변경되거나 제거된 파일이 있는지 확인 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -V ca-certificates
+[/code]
+
+아무런 결과가 나오지 않았으면 싶군요 ^^; 만약 변경되거나 제거된 파일이 있다면, 삭제 후
+재설치를 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -e --nodeps ca-certificates
+[root@tom ~]$ yum install ca-certificates
+[/code]
+
+다음, 인증서를 다음의 명령으로 생성해 주세요.
+
+[code]
+[root@tom ~]$ cd /home1/id/ssl
+[root@tom ssl]$ openssl genrsa -aes128 2048 &amp;gt; ssl.key.encrypt
+Generating RSA private key, 2048 bit long modulus
+.............................+++
+...............................................+++
+e is 65537 (0x10001)
+Enter pass phrase: [암호입력]
+Verifying - Enter pass phrase: [암호재입력]
+[root@tom ssl]$ 
+[root@tom ssl]$ # ssl.key 암호 제거
+[root@tom ssl]$ openssl rsa -in ssl.key.encrypt -out ssl.key
+Enter pass phrase for server.key: [ssl.key.encrytp 암호 입력]
+writing RSA key
+[root@tom ssl]$ 
+[root@tom ssl]$ # 인증서 생성
+[root@tom ssl]$ /usr/bin/openssl req -utf8 -new -key server.key -x509 -sha256 -days 3650 -out server.crt -set_serial 0
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]: KR
+State or Province Name (full name) []: [값 없이 ENTER]
+Locality Name (eg, city) [Default City]: Seoul
+Organization Name (eg, company) [Default Company Ltd]: TEST company Inc.,
+Organizational Unit Name (eg, section) []: Cert team
+Common Name (eg, your name or your server's hostname) []: your.domain.com
+Email Address []: &lt;a href="javascript:sendform('user','email.com','');"&gt;user&amp;#0064;email.com&lt;/a&gt;
+[root@tom ssl]$ 
+[/code]
+
+이렇게 인증서 생성 후, 서버 설정은 현재 상태로 나두시고, (동일한 경로에 인증서 생성 했으니
+설정 변경 필요 없을 겁니다...) apache를 재시작 해 주십시오.
+
+다음, ssl 설정을 한 호스트에서(오차를 줄이기 위함입니다.) curl test와 openssl s_client test
+결과를 다시 올려 주세요. openssl s_client 를 실행 시켰을 경우에 base64로 인코딩된 인증서
+출력이 되어야 합니다.
+
+위의 설정 처럼 했을 경우, 서버 설정을 동일하게 하고 테스트를 했을 하면 apache debug log에는
+다음과 같이 남습니다. (curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;)
+
+[code]
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection to child 0 established (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb90] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 16 03 01 00 a5 01 00 00-a1 03 03                 ...........      |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 159/159 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb9e] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 2b a1 2c 09 29 1e 1a 8c-1e 67 e0 e6 db 1b 59 82  +.,.)....g....Y. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0010: ee 37 71 e9 c7 07 72 c5-55 d1 66 5b 20 d1 6b c0  .7q...r.U.f[ .k. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0020: 00 00 2e c0 2b c0 2f 00-9e 00 9c c0 0a c0 14 00  ....+./......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0030: 39 00 6b 00 38 00 35 00-3d c0 09 c0 13 00 33 00  9.k.8.5.=.....3. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0040: 67 00 32 00 2f 00 3c 00-05 00 04 00 16 00 13 00  g.2./.&amp;lt;......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0050: 0a 01 00 00 4a 00 00 00-15 00 13 00 00 10 61 6e  ....J.........an |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0060: 32 2e 70 6b 67 2e 6f 6f-70 73 2e 6f 72 67 ff 01  2.pkg.oops.org.. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0070: 00 01 00 00 0a 00 08 00-06 00 17 00 18 00 19 00  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0080: 0b 00 02 01 00 00 0d 00-16 00 14 04 01 05 01 06  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0090: 01 02 01 04 03 05 03 06-03 02 03 04 02 02 02     ...............  |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1955): [client 172.16.13.3] SSL virtual host for servername an2.pkg.oops.org found
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 read client hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write key exchange A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server done A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 flush data
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 5/5 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb93] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 15 03 03 00 02                                   .....            |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 2/2 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb98] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 02 30                                            .0               |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1847): OpenSSL: Read: SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1866): OpenSSL: Exit: failed in SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] SSL library error 1 in handshake (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] SSL Library Error: 336151576 error:14094418:SSL routines:SSL3_READ_BYTES:tlsv1 alert unknown ca
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection closed to child 0 with abortive shutdown (server an2.pkg.oops.org:443)
+[/code]
+
+curl -v &lt;a href="https://domain.com" target="_blank"&gt;https://domain.com&lt;/a&gt; 의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;
+* About to connect() to an2.pkg.oops.org port 443 (#0)
+*   Trying 172.16.13.3... connected
+* Connected to an2.pkg.oops.org (172.16.13.3) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* Certificate is signed by an untrusted issuer: 'E=&lt;a href="javascript:sendform('admin','oops.org','');"&gt;admin&amp;#0064;oops.org&lt;/a&gt;,CN=an2.pkg.oops.org,OU=Cert Team,O=OOPS.ORG,L=Seoul,C=KR'
+* NSS error -8172
+* Closing connection #0
+* Peer certificate cannot be authenticated with known CA certificates
+curl: (60) Peer certificate cannot be authenticated with known CA certificates
+More details here: &lt;a href="http://curl.haxx.se/docs/sslcerts.html" target="_blank"&gt;http://curl.haxx.se/docs/sslcerts.html&lt;/a&gt;
+
+curl performs SSL certificate verification by default, using a &amp;quot;bundle&amp;quot;
+ of Certificate Authority (CA) public keys (CA certs). If the default
+ bundle file isn't adequate, you can specify an alternate file
+ using the --cacert option.
+If this HTTPS server uses a certificate signed by a CA represented in
+ the bundle, the certificate verification probably failed due to a
+ problem with the certificate (it might be expired, or the name might
+ not match the domain name in the URL).
+If you'd like to turn off curl's verification of the certificate, use
+ the -k (or --insecure) option.
+[root@an2 zzz]#
+[/code]
+
+이 에러는 인증서가 CA sign이 되어 있지 않기 때문에 발생하는 문제로,
+--insecure 옵션을 주면 페이지 출력이 되게 됩니다. 이 테스트를 좀 더
+의미있게 하시려면, self sign CA 인증서를 만드셔서 sign을 하든지 또는
+공인 인증서로 테스트 하시기 바랍니다. (wosign.com 이나 lets encrypt,
+startssl을 이용하면 무료로 공인 SSL 인증서를 발급 받을 수 있습니다.
+개인적으로는 wosign이나 startssl을 선호합니다. lets-encrypt는 서버에
+X package를 설치하라고 강요를 해서..)
+
+물론, 이 메시지와 희태님의 curl 결과 메시지는 전혀 다른 것입니다.
+희태님이 올려주신 결과는 말 그대로 SSL 서비스가 제대로 되지 않는
+상태 입니다.
+
+openssl s_client test의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# openssl s_client -connect an2.pkg.oops.org:443 | openssl x509
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify return:1
+-----BEGIN CERTIFICATE-----
+MIIDxzCCAq+gAwIBAgIBADANBgkqhkiG9w0BAQsFADB+MQswCQYDVQQGEwJLUjEO
+MAwGA1UEBwwFU2VvdWwxETAPBgNVBAoMCE9PUFMuT1JHMRIwEAYDVQQLDAlDZXJ0
+IFRlYW0xGTAXBgNVBAMMEGFuMi5wa2cub29wcy5vcmcxHTAbBgkqhkiG9w0BCQEW
+DmFkbWluQG9vcHMub3JnMB4XDTE2MDUyNjE2NTE1M1oXDTE3MDUyNjE2NTE1M1ow
+fjELMAkGA1UEBhMCS1IxDjAMBgNVBAcMBVNlb3VsMREwDwYDVQQKDAhPT1BTLk9S
+RzESMBAGA1UECwwJQ2VydCBUZWFtMRkwFwYDVQQDDBBhbjIucGtnLm9vcHMub3Jn
+MR0wGwYJKoZIhvcNAQkBFg5hZG1pbkBvb3BzLm9yZzCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBALKyUTnuZmpsSU7RimQshTYgtRFQEFy8UaOxECKj3wXO
+DAdVvl8wVE/6s/gfVEpgMG8USCwbWtjTfPqRXqAbkw8Wy/GYT/mHLJpFngGDfs1W
+qO1wn+BFAR8ioGLX0UkcvWVQ20hMIvHzZaMmcyaGcYN2L27PgO0Xmq7zAQRY0KOB
+5UUy2UxcejtUHGFttAEp4AqOAIAGERBDYW7U60JJGokRp0S5q/4QCbQybkNmz85Q
+9S5wRhcaLvtzAy81ZCL7eQ/zmRHYelqcAGRICmukfyMtvPFpBHBllorbazMAWyre
+N1GFlK1re0L76JaqHtHrAimotGq86nfv1v8YJ2exuTcCAwEAAaNQME4wHQYDVR0O
+BBYEFA6D260MmaKoj1kMHILLGLs11OJFMB8GA1UdIwQYMBaAFA6D260MmaKoj1kM
+HILLGLs11OJFMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAB2cCRNj
+HRbTHkFC1zZgtq81b1Sdm0dri9xq68oqS9pi/HzBF903OWMbLzQ1FDBuHCBb/s0E
+z/kzENvDByLrBAUcaBsPFXWa573Wv/Iul+cnjShN966EweoIOZf3M6VSz2Rj1+QV
+rhT9UpyFO+IAS647sfqJwK1prG3PlUAPkGXvg4r0vIL9m1qrUFAMsFKLouEwAlT7
+c8eIU8tFb77dRVYbCEYeTyUEqxQ5fosBojIKPP3U6tApdx7uF1RS3AXWm7DKRdLU
+3bPyDiq9by0ohytQ6jqzitbjgUvEjc+W8JG5mpDDeg0bYvzT4oF22VM3FOU01IbK
+uIDgve3mtYwrmmg=
+-----END CERTIFICATE-----
+quit
+[root@an2 zzz]#
+[/code]
+
+위의 결과 처럼 openssl s_client 명령 실행시에, base64 인코딩된 서버 인증서가 출력이 된다면,
+테스트에 크게 문제가 없습니다. 아파치 로그는 SSLv3 로 실패하고 TSL 1.2로 진행한 것이니까요.
+
+일단, 이 조건에서의 결과를 보고 다시 한번 판단을 해 봐야 할 듯 싶습니다.[/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 27 May 2016 13:46:09 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>Re^5: 보안서버 ssl 적용중 오류 문의입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53467
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53467</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53467 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53467&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53467 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53467&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+인증서를 설정한 서버의 로컬에서, curl 및 openssl 로 https 접근 테스트를 하고 있습니다.
+인증서는 변조가 없는것 같으나, 삭제후 재설치를 해보았습니다.
+
+[code]
+[root@tom ~]# rpm -V ca-certificates
+[root@tom ~]#
+
+[root@tom ~]# rpm -e --nodeps ca-certificates
+[root@tom ~]# yum install ca-certificates
+...
+openssl-1.0.1e-42.el6_7.4.x86_64 has missing requires of ca-certificates &amp;gt;= ('0', '2008', '5')
+  Installing : ca-certificates-2015.2.6-65.0.1.el6_7.noarch                                                                                               1/1
+  Verifying  : ca-certificates-2015.2.6-65.0.1.el6_7.noarch                                                                                               1/1
+
+Installed:
+  ca-certificates.noarch 0:2015.2.6-65.0.1.el6_7
+
+Complete!
+[/code]
+-&amp;gt; 웹재시작후 접근시, 동일접근에러
+
+
+# 인증서 새롭게 재생성
+[code]
+[root@tom cre3]# openssl genrsa -aes128 2048 &amp;gt; ssl.key.encrypt
+Generating RSA private key, 2048 bit long modulus
+..............................+++
+................................+++
+e is 65537 (0x10001)
+Enter pass phrase:
+Verifying - Enter pass phrase:
+[root@tom cre3]#
+
+[root@tom cre3]# openssl rsa -in ssl.key.encrypt -out ssl.key
+Enter pass phrase for ssl.key.encrypt:
+writing RSA key
+[root@tom cre3]#
+
+[root@tom cre3]# openssl req -utf8 -new -key ssl.key -x509 -sha256 -days 3650 -out ssl.crt -set_serial 0
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:KR
+State or Province Name (full name) []:
+Locality Name (eg, city) [Default City]:Seoul
+Organization Name (eg, company) [Default Company Ltd]:test company inc.,
+Organizational Unit Name (eg, section) []:Cert team
+Common Name (eg, your name or your server's hostname) []:www.domain.com
+Email Address []:&lt;a href="javascript:sendform('master','domain.com','');"&gt;master&amp;#0064;domain.com&lt;/a&gt;
+
+[root@tom cre3]# pwd
+/home1/tomweb/ssl/cre3
+[root@tom cre3]# cp -a ssl.key ssl.crt ../ [enter] # 인증서 적용위치로 복사
+[/code]
+-&amp;gt; 웹재시작후 접근시, 동일접근에러
+
+
+# openssl // curl https 접근 로그
+[code]
+[root@tom ssl]# openssl s_client -connect www.domain.com:443 -status
+CONNECTED(00000003)
+140346001782600:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:769:
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 256 bytes
+---
+New, (NONE), Cipher is (NONE)
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+---
+
+[root@tom ssl]# curl -v &lt;a href="https://www.domain.com" target="_blank"&gt;https://www.domain.com&lt;/a&gt;
+* About to connect() to www.domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to www.domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+error_log
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] Connection to child 12 established (server www.domain.com:443)
+[Fri May 27 10:26:30 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f6511a41740 [mem: 7f65124795f0] (BIO dump follows)
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 10:26:30 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server www.domain.com:443)
+[Fri May 27 10:26:30 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Fri May 27 10:26:30 2016] [info] [client 127.0.0.1] Connection closed to child 12 with abortive shutdown (server www.domain.com:443)
+^C
+[/code]
+
+
+# ssl 관련 파일 무결성 검사
+[code]
+[root@tom ssl]# for i in $( rpm -qa|grep ssl ) ; do echo $i ; rpm -V $i ; done
+openssl-1.0.1e-42.el6_7.4.x86_64
+nss_compat_ossl-0.9.6-2.el6_7.x86_64
+nss_compat_ossl-devel-0.9.6-2.el6_7.x86_64
+openssl-devel-1.0.1e-42.el6_7.4.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/ssl.conf
+.....U...    /var/cache/mod_ssl
+
+[root@tom ssl]# for i in $( rpm -qa|grep curl ) ; do echo $i ; rpm -V $i ; done
+curl-7.19.7-46.el6.x86_64
+libcurl-7.19.7-46.el6.x86_64
+libcurl-devel-7.19.7-46.el6.x86_64
+python-pycurl-7.19.0-8.el6.x86_64
+
+[root@tom ssl]# for i in $( rpm -qa|grep http ) ; do echo $i ; rpm -V $i ; done
+httpd-devel-2.2.31-1.an2.x86_64
+httpd-tools-2.2.31-1.an2.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/ssl.conf
+.....U...    /var/cache/mod_ssl
+httpd-2.2.31-1.an2.x86_64
+httpd-manual-2.2.31-1.an2.x86_64
+httpd-url-1.21-1.an2.x86_64
+S.5....T.  c /etc/httpd/conf.d/url.conf
+httpd-conf-1.4-2.an2.noarch
+S.5....T.  c /etc/httpd/conf.d/LoadImbededModule.conf
+SM5....T.  c /etc/httpd/conf/httpd.conf
+S.5....T.  c /etc/httpd/user.d/Default.conf
+S.5....T.  c /etc/httpd/user.d/vhost.conf
+.......T.  c /etc/httpd/user.d/welcome.conf
+S.5....T.    /etc/rc.d/init.d/httpd
+missing   c /home/httpd/html/robots.txt
+S.5....T.    /usr/share/httpd/error/error.shtml
+.M.......    /var/log/httpd
+[/code]
+
+
+ssl 구동을 위한 관련 패키지가 더 있을까요?
+우선 변조된 파일을 체크 하는것이 좋을것 같습니다.
+
+보안서버 구축을 위해, startssl 에서 발급받은 인증서로 먼저
+테스트를 진행하다가 안되어, 인증서 문제인지 확인을 위해 사설 인증서로
+추가 검증을 하다가, 문의를 드리게 되었습니다.
+
+말씀해 주신대로, 인증서나 ssl 설정의 문제가 아닌듯 하네요. ㅠ.ㅠ
+
+
+
+
+
+
+[quote=&amp;quot;김정균&amp;quot;]일단, 먼저 ca-certificates 패키지 중 변경되거나 제거된 파일이 있는지 확인 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -V ca-certificates
+[/code]
+
+아무런 결과가 나오지 않았으면 싶군요 ^^; 만약 변경되거나 제거된 파일이 있다면, 삭제 후
+재설치를 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -e --nodeps ca-certificates
+[root@tom ~]$ yum install ca-certificates
+[/code]
+
+다음, 인증서를 다음의 명령으로 생성해 주세요.
+
+[code]
+[root@tom ~]$ cd /home1/id/ssl
+[root@tom ssl]$ openssl genrsa -aes128 2048 &amp;gt; ssl.key.encrypt
+Generating RSA private key, 2048 bit long modulus
+.............................+++
+...............................................+++
+e is 65537 (0x10001)
+Enter pass phrase: [암호입력]
+Verifying - Enter pass phrase: [암호재입력]
+[root@tom ssl]$ 
+[root@tom ssl]$ # ssl.key 암호 제거
+[root@tom ssl]$ openssl rsa -in ssl.key.encrypt -out ssl.key
+Enter pass phrase for server.key: [ssl.key.encrytp 암호 입력]
+writing RSA key
+[root@tom ssl]$ 
+[root@tom ssl]$ # 인증서 생성
+[root@tom ssl]$ /usr/bin/openssl req -utf8 -new -key server.key -x509 -sha256 -days 3650 -out server.crt -set_serial 0
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]: KR
+State or Province Name (full name) []: [값 없이 ENTER]
+Locality Name (eg, city) [Default City]: Seoul
+Organization Name (eg, company) [Default Company Ltd]: TEST company Inc.,
+Organizational Unit Name (eg, section) []: Cert team
+Common Name (eg, your name or your server's hostname) []: your.domain.com
+Email Address []: &lt;a href="javascript:sendform('user','email.com','');"&gt;user&amp;#0064;email.com&lt;/a&gt;
+[root@tom ssl]$ 
+[/code]
+
+이렇게 인증서 생성 후, 서버 설정은 현재 상태로 나두시고, (동일한 경로에 인증서 생성 했으니
+설정 변경 필요 없을 겁니다...) apache를 재시작 해 주십시오.
+
+다음, ssl 설정을 한 호스트에서(오차를 줄이기 위함입니다.) curl test와 openssl s_client test
+결과를 다시 올려 주세요. openssl s_client 를 실행 시켰을 경우에 base64로 인코딩된 인증서
+출력이 되어야 합니다.
+
+위의 설정 처럼 했을 경우, 서버 설정을 동일하게 하고 테스트를 했을 하면 apache debug log에는
+다음과 같이 남습니다. (curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;)
+
+[code]
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection to child 0 established (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb90] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 16 03 01 00 a5 01 00 00-a1 03 03                 ...........      |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 159/159 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb9e] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 2b a1 2c 09 29 1e 1a 8c-1e 67 e0 e6 db 1b 59 82  +.,.)....g....Y. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0010: ee 37 71 e9 c7 07 72 c5-55 d1 66 5b 20 d1 6b c0  .7q...r.U.f[ .k. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0020: 00 00 2e c0 2b c0 2f 00-9e 00 9c c0 0a c0 14 00  ....+./......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0030: 39 00 6b 00 38 00 35 00-3d c0 09 c0 13 00 33 00  9.k.8.5.=.....3. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0040: 67 00 32 00 2f 00 3c 00-05 00 04 00 16 00 13 00  g.2./.&amp;lt;......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0050: 0a 01 00 00 4a 00 00 00-15 00 13 00 00 10 61 6e  ....J.........an |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0060: 32 2e 70 6b 67 2e 6f 6f-70 73 2e 6f 72 67 ff 01  2.pkg.oops.org.. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0070: 00 01 00 00 0a 00 08 00-06 00 17 00 18 00 19 00  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0080: 0b 00 02 01 00 00 0d 00-16 00 14 04 01 05 01 06  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0090: 01 02 01 04 03 05 03 06-03 02 03 04 02 02 02     ...............  |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1955): [client 172.16.13.3] SSL virtual host for servername an2.pkg.oops.org found
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 read client hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write key exchange A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server done A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 flush data
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 5/5 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb93] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 15 03 03 00 02                                   .....            |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 2/2 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb98] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 02 30                                            .0               |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1847): OpenSSL: Read: SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1866): OpenSSL: Exit: failed in SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] SSL library error 1 in handshake (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] SSL Library Error: 336151576 error:14094418:SSL routines:SSL3_READ_BYTES:tlsv1 alert unknown ca
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection closed to child 0 with abortive shutdown (server an2.pkg.oops.org:443)
+[/code]
+
+curl -v &lt;a href="https://domain.com" target="_blank"&gt;https://domain.com&lt;/a&gt; 의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;
+* About to connect() to an2.pkg.oops.org port 443 (#0)
+*   Trying 172.16.13.3... connected
+* Connected to an2.pkg.oops.org (172.16.13.3) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* Certificate is signed by an untrusted issuer: 'E=&lt;a href="javascript:sendform('admin','oops.org','');"&gt;admin&amp;#0064;oops.org&lt;/a&gt;,CN=an2.pkg.oops.org,OU=Cert Team,O=OOPS.ORG,L=Seoul,C=KR'
+* NSS error -8172
+* Closing connection #0
+* Peer certificate cannot be authenticated with known CA certificates
+curl: (60) Peer certificate cannot be authenticated with known CA certificates
+More details here: &lt;a href="http://curl.haxx.se/docs/sslcerts.html" target="_blank"&gt;http://curl.haxx.se/docs/sslcerts.html&lt;/a&gt;
+
+curl performs SSL certificate verification by default, using a &amp;quot;bundle&amp;quot;
+ of Certificate Authority (CA) public keys (CA certs). If the default
+ bundle file isn't adequate, you can specify an alternate file
+ using the --cacert option.
+If this HTTPS server uses a certificate signed by a CA represented in
+ the bundle, the certificate verification probably failed due to a
+ problem with the certificate (it might be expired, or the name might
+ not match the domain name in the URL).
+If you'd like to turn off curl's verification of the certificate, use
+ the -k (or --insecure) option.
+[root@an2 zzz]#
+[/code]
+
+이 에러는 인증서가 CA sign이 되어 있지 않기 때문에 발생하는 문제로,
+--insecure 옵션을 주면 페이지 출력이 되게 됩니다. 이 테스트를 좀 더
+의미있게 하시려면, self sign CA 인증서를 만드셔서 sign을 하든지 또는
+공인 인증서로 테스트 하시기 바랍니다. (wosign.com 이나 lets encrypt,
+startssl을 이용하면 무료로 공인 SSL 인증서를 발급 받을 수 있습니다.
+개인적으로는 wosign이나 startssl을 선호합니다. lets-encrypt는 서버에
+X package를 설치하라고 강요를 해서..)
+
+물론, 이 메시지와 희태님의 curl 결과 메시지는 전혀 다른 것입니다.
+희태님이 올려주신 결과는 말 그대로 SSL 서비스가 제대로 되지 않는
+상태 입니다.
+
+openssl s_client test의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# openssl s_client -connect an2.pkg.oops.org:443 | openssl x509
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify return:1
+-----BEGIN CERTIFICATE-----
+MIIDxzCCAq+gAwIBAgIBADANBgkqhkiG9w0BAQsFADB+MQswCQYDVQQGEwJLUjEO
+MAwGA1UEBwwFU2VvdWwxETAPBgNVBAoMCE9PUFMuT1JHMRIwEAYDVQQLDAlDZXJ0
+IFRlYW0xGTAXBgNVBAMMEGFuMi5wa2cub29wcy5vcmcxHTAbBgkqhkiG9w0BCQEW
+DmFkbWluQG9vcHMub3JnMB4XDTE2MDUyNjE2NTE1M1oXDTE3MDUyNjE2NTE1M1ow
+fjELMAkGA1UEBhMCS1IxDjAMBgNVBAcMBVNlb3VsMREwDwYDVQQKDAhPT1BTLk9S
+RzESMBAGA1UECwwJQ2VydCBUZWFtMRkwFwYDVQQDDBBhbjIucGtnLm9vcHMub3Jn
+MR0wGwYJKoZIhvcNAQkBFg5hZG1pbkBvb3BzLm9yZzCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBALKyUTnuZmpsSU7RimQshTYgtRFQEFy8UaOxECKj3wXO
+DAdVvl8wVE/6s/gfVEpgMG8USCwbWtjTfPqRXqAbkw8Wy/GYT/mHLJpFngGDfs1W
+qO1wn+BFAR8ioGLX0UkcvWVQ20hMIvHzZaMmcyaGcYN2L27PgO0Xmq7zAQRY0KOB
+5UUy2UxcejtUHGFttAEp4AqOAIAGERBDYW7U60JJGokRp0S5q/4QCbQybkNmz85Q
+9S5wRhcaLvtzAy81ZCL7eQ/zmRHYelqcAGRICmukfyMtvPFpBHBllorbazMAWyre
+N1GFlK1re0L76JaqHtHrAimotGq86nfv1v8YJ2exuTcCAwEAAaNQME4wHQYDVR0O
+BBYEFA6D260MmaKoj1kMHILLGLs11OJFMB8GA1UdIwQYMBaAFA6D260MmaKoj1kM
+HILLGLs11OJFMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAB2cCRNj
+HRbTHkFC1zZgtq81b1Sdm0dri9xq68oqS9pi/HzBF903OWMbLzQ1FDBuHCBb/s0E
+z/kzENvDByLrBAUcaBsPFXWa573Wv/Iul+cnjShN966EweoIOZf3M6VSz2Rj1+QV
+rhT9UpyFO+IAS647sfqJwK1prG3PlUAPkGXvg4r0vIL9m1qrUFAMsFKLouEwAlT7
+c8eIU8tFb77dRVYbCEYeTyUEqxQ5fosBojIKPP3U6tApdx7uF1RS3AXWm7DKRdLU
+3bPyDiq9by0ohytQ6jqzitbjgUvEjc+W8JG5mpDDeg0bYvzT4oF22VM3FOU01IbK
+uIDgve3mtYwrmmg=
+-----END CERTIFICATE-----
+quit
+[root@an2 zzz]#
+[/code]
+
+위의 결과 처럼 openssl s_client 명령 실행시에, base64 인코딩된 서버 인증서가 출력이 된다면,
+테스트에 크게 문제가 없습니다. 아파치 로그는 SSLv3 로 실패하고 TSL 1.2로 진행한 것이니까요.
+
+일단, 이 조건에서의 결과를 보고 다시 한번 판단을 해 봐야 할 듯 싶습니다.[/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 27 May 2016 10:38:48 +0900</pubdate>
+<dc:creator>손희태</dc:creator>
+</item>
+<item>
+<title>Re^4: 보안서버 ssl 적용중 오류 문의입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53466
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53466</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53466 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53466&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53466 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53466&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+일단, 먼저 ca-certificates 패키지 중 변경되거나 제거된 파일이 있는지 확인 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -V ca-certificates
+[/code]
+
+아무런 결과가 나오지 않았으면 싶군요 ^^; 만약 변경되거나 제거된 파일이 있다면, 삭제 후
+재설치를 해 주세요.
+
+[code]
+[root@tom ~]$ rpm -e --nodeps ca-certificates
+[root@tom ~]$ yum install ca-certificates
+[/code]
+
+다음, 인증서를 다음의 명령으로 생성해 주세요.
+
+[code]
+[root@tom ~]$ cd /home1/id/ssl
+[root@tom ssl]$ openssl genrsa -aes128 2048 &amp;gt; ssl.key.encrypt
+Generating RSA private key, 2048 bit long modulus
+.............................+++
+...............................................+++
+e is 65537 (0x10001)
+Enter pass phrase: [암호입력]
+Verifying - Enter pass phrase: [암호재입력]
+[root@tom ssl]$ 
+[root@tom ssl]$ # ssl.key 암호 제거
+[root@tom ssl]$ openssl rsa -in ssl.key.encrypt -out ssl.key
+Enter pass phrase for server.key: [ssl.key.encrytp 암호 입력]
+writing RSA key
+[root@tom ssl]$ 
+[root@tom ssl]$ # 인증서 생성
+[root@tom ssl]$ /usr/bin/openssl req -utf8 -new -key server.key -x509 -sha256 -days 3650 -out server.crt -set_serial 0
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]: KR
+State or Province Name (full name) []: [값 없이 ENTER]
+Locality Name (eg, city) [Default City]: Seoul
+Organization Name (eg, company) [Default Company Ltd]: TEST company Inc.,
+Organizational Unit Name (eg, section) []: Cert team
+Common Name (eg, your name or your server's hostname) []: your.domain.com
+Email Address []: &lt;a href="javascript:sendform('user','email.com','');"&gt;user&amp;#0064;email.com&lt;/a&gt;
+[root@tom ssl]$ 
+[/code]
+
+이렇게 인증서 생성 후, 서버 설정은 현재 상태로 나두시고, (동일한 경로에 인증서 생성 했으니
+설정 변경 필요 없을 겁니다...) apache를 재시작 해 주십시오.
+
+다음, ssl 설정을 한 호스트에서(오차를 줄이기 위함입니다.) curl test와 openssl s_client test
+결과를 다시 올려 주세요. openssl s_client 를 실행 시켰을 경우에 base64로 인코딩된 인증서
+출력이 되어야 합니다.
+
+위의 설정 처럼 했을 경우, 서버 설정을 동일하게 하고 테스트를 했을 하면 apache debug log에는
+다음과 같이 남습니다. (curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;)
+
+[code]
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection to child 0 established (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb90] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 16 03 01 00 a5 01 00 00-a1 03 03                 ...........      |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 159/159 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb9e] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 2b a1 2c 09 29 1e 1a 8c-1e 67 e0 e6 db 1b 59 82  +.,.)....g....Y. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0010: ee 37 71 e9 c7 07 72 c5-55 d1 66 5b 20 d1 6b c0  .7q...r.U.f[ .k. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0020: 00 00 2e c0 2b c0 2f 00-9e 00 9c c0 0a c0 14 00  ....+./......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0030: 39 00 6b 00 38 00 35 00-3d c0 09 c0 13 00 33 00  9.k.8.5.=.....3. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0040: 67 00 32 00 2f 00 3c 00-05 00 04 00 16 00 13 00  g.2./.&amp;lt;......... |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0050: 0a 01 00 00 4a 00 00 00-15 00 13 00 00 10 61 6e  ....J.........an |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0060: 32 2e 70 6b 67 2e 6f 6f-70 73 2e 6f 72 67 ff 01  2.pkg.oops.org.. |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0070: 00 01 00 00 0a 00 08 00-06 00 17 00 18 00 19 00  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0080: 0b 00 02 01 00 00 0d 00-16 00 14 04 01 05 01 06  ................ |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0090: 01 02 01 04 03 05 03 06-03 02 03 04 02 02 02     ...............  |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1955): [client 172.16.13.3] SSL virtual host for servername an2.pkg.oops.org found
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 read client hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server hello A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write key exchange A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 write server done A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: SSLv3 flush data
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 5/5 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb93] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 15 03 03 00 02                                   .....            |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 2/2 bytes from BIO#7f95dbdb5520 [mem: 7f95dbdbcb98] (BIO dump follows)
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1934): | 0000: 02 30                                            .0               |
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1847): OpenSSL: Read: SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [debug] ssl_engine_kernel.c(1866): OpenSSL: Exit: failed in SSLv3 read client certificate A
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] SSL library error 1 in handshake (server an2.pkg.oops.org:443)
+[Fri May 27 02:03:31 2016] [info] SSL Library Error: 336151576 error:14094418:SSL routines:SSL3_READ_BYTES:tlsv1 alert unknown ca
+[Fri May 27 02:03:31 2016] [info] [client 172.16.13.3] Connection closed to child 0 with abortive shutdown (server an2.pkg.oops.org:443)
+[/code]
+
+curl -v &lt;a href="https://domain.com" target="_blank"&gt;https://domain.com&lt;/a&gt; 의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# curl --verbose &lt;a href="https://an2.pkg.oops.org/" target="_blank"&gt;https://an2.pkg.oops.org/&lt;/a&gt;
+* About to connect() to an2.pkg.oops.org port 443 (#0)
+*   Trying 172.16.13.3... connected
+* Connected to an2.pkg.oops.org (172.16.13.3) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* Certificate is signed by an untrusted issuer: 'E=&lt;a href="javascript:sendform('admin','oops.org','');"&gt;admin&amp;#0064;oops.org&lt;/a&gt;,CN=an2.pkg.oops.org,OU=Cert Team,O=OOPS.ORG,L=Seoul,C=KR'
+* NSS error -8172
+* Closing connection #0
+* Peer certificate cannot be authenticated with known CA certificates
+curl: (60) Peer certificate cannot be authenticated with known CA certificates
+More details here: &lt;a href="http://curl.haxx.se/docs/sslcerts.html" target="_blank"&gt;http://curl.haxx.se/docs/sslcerts.html&lt;/a&gt;
+
+curl performs SSL certificate verification by default, using a &amp;quot;bundle&amp;quot;
+ of Certificate Authority (CA) public keys (CA certs). If the default
+ bundle file isn't adequate, you can specify an alternate file
+ using the --cacert option.
+If this HTTPS server uses a certificate signed by a CA represented in
+ the bundle, the certificate verification probably failed due to a
+ problem with the certificate (it might be expired, or the name might
+ not match the domain name in the URL).
+If you'd like to turn off curl's verification of the certificate, use
+ the -k (or --insecure) option.
+[root@an2 zzz]#
+[/code]
+
+이 에러는 인증서가 CA sign이 되어 있지 않기 때문에 발생하는 문제로,
+--insecure 옵션을 주면 페이지 출력이 되게 됩니다. 이 테스트를 좀 더
+의미있게 하시려면, self sign CA 인증서를 만드셔서 sign을 하든지 또는
+공인 인증서로 테스트 하시기 바랍니다. (wosign.com 이나 lets encrypt,
+startssl을 이용하면 무료로 공인 SSL 인증서를 발급 받을 수 있습니다.
+개인적으로는 wosign이나 startssl을 선호합니다. lets-encrypt는 서버에
+X package를 설치하라고 강요를 해서..)
+
+물론, 이 메시지와 희태님의 curl 결과 메시지는 전혀 다른 것입니다.
+희태님이 올려주신 결과는 말 그대로 SSL 서비스가 제대로 되지 않는
+상태 입니다.
+
+openssl s_client test의 결과는 다음과 같습니다.
+
+[code]
+[root@an2 zzz]# openssl s_client -connect an2.pkg.oops.org:443 | openssl x509
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 C = KR, L = Seoul, O = OOPS.ORG, OU = Cert Team, CN = an2.pkg.oops.org, emailAddress = &lt;a href="javascript:sendform('user','email.org','');"&gt;user&amp;#0064;email.org&lt;/a&gt;
+verify return:1
+-----BEGIN CERTIFICATE-----
+MIIDxzCCAq+gAwIBAgIBADANBgkqhkiG9w0BAQsFADB+MQswCQYDVQQGEwJLUjEO
+MAwGA1UEBwwFU2VvdWwxETAPBgNVBAoMCE9PUFMuT1JHMRIwEAYDVQQLDAlDZXJ0
+IFRlYW0xGTAXBgNVBAMMEGFuMi5wa2cub29wcy5vcmcxHTAbBgkqhkiG9w0BCQEW
+DmFkbWluQG9vcHMub3JnMB4XDTE2MDUyNjE2NTE1M1oXDTE3MDUyNjE2NTE1M1ow
+fjELMAkGA1UEBhMCS1IxDjAMBgNVBAcMBVNlb3VsMREwDwYDVQQKDAhPT1BTLk9S
+RzESMBAGA1UECwwJQ2VydCBUZWFtMRkwFwYDVQQDDBBhbjIucGtnLm9vcHMub3Jn
+MR0wGwYJKoZIhvcNAQkBFg5hZG1pbkBvb3BzLm9yZzCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBALKyUTnuZmpsSU7RimQshTYgtRFQEFy8UaOxECKj3wXO
+DAdVvl8wVE/6s/gfVEpgMG8USCwbWtjTfPqRXqAbkw8Wy/GYT/mHLJpFngGDfs1W
+qO1wn+BFAR8ioGLX0UkcvWVQ20hMIvHzZaMmcyaGcYN2L27PgO0Xmq7zAQRY0KOB
+5UUy2UxcejtUHGFttAEp4AqOAIAGERBDYW7U60JJGokRp0S5q/4QCbQybkNmz85Q
+9S5wRhcaLvtzAy81ZCL7eQ/zmRHYelqcAGRICmukfyMtvPFpBHBllorbazMAWyre
+N1GFlK1re0L76JaqHtHrAimotGq86nfv1v8YJ2exuTcCAwEAAaNQME4wHQYDVR0O
+BBYEFA6D260MmaKoj1kMHILLGLs11OJFMB8GA1UdIwQYMBaAFA6D260MmaKoj1kM
+HILLGLs11OJFMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAB2cCRNj
+HRbTHkFC1zZgtq81b1Sdm0dri9xq68oqS9pi/HzBF903OWMbLzQ1FDBuHCBb/s0E
+z/kzENvDByLrBAUcaBsPFXWa573Wv/Iul+cnjShN966EweoIOZf3M6VSz2Rj1+QV
+rhT9UpyFO+IAS647sfqJwK1prG3PlUAPkGXvg4r0vIL9m1qrUFAMsFKLouEwAlT7
+c8eIU8tFb77dRVYbCEYeTyUEqxQ5fosBojIKPP3U6tApdx7uF1RS3AXWm7DKRdLU
+3bPyDiq9by0ohytQ6jqzitbjgUvEjc+W8JG5mpDDeg0bYvzT4oF22VM3FOU01IbK
+uIDgve3mtYwrmmg=
+-----END CERTIFICATE-----
+quit
+[root@an2 zzz]#
+[/code]
+
+위의 결과 처럼 openssl s_client 명령 실행시에, base64 인코딩된 서버 인증서가 출력이 된다면,
+테스트에 크게 문제가 없습니다. 아파치 로그는 SSLv3 로 실패하고 TSL 1.2로 진행한 것이니까요.
+
+일단, 이 조건에서의 결과를 보고 다시 한번 판단을 해 봐야 할 듯 싶습니다.
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 27 May 2016 02:17:33 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>Re^3: 보안서버 ssl 적용중 오류 문의입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53465
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53465</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53465 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53465&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53465 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53465&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+하.. 직접 서버를 살펴 보지 않고는 시간이 꽤 걸릴 일인 듯 싶군요.
+
+저는 처음. client 환경 문제고 생각을 했습니다. 에러 메시지로 보아서 client가
+SSL v2 또는 SSL v3 protocol 을 이용한다고 판단을 했는데, 결과를 보니 애매하네요.
+
+일단, SSL 설정을 한 서버가 안녕 2.5 이고, curl, openssl s_client 를 실행한
+서버도 안녕 2.5 인가요?
+
+openssl s_client 결과를 보아서는, 현재 명확한 건 client 측의 openssl 이
+무언가 SSL v2 또는 v3 protocol을 강제하는 무언가가 있는 것 같습니다.
+
+제가 안녕 1로 테스트를 했을 때도 TLS 1.1을 이용할 수 있음에도 불구하고,
+SSL v2/v3 protocol을 시도를 한다는 것은 무언가 환경적인 문제가 있다고
+보여지기 때문입니다.
+
+즉, 인증서 문제 이전의 다른 문제라고 보인다는 것이죠. 일단, 배포본에서
+제공한 것 외의 다른 무언가의 작업이 영향을 미칠만한 것이 없는지 생각해
+보세요.
+
+P.S.
+급하신 건이라면 시간당 10만원 정도의 pay로 서버에 직접 로그인 해서
+문제를 해결해 드릴 수 있습니다.
+
+
+[quote=&amp;quot;손희태&amp;quot;]남겨주신 3가지 사항에 대해 업데이트 하여 보았습니다.
+ssl.conf 수정, yum update , 인증서 sha256 으로 재생성(사설)
+
+다만 아직 정상화가 되지 않네요.ㅠㅠ
+
+ssl.conf 파일에 해당 프로토콜 조정 옵션을 삽입하였습니다. (일부발췌)
+
+[code]
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+    Listen  443
+
+    SSLPassPhraseDialog  builtin
+    SSLRandomSeed startup file:/dev/urandom  256
+    SSLRandomSeed connect builtin
+
+    SSLProtocol ALL -SSLv2 -SSLv3
+    SSLHonorCipherOrder On
+    SSLCipherSuite ECDH+AESGCM:ECDH+AES256:ECDH+AES128:ECDH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL
+    SSLCompression off
+...
+--- 일부발췌 end ---
+[/code]
+
+서버 업데이트를 모두 하여 보았습니다.
+
+yum -y update [enter]
+[root@tom ~]# yum -y update
+Loaded plugins: fastestmirror
+Setting up Update Process
+Loading mirror speeds from cached hostfile
+Including mirror: mirror.oops.org
+ * AN:addon: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:base: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:core: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:php55: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:src: mirror.oops.org
+Including mirror: centos.tt.co.kr
+Including mirror: ftp.kaist.ac.kr
+Including mirror: ftp.daumkakao.com
+ * base: centos.tt.co.kr
+Including mirror: ftp.kaist.ac.kr
+Including mirror: ftp.daumkakao.com
+ * extras: ftp.kaist.ac.kr
+Including mirror: ftp.kaist.ac.kr
+Including mirror: ftp.daumkakao.com
+ * updates: ftp.kaist.ac.kr
+No Packages marked for Update
+
+인증서 sha2 체크를 위해 사설 인증서를 새로 생성하여
+다시 테스트를 하였습니다.
+
+[code]
+openssl genrsa 2048 &amp;gt; key.pem
+openssl req -new -key key.pem &amp;gt; csr.pem
+openssl req -x509 -nodes -sha256 -key key.pem -days 3600 -in csr.pem -out cert.pem
+cp -a key.pem ssl.key
+cp -a cert.pem ssl.crt
+[/code]
+
+vshost.conf --- 파일내용 ---
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+NameVirtualHost *:443
+&amp;lt;VirtualHost *:443&amp;gt;
+        DocumentRoot /home1/id/public_html
+        ServerName domain.com
+        SSLEngine on
+    SSLCertificateFile /home1/id/ssl/ssl.crt
+    SSLCertificateKeyFile /home1/id/ssl/ssl.key
+        CustomLog logs/domain.com-access_log combined
+        ErrorLog logs/domain.com-error_log
+        LogLevel debug
+&amp;lt;/VirtualHost&amp;gt;
+&amp;lt;/IfModule&amp;gt;
+--- 파일 end ---
+
+설정 조정을 했는데, 아직 문제가 그대로 있네요. error_log
+
+[code]
+[Thu May 26 11:06:58 2016] [info] [client 127.0.0.1] Connection to child 17 established (server domain.com:443)
+[Thu May 26 11:06:58 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7fb56e3cd760 [mem: 7fb56e3d2dc0] (BIO dump follows)
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Thu May 26 11:06:58 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server domain.com:443)
+[Thu May 26 11:06:58 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Thu May 26 11:06:58 2016] [info] [client 127.0.0.1] Connection closed to child 17 with abortive shutdown (server domain.com:443)
+^C
+
+[root@tom ~]# curl -v &lt;a href="https://domain.com" target="_blank"&gt;https://domain.com&lt;/a&gt; [enter]
+* About to connect() to domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+
+[root@tom ~]# openssl s_client -connect domain.com:443 | openssl x509 [enter]
+140373221951304:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:769:
+unable to load certificate
+139904003123016:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: TRUSTED CERTIFICATE
+[/code]
+
+curl 및 openssl 로 대상 도메인을 oops.org 로 테스트 할 경우에는, 
+잘 보입니다. ;;
+
+
+
+[root@tom ~]# pstree
+init-+-atd
+     |-crond-+-2*[crond---bash---sleep]
+     |       `-crond---bash---daemonwatch---sleep
+     |-dovecot-+-anvil
+     |         |-2*[auth]
+     |         |-config
+     |         `-log
+     |-httpd---57*[httpd]
+     |-irqbalance
+     |-6*[mingetty]
+     |-mysqld_safe---mysqld---23*[{mysqld}]
+     |-rsyslogd---3*[{rsyslogd}]
+     |-saslauthd---4*[saslauthd]
+     |-2*[sendmail]
+     |-snmpd
+     |-sshd---bash---sleep
+     |-2*[sshd---sshd---bash---vim]
+     |-sshd---sshd---bash---pstree
+     |-sshd---bash
+     |-udevd
+     `-xinetd
+
+
+[root@tom ~]# nmap --script ssl-enum-ciphers -p 443 localhost
+
+Starting Nmap 5.51 ( &lt;a href="http://nmap.org" target="_blank"&gt;http://nmap.org&lt;/a&gt; ) at 2016-05-26 14:23 KST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00047s latency).
+PORT    STATE SERVICE
+443/tcp open  https
+| ssl-enum-ciphers:
+|   TLSv1.0
+|     Ciphers (6)
+|       TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|       TLS_RSA_WITH_AES_256_CBC_SHA
+|     Compressors (1)
+|       uncompressed
+|   TLSv1.1
+|     Ciphers (6)
+|       TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|       TLS_RSA_WITH_AES_256_CBC_SHA
+|     Compressors (1)
+|       uncompressed
+|   TLSv1.2
+|     Ciphers (14)
+|       TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+|       TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384
+|       TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA256
+|       TLS_RSA_WITH_AES_128_GCM_SHA256
+|       TLS_RSA_WITH_AES_256_CBC_SHA
+|       TLS_RSA_WITH_AES_256_CBC_SHA256
+|       TLS_RSA_WITH_AES_256_GCM_SHA384
+|     Compressors (1)
+|_      uncompressed
+
+Nmap done: 1 IP address (1 host up) scanned in 3.07 seconds
+
+
+[root@tom ~]# rpm -qa|grep ssl
+openssl-1.0.1e-42.el6_7.4.x86_64
+nss_compat_ossl-0.9.6-2.el6_7.x86_64
+nss_compat_ossl-devel-0.9.6-2.el6_7.x86_64
+openssl-devel-1.0.1e-42.el6_7.4.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+
+
+
+
+
+[quote=&amp;quot;김정균&amp;quot;]서버 update 상태는 최신 상태 인가요? protocol 에러가 발생하는 걸로 보아서는 최근에
+설치를 하셨거나 업데이트를 잘 하고 계신듯 ..
+
+에러 메시지로 보아서는 SSLv2/v3의 보안 취약성 때문에 라이브러리들이 이 버전의
+protocol은 제한하고 있어서 발생하는 문제로 보입니다.
+
+ssl.conf 에 다음 내용 추가해 줘 보세요.
+
+SSLProtocol ALL -SSLv2 -SSLv3
+SSLHonorCipherOrder On
+SSLCipherSuite ECDH+AESGCM:ECDH+AES256:ECDH+AES128:ECDH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL
+SSLCompression off
+
+SSLCipherSuite 은 짧지만 최대한 구글이랑 비슷하게 나오도록 조합한 것입니다. &lt;a href="https://www.ssllabs.com/ssltest/" target="_blank"&gt;https://www.ssllabs.com/ssltest/&lt;/a&gt; 테스트에서 A+ 나오는 조합이니 그냥 사용하셔도
+무방할 겁니다. (장현성님이 나름 고민해서 만든 조합입니다. ^^ &lt;a href="https://www.ssllabs.com/ssltest/analyze.html?d=oops.org" target="_blank"&gt;https://www.ssllabs.com/ssltest/analyze.html?d=oops.org&lt;/a&gt;)
+SSLLabs test에서 A+을 받으려면 Strict Transport Security 헤더 설정을 해 줘야 하는데,
+이 헤더가 브라우저에게 이 사이트는 SSL 지원하니 무조건 SSL로 연결해.. 라는 옵션이므로
+함부로 사용할 설정은 아니니 A+까지는 고민 하지 마시고 A 정도로 유지하시면 됩니다.
+위의 설정을 추가하는 것으로, 인증서 SHA1 sign 문제만 없다면 A grade는 나올 겁니다.
+
+또한, 인증서 Signature algorithm이 SHA1 일 경우에도 유효기간에 따라 문제가 될 수 있습니다.
+요즘 최신 browser들이 sha1로 sign된 인증서들을 퇴출 시도를 하고 있기 때문에 인증서가
+sha1로 sign 되어 있다면 인증서를 변경 하시는 것이 좋습니다. SHA1 문제가 있는 인증서의 경우,
+cert에 얘기를 하면 유효기간 동일하게 sha2로 sign한 인증서를 재 발급 해 줄 겁니다.
+&amp;quot;SSL 인증서 SHA1&amp;quot; 으로 검색해 보시면, 이에 대한 문서들을 찾을 수 있습니다.
+
+P.S.
+안녕 2로 테스트 중이시라면, 안녕 3을 고려해 보시기 바랍니다. 안녕 3에서는
+http2 protocol을 기본으로 사용하실 수 있습니다. CentOS 7/RHEL 7에서는 기본으로
+지원을 안하죠. openssl를 1.0.2로 업그레이드 해야 하는데, 안녕 3은 http2에 필요한
+ALPN 기능을 back porting 해서 지원하고 있습니다.
+
+httpd (event mpm) + fastcgi + http2 로 구성을 해 보시는 것도 괜찮을 겁니다. :-)
+&lt;a href="https://joungkyun.gitbooks.io/annyung-3-user-guide/content/chapter3-1-httpd.html" target="_blank"&gt;https://joungkyun.gitbooks.io/annyung-3-user-guide/content/chapter3-1-httpd.html&lt;/a&gt;
+문서를 참고 하세요.
+
+특히, 안녕 3은 안녕 2의 가장 큰 문제점인 &amp;quot;문서화&amp;quot;를 제공하고 있습니다. RHEL이나
+CentOS에서 제공하지 못하는 많은 유용한 기능들이 있으니 안녕 리눅스 3 사용자 가이드
+문서를 참고 하셉시오. (안녕 2 운영에도 참고 하실 수 있습니다.)
+
+
+[quote=&amp;quot;손희태&amp;quot;]안녕하세요. (__)
+현재 안녕2.5 버젼을 사용하고 있습니다.
+
+보안서버 ssl 적용을 테스트 중인데, 정상 서비스가 안되어, 글을 드립니다.
+
+기존에 안녕1.x 버젼으로 ssl 서비스를 하고 있어 별다른 문제가 없겠지 했는데
+쉽지 않네요;;
+
+에러유형은, 웹브라우져에서는 http 접근시 정상이나 https 접근시 ERR_CONNECTION_CLOSED 로
+페이지를 열지 못하고 있습니다. 아래는 콘솔에서 접근시 에러입니다.
+
+root]# curl -v &lt;a href="https://www.domain.com" target="_blank"&gt;https://www.domain.com&lt;/a&gt; [enter] 도메인명은 임의로 넣었습니다.
+* About to connect() to www.domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to www.domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+root]# openssl s_client -connect www.domain.com:443|openssl x509 [enter]
+11843:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:467:
+unable to load certificate
+11844:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:666:Expecting: TRUSTED CERTIFICATE
+
+oops_firewall 는 데몬을 끈 상태로 테스트중입니다.
+iptables -F 로 모두 초기화 상태로 테스트 하였습니다.
+
+[root@tom user.d]# netstat -anp|grep http
+tcp        0      0 0.0.0.0:443                 0.0.0.0:*                   LISTEN      21332/httpd
+tcp        0      0 0.0.0.0:80                  0.0.0.0:*                   LISTEN      21332/httpd
+
+
+
+아래는 서버 설정 내역 입니다.
+이전 어느분의 문의 답변글을 참조하여,
+/etc/httpd/conf/user.d/vshost.conf 로 파일을 만들어 설정중입니다.
+
+/etc
+
+--- 파일내용 ---
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+NameVirtualHost *:443
+
+&amp;lt;VirtualHost *:443&amp;gt;
+    SSLEngine on
+    SSLCertificateFile /home1/id/ssl/ssl.crt
+    SSLCertificateKeyFile /home1/id/ssl/ssl.key.nopass
+    SSLCACertificateFile /home1/id/ssl/ssl.ca
+    SSLCertificateChainFile /home1/id/ssl/ssl.chain
+        ServerName www.domain.com
+        ServerAlias domain.com
+        DocumentRoot /home1/id/public_html
+        ErrorLog logs/domain.com-error_log
+        LogLevel debug
+        CustomLog logs/domain.com-access_log combined
+&amp;lt;/VirtualHost&amp;gt;
+&amp;lt;/IfModule&amp;gt;
+--- 파일내용 end ---
+
+
+conf.d/ssl.conf 는 기본 값을 사용중입니다.
+--- 파일내용 ---
+LoadModule  ssl_module  modules/mod_ssl.so
+
+AddType application/x-x509-ca-cert  .crt
+AddType application/x-pkcs7-crl     .crl
+
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+    Listen  443
+
+    SSLPassPhraseDialog  builtin
+    SSLRandomSeed startup file:/dev/urandom  256
+    SSLRandomSeed connect builtin
+    SSLSessionCache         dbm:/var/cache/mod_ssl/ssl_scache
+    SSLSessionCacheTimeout  10
+    SSLMutex    file:/var/cache/mod_ssl/ssl_mutex
+&amp;lt;/IfModule&amp;gt;
+--- 파일내용 end ---
+
+/etc/init.d/httpd restart 로 적용시 에러 내용은 따로 없습니다.
+
+error_log 중 일부입니다. (loglevel debug)
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f74c3ea5540 [mem: 7f74c4dc1c80] (BIO dump follows)
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Thu May 26 00:39:11 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server www.domain.com:443)
+[Thu May 26 00:39:11 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Thu May 26 00:39:11 2016] [info] [client 127.0.0.1] Connection closed to child 51 with abortive shutdown (server www.domain.com:443)
+
+아파치는 nobody 가 아닌 apache 유저,그룹으로 설정하여 운영중입니다.
+혹시 몰라 /var/cache/mod_ssl/ 소유권을 nobody 가 아닌 apache 로 조정도 하여 보았습니다.
+
+[root@tom ~]# rpm -qa|grep httpd
+httpd-devel-2.2.31-1.an2.x86_64
+httpd-tools-2.2.31-1.an2.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+httpd-2.2.31-1.an2.x86_64
+httpd-manual-2.2.31-1.an2.x86_64
+httpd-url-1.21-1.an2.x86_64
+httpd-conf-1.4-2.an2.noarch
+
+[root@tom conf.d]# cat LoadImbededModule.conf
+LoadModule      auth_basic_module               modules/mod_auth_basic.so
+LoadModule      authn_file_module               modules/mod_authn_file.so
+LoadModule      authn_default_module    modules/mod_authn_default.so
+LoadModule      authz_host_module               modules/mod_authz_host.so
+LoadModule      authz_groupfile_module  modules/mod_authz_groupfile.so
+LoadModule      authz_default_module    modules/mod_authz_default.so
+LoadModule      include_module                  modules/mod_include.so
+LoadModule      env_module                              modules/mod_env.so
+LoadModule      headers_module                  modules/mod_headers.so
+LoadModule      autoindex_module                modules/mod_autoindex.so
+LoadModule      rewrite_module                  modules/mod_rewrite.so
+
+LoadModule      auth_digest_module              modules/mod_auth_digest.so
+LoadModule      authn_alias_module              modules/mod_authn_alias.so
+LoadModule      authn_anon_module               modules/mod_authn_anon.so
+LoadModule      authn_dbm_module                modules/mod_authn_dbm.so
+LoadModule      authz_user_module               modules/mod_authz_user.so
+LoadModule      authz_owner_module              modules/mod_authz_owner.so
+LoadModule      authz_dbm_module                modules/mod_authz_dbm.so
+LoadModule      ldap_module                             modules/mod_ldap.so
+LoadModule      authnz_ldap_module              modules/mod_authnz_ldap.so
+LoadModule      logio_module                    modules/mod_logio.so
+LoadModule      ext_filter_module               modules/mod_ext_filter.so
+LoadModule      mime_magic_module               modules/mod_mime_magic.so
+LoadModule      expires_module                  modules/mod_expires.so
+LoadModule      deflate_module                  modules/mod_deflate.so
+#LoadModule     usertrack_module                modules/mod_usertrack.so
+#LoadModule     dav_module                              modules/mod_dav.so
+LoadModule      info_module                             modules/mod_info.so
+#LoadModule     dav_fs_module                   modules/mod_dav_fs.so
+LoadModule      vhost_alias_module              modules/mod_vhost_alias.so
+#LoadModule     negotiation_module              modules/mod_negotiation.so
+#LoadModule     actions_module                  modules/mod_actions.so
+#LoadModule     speling_module                  modules/mod_speling.so
+LoadModule      userdir_module                  modules/mod_userdir.so
+#LoadModule     proxy_module                    modules/mod_proxy.so
+#LoadModule     proxy_balancer_module   modules/mod_proxy_balancer.so
+#LoadModule     proxy_ftp_module                modules/mod_proxy_ftp.so
+#LoadModule     proxy_http_module               modules/mod_proxy_http.so
+#LoadModule     proxy_connect_module    modules/mod_proxy_connect.so
+LoadModule      cache_module                    modules/mod_cache.so
+LoadModule      suexec_module                   modules/mod_suexec.so
+LoadModule      disk_cache_module               modules/mod_disk_cache.so
+LoadModule      file_cache_module               modules/mod_file_cache.so
+LoadModule      mem_cache_module                modules/mod_mem_cache.so
+LoadModule      cgi_module                              modules/mod_cgi.so
+#LoadModule     version_module                  modules/mod_version.so
+#LoadModule proxy_ajp_module            modules/mod_proxy_ajp.so
+
+[root@tom conf.d]# cat url.conf
+LoadModule redurl_module                modules/mod_url.so
+&amp;lt;IfModule mod_url.c&amp;gt;
+        CheckURL        On
+        ServerEncoding  EUC-KR
+        ClientEncoding  UTF-8
+&amp;lt;/IfModule&amp;gt;
+
+인증서의 문제인가 싶어, 로컬에서 사설 인증서를 만들어 테스트를 해봐도, 동일하게 에러가 발생합니다.
+
+그외 관련 작동에 관여되는 환경 파일이 있다면, 좀더 올리도록 하겠습니다.
+감사합니다. (__);[/quote][/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Fri, 27 May 2016 01:44:53 +0900</pubdate>
+<dc:creator>김정균</dc:creator>
+</item>
+<item>
+<title>보안서버 ssl 적용중 오류 문의입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53461
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53461</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53461 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53461&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53461 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53461&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+안녕하세요. (__)
+현재 안녕2.5 버젼을 사용하고 있습니다.
+
+보안서버 ssl 적용을 테스트 중인데, 정상 서비스가 안되어, 글을 드립니다.
+
+기존에 안녕1.x 버젼으로 ssl 서비스를 하고 있어 별다른 문제가 없겠지 했는데
+쉽지 않네요;;
+
+에러유형은, 웹브라우져에서는 http 접근시 정상이나 https 접근시 ERR_CONNECTION_CLOSED 로
+페이지를 열지 못하고 있습니다. 아래는 콘솔에서 접근시 에러입니다.
+
+[code]
+root]# curl -v &lt;a href="https://www.domain.com" target="_blank"&gt;https://www.domain.com&lt;/a&gt; [enter] 도메인명은 임의로 넣었습니다.
+* About to connect() to www.domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to www.domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+root]# openssl s_client -connect www.domain.com:443|openssl x509 [enter]
+11843:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:467:
+unable to load certificate
+11844:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:666:Expecting: TRUSTED CERTIFICATE
+[/code]
+
+oops_firewall 는 데몬을 끈 상태로 테스트중입니다.
+iptables -F 로 모두 초기화 상태로 테스트 하였습니다.
+
+[root@tom user.d]# netstat -anp|grep http
+tcp        0      0 0.0.0.0:443                 0.0.0.0:*                   LISTEN      21332/httpd
+tcp        0      0 0.0.0.0:80                  0.0.0.0:*                   LISTEN      21332/httpd
+
+
+
+아래는 서버 설정 내역 입니다.
+이전 어느분의 문의 답변글을 참조하여,
+/etc/httpd/conf/user.d/vshost.conf 로 파일을 만들어 설정중입니다.
+
+[code]
+--- 파일내용 ---
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+NameVirtualHost *:443
+
+&amp;lt;VirtualHost *:443&amp;gt;
+    SSLEngine on
+    SSLCertificateFile /home1/id/ssl/ssl.crt
+    SSLCertificateKeyFile /home1/id/ssl/ssl.key.nopass
+    SSLCACertificateFile /home1/id/ssl/ssl.ca
+    SSLCertificateChainFile /home1/id/ssl/ssl.chain
+        ServerName www.domain.com
+        ServerAlias domain.com
+        DocumentRoot /home1/id/public_html
+        ErrorLog logs/domain.com-error_log
+        LogLevel debug
+        CustomLog logs/domain.com-access_log combined
+&amp;lt;/VirtualHost&amp;gt;
+&amp;lt;/IfModule&amp;gt;
+--- 파일내용 end ---
+[/code]
+
+conf.d/ssl.conf 는 기본 값을 사용중입니다.
+
+[code]
+--- 파일내용 ---
+LoadModule  ssl_module  modules/mod_ssl.so
+
+AddType application/x-x509-ca-cert  .crt
+AddType application/x-pkcs7-crl     .crl
+
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+    Listen  443
+
+    SSLPassPhraseDialog  builtin
+    SSLRandomSeed startup file:/dev/urandom  256
+    SSLRandomSeed connect builtin
+    SSLSessionCache         dbm:/var/cache/mod_ssl/ssl_scache
+    SSLSessionCacheTimeout  10
+    SSLMutex    file:/var/cache/mod_ssl/ssl_mutex
+&amp;lt;/IfModule&amp;gt;
+--- 파일내용 end ---
+[/code]
+
+/etc/init.d/httpd restart 로 적용시 에러 내용은 따로 없습니다.
+
+error_log 중 일부입니다. (loglevel debug)
+
+[code]
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f74c3ea5540 [mem: 7f74c4dc1c80] (BIO dump follows)
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Thu May 26 00:39:11 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server www.domain.com:443)
+[Thu May 26 00:39:11 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Thu May 26 00:39:11 2016] [info] [client 127.0.0.1] Connection closed to child 51 with abortive shutdown (server www.domain.com:443)
+[/code]
+
+아파치는 nobody 가 아닌 apache 유저,그룹으로 설정하여 운영중입니다.
+혹시 몰라 /var/cache/mod_ssl/ 소유권을 nobody 가 아닌 apache 로 조정도 하여 보았습니다.
+
+[code]
+[root@tom ~]# rpm -qa|grep httpd
+httpd-devel-2.2.31-1.an2.x86_64
+httpd-tools-2.2.31-1.an2.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+httpd-2.2.31-1.an2.x86_64
+httpd-manual-2.2.31-1.an2.x86_64
+httpd-url-1.21-1.an2.x86_64
+httpd-conf-1.4-2.an2.noarch
+
+[root@tom conf.d]# cat LoadImbededModule.conf
+LoadModule      auth_basic_module               modules/mod_auth_basic.so
+LoadModule      authn_file_module               modules/mod_authn_file.so
+LoadModule      authn_default_module    modules/mod_authn_default.so
+LoadModule      authz_host_module               modules/mod_authz_host.so
+LoadModule      authz_groupfile_module  modules/mod_authz_groupfile.so
+LoadModule      authz_default_module    modules/mod_authz_default.so
+LoadModule      include_module                  modules/mod_include.so
+LoadModule      env_module                              modules/mod_env.so
+LoadModule      headers_module                  modules/mod_headers.so
+LoadModule      autoindex_module                modules/mod_autoindex.so
+LoadModule      rewrite_module                  modules/mod_rewrite.so
+
+LoadModule      auth_digest_module              modules/mod_auth_digest.so
+LoadModule      authn_alias_module              modules/mod_authn_alias.so
+LoadModule      authn_anon_module               modules/mod_authn_anon.so
+LoadModule      authn_dbm_module                modules/mod_authn_dbm.so
+LoadModule      authz_user_module               modules/mod_authz_user.so
+LoadModule      authz_owner_module              modules/mod_authz_owner.so
+LoadModule      authz_dbm_module                modules/mod_authz_dbm.so
+LoadModule      ldap_module                             modules/mod_ldap.so
+LoadModule      authnz_ldap_module              modules/mod_authnz_ldap.so
+LoadModule      logio_module                    modules/mod_logio.so
+LoadModule      ext_filter_module               modules/mod_ext_filter.so
+LoadModule      mime_magic_module               modules/mod_mime_magic.so
+LoadModule      expires_module                  modules/mod_expires.so
+LoadModule      deflate_module                  modules/mod_deflate.so
+#LoadModule     usertrack_module                modules/mod_usertrack.so
+#LoadModule     dav_module                              modules/mod_dav.so
+LoadModule      info_module                             modules/mod_info.so
+#LoadModule     dav_fs_module                   modules/mod_dav_fs.so
+LoadModule      vhost_alias_module              modules/mod_vhost_alias.so
+#LoadModule     negotiation_module              modules/mod_negotiation.so
+#LoadModule     actions_module                  modules/mod_actions.so
+#LoadModule     speling_module                  modules/mod_speling.so
+LoadModule      userdir_module                  modules/mod_userdir.so
+#LoadModule     proxy_module                    modules/mod_proxy.so
+#LoadModule     proxy_balancer_module   modules/mod_proxy_balancer.so
+#LoadModule     proxy_ftp_module                modules/mod_proxy_ftp.so
+#LoadModule     proxy_http_module               modules/mod_proxy_http.so
+#LoadModule     proxy_connect_module    modules/mod_proxy_connect.so
+LoadModule      cache_module                    modules/mod_cache.so
+LoadModule      suexec_module                   modules/mod_suexec.so
+LoadModule      disk_cache_module               modules/mod_disk_cache.so
+LoadModule      file_cache_module               modules/mod_file_cache.so
+LoadModule      mem_cache_module                modules/mod_mem_cache.so
+LoadModule      cgi_module                              modules/mod_cgi.so
+#LoadModule     version_module                  modules/mod_version.so
+#LoadModule proxy_ajp_module            modules/mod_proxy_ajp.so
+
+[root@tom conf.d]# cat url.conf
+LoadModule redurl_module                modules/mod_url.so
+&amp;lt;IfModule mod_url.c&amp;gt;
+        CheckURL        On
+        ServerEncoding  EUC-KR
+        ClientEncoding  UTF-8
+&amp;lt;/IfModule&amp;gt;
+[/code]
+
+인증서의 문제인가 싶어, 로컬에서 사설 인증서를 만들어 테스트를 해봐도, 동일하게 에러가 발생합니다.
+
+그외 관련 작동에 관여되는 환경 파일이 있다면, 좀더 올리도록 하겠습니다.
+감사합니다. (__);
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Thu, 26 May 2016 20:08:43 +0900</pubdate>
+<dc:creator>손희태</dc:creator>
+</item>
+<item>
+<title>Re^2: 보안서버 ssl 적용중 오류 문의입니다.</title>
+<link/>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53463
+  <guid>http://oops.org/SERVICE/jsboard/read.php?table=jsboard_oopsQnA&amp;no=53463</guid>
+<description>&lt;table width="100%" border=0 cellpadding=0 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td style="font-weight: bold; color: #ffffff"&gt;
+REPLY : &lt;a href=http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53463 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/reply.php?table=jsboard_oopsQnA&amp;no=53463&lt;/a&gt;&lt;br /&gt;
+DELETE: &lt;a href=http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53463 style="color: #ffffff; text-decoration: none;"&gt;http://oops.org/SERVICE/jsboard/delete.php?table=jsboard_oopsQnA&amp;no=53463&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td bgcolor="#000000"&gt;
+&lt;table width="100%" border=0 cellpadding=3 cellspacing=1&gt;
+&lt;tr&gt;&lt;td bgcolor="#ffffff" style="font-size: 11px;"&gt;&lt;pre&gt;
+남겨주신 3가지 사항에 대해 업데이트 하여 보았습니다.
+ssl.conf 수정, yum update , 인증서 sha256 으로 재생성(사설)
+
+다만 아직 정상화가 되지 않네요.ㅠㅠ
+
+ssl.conf 파일에 해당 프로토콜 조정 옵션을 삽입하였습니다. (일부발췌)
+
+[code]
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+    Listen  443
+
+    SSLPassPhraseDialog  builtin
+    SSLRandomSeed startup file:/dev/urandom  256
+    SSLRandomSeed connect builtin
+
+    SSLProtocol ALL -SSLv2 -SSLv3
+    SSLHonorCipherOrder On
+    SSLCipherSuite ECDH+AESGCM:ECDH+AES256:ECDH+AES128:ECDH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL
+    SSLCompression off
+...
+--- 일부발췌 end ---
+[/code]
+
+서버 업데이트를 모두 하여 보았습니다.
+
+yum -y update [enter]
+[root@tom ~]# yum -y update
+Loaded plugins: fastestmirror
+Setting up Update Process
+Loading mirror speeds from cached hostfile
+Including mirror: mirror.oops.org
+ * AN:addon: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:base: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:core: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:php55: mirror.oops.org
+Including mirror: mirror.oops.org
+ * AN:src: mirror.oops.org
+Including mirror: centos.tt.co.kr
+Including mirror: ftp.kaist.ac.kr
+Including mirror: ftp.daumkakao.com
+ * base: centos.tt.co.kr
+Including mirror: ftp.kaist.ac.kr
+Including mirror: ftp.daumkakao.com
+ * extras: ftp.kaist.ac.kr
+Including mirror: ftp.kaist.ac.kr
+Including mirror: ftp.daumkakao.com
+ * updates: ftp.kaist.ac.kr
+No Packages marked for Update
+
+인증서 sha2 체크를 위해 사설 인증서를 새로 생성하여
+다시 테스트를 하였습니다.
+
+[code]
+openssl genrsa 2048 &amp;gt; key.pem
+openssl req -new -key key.pem &amp;gt; csr.pem
+openssl req -x509 -nodes -sha256 -key key.pem -days 3600 -in csr.pem -out cert.pem
+cp -a key.pem ssl.key
+cp -a cert.pem ssl.crt
+[/code]
+
+vshost.conf --- 파일내용 ---
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+NameVirtualHost *:443
+&amp;lt;VirtualHost *:443&amp;gt;
+        DocumentRoot /home1/id/public_html
+        ServerName domain.com
+        SSLEngine on
+    SSLCertificateFile /home1/id/ssl/ssl.crt
+    SSLCertificateKeyFile /home1/id/ssl/ssl.key
+        CustomLog logs/domain.com-access_log combined
+        ErrorLog logs/domain.com-error_log
+        LogLevel debug
+&amp;lt;/VirtualHost&amp;gt;
+&amp;lt;/IfModule&amp;gt;
+--- 파일 end ---
+
+설정 조정을 했는데, 아직 문제가 그대로 있네요. error_log
+
+[code]
+[Thu May 26 11:06:58 2016] [info] [client 127.0.0.1] Connection to child 17 established (server domain.com:443)
+[Thu May 26 11:06:58 2016] [info] Seeding PRNG with 144 bytes of entropy
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7fb56e3cd760 [mem: 7fb56e3d2dc0] (BIO dump follows)
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Thu May 26 11:06:58 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Thu May 26 11:06:58 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server domain.com:443)
+[Thu May 26 11:06:58 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Thu May 26 11:06:58 2016] [info] [client 127.0.0.1] Connection closed to child 17 with abortive shutdown (server domain.com:443)
+^C
+
+[root@tom ~]# curl -v &lt;a href="https://domain.com" target="_blank"&gt;https://domain.com&lt;/a&gt; [enter]
+* About to connect() to domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+
+[root@tom ~]# openssl s_client -connect domain.com:443 | openssl x509 [enter]
+140373221951304:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:769:
+unable to load certificate
+139904003123016:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: TRUSTED CERTIFICATE
+[/code]
+
+curl 및 openssl 로 대상 도메인을 oops.org 로 테스트 할 경우에는, 
+잘 보입니다. ;;
+
+
+
+[root@tom ~]# pstree
+init-+-atd
+     |-crond-+-2*[crond---bash---sleep]
+     |       `-crond---bash---daemonwatch---sleep
+     |-dovecot-+-anvil
+     |         |-2*[auth]
+     |         |-config
+     |         `-log
+     |-httpd---57*[httpd]
+     |-irqbalance
+     |-6*[mingetty]
+     |-mysqld_safe---mysqld---23*[{mysqld}]
+     |-rsyslogd---3*[{rsyslogd}]
+     |-saslauthd---4*[saslauthd]
+     |-2*[sendmail]
+     |-snmpd
+     |-sshd---bash---sleep
+     |-2*[sshd---sshd---bash---vim]
+     |-sshd---sshd---bash---pstree
+     |-sshd---bash
+     |-udevd
+     `-xinetd
+
+
+[root@tom ~]# nmap --script ssl-enum-ciphers -p 443 localhost
+
+Starting Nmap 5.51 ( &lt;a href="http://nmap.org" target="_blank"&gt;http://nmap.org&lt;/a&gt; ) at 2016-05-26 14:23 KST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00047s latency).
+PORT    STATE SERVICE
+443/tcp open  https
+| ssl-enum-ciphers:
+|   TLSv1.0
+|     Ciphers (6)
+|       TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|       TLS_RSA_WITH_AES_256_CBC_SHA
+|     Compressors (1)
+|       uncompressed
+|   TLSv1.1
+|     Ciphers (6)
+|       TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|       TLS_RSA_WITH_AES_256_CBC_SHA
+|     Compressors (1)
+|       uncompressed
+|   TLSv1.2
+|     Ciphers (14)
+|       TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+|       TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+|       TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384
+|       TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+|       TLS_RSA_WITH_3DES_EDE_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|       TLS_RSA_WITH_AES_128_CBC_SHA256
+|       TLS_RSA_WITH_AES_128_GCM_SHA256
+|       TLS_RSA_WITH_AES_256_CBC_SHA
+|       TLS_RSA_WITH_AES_256_CBC_SHA256
+|       TLS_RSA_WITH_AES_256_GCM_SHA384
+|     Compressors (1)
+|_      uncompressed
+
+Nmap done: 1 IP address (1 host up) scanned in 3.07 seconds
+
+
+[root@tom ~]# rpm -qa|grep ssl
+openssl-1.0.1e-42.el6_7.4.x86_64
+nss_compat_ossl-0.9.6-2.el6_7.x86_64
+nss_compat_ossl-devel-0.9.6-2.el6_7.x86_64
+openssl-devel-1.0.1e-42.el6_7.4.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+
+
+
+
+
+[quote=&amp;quot;김정균&amp;quot;]서버 update 상태는 최신 상태 인가요? protocol 에러가 발생하는 걸로 보아서는 최근에
+설치를 하셨거나 업데이트를 잘 하고 계신듯 ..
+
+에러 메시지로 보아서는 SSLv2/v3의 보안 취약성 때문에 라이브러리들이 이 버전의
+protocol은 제한하고 있어서 발생하는 문제로 보입니다.
+
+ssl.conf 에 다음 내용 추가해 줘 보세요.
+
+SSLProtocol ALL -SSLv2 -SSLv3
+SSLHonorCipherOrder On
+SSLCipherSuite ECDH+AESGCM:ECDH+AES256:ECDH+AES128:ECDH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL
+SSLCompression off
+
+SSLCipherSuite 은 짧지만 최대한 구글이랑 비슷하게 나오도록 조합한 것입니다. &lt;a href="https://www.ssllabs.com/ssltest/" target="_blank"&gt;https://www.ssllabs.com/ssltest/&lt;/a&gt; 테스트에서 A+ 나오는 조합이니 그냥 사용하셔도
+무방할 겁니다. (장현성님이 나름 고민해서 만든 조합입니다. ^^ &lt;a href="https://www.ssllabs.com/ssltest/analyze.html?d=oops.org" target="_blank"&gt;https://www.ssllabs.com/ssltest/analyze.html?d=oops.org&lt;/a&gt;)
+SSLLabs test에서 A+을 받으려면 Strict Transport Security 헤더 설정을 해 줘야 하는데,
+이 헤더가 브라우저에게 이 사이트는 SSL 지원하니 무조건 SSL로 연결해.. 라는 옵션이므로
+함부로 사용할 설정은 아니니 A+까지는 고민 하지 마시고 A 정도로 유지하시면 됩니다.
+위의 설정을 추가하는 것으로, 인증서 SHA1 sign 문제만 없다면 A grade는 나올 겁니다.
+
+또한, 인증서 Signature algorithm이 SHA1 일 경우에도 유효기간에 따라 문제가 될 수 있습니다.
+요즘 최신 browser들이 sha1로 sign된 인증서들을 퇴출 시도를 하고 있기 때문에 인증서가
+sha1로 sign 되어 있다면 인증서를 변경 하시는 것이 좋습니다. SHA1 문제가 있는 인증서의 경우,
+cert에 얘기를 하면 유효기간 동일하게 sha2로 sign한 인증서를 재 발급 해 줄 겁니다.
+&amp;quot;SSL 인증서 SHA1&amp;quot; 으로 검색해 보시면, 이에 대한 문서들을 찾을 수 있습니다.
+
+P.S.
+안녕 2로 테스트 중이시라면, 안녕 3을 고려해 보시기 바랍니다. 안녕 3에서는
+http2 protocol을 기본으로 사용하실 수 있습니다. CentOS 7/RHEL 7에서는 기본으로
+지원을 안하죠. openssl를 1.0.2로 업그레이드 해야 하는데, 안녕 3은 http2에 필요한
+ALPN 기능을 back porting 해서 지원하고 있습니다.
+
+httpd (event mpm) + fastcgi + http2 로 구성을 해 보시는 것도 괜찮을 겁니다. :-)
+&lt;a href="https://joungkyun.gitbooks.io/annyung-3-user-guide/content/chapter3-1-httpd.html" target="_blank"&gt;https://joungkyun.gitbooks.io/annyung-3-user-guide/content/chapter3-1-httpd.html&lt;/a&gt;
+문서를 참고 하세요.
+
+특히, 안녕 3은 안녕 2의 가장 큰 문제점인 &amp;quot;문서화&amp;quot;를 제공하고 있습니다. RHEL이나
+CentOS에서 제공하지 못하는 많은 유용한 기능들이 있으니 안녕 리눅스 3 사용자 가이드
+문서를 참고 하셉시오. (안녕 2 운영에도 참고 하실 수 있습니다.)
+
+
+[quote=&amp;quot;손희태&amp;quot;]안녕하세요. (__)
+현재 안녕2.5 버젼을 사용하고 있습니다.
+
+보안서버 ssl 적용을 테스트 중인데, 정상 서비스가 안되어, 글을 드립니다.
+
+기존에 안녕1.x 버젼으로 ssl 서비스를 하고 있어 별다른 문제가 없겠지 했는데
+쉽지 않네요;;
+
+에러유형은, 웹브라우져에서는 http 접근시 정상이나 https 접근시 ERR_CONNECTION_CLOSED 로
+페이지를 열지 못하고 있습니다. 아래는 콘솔에서 접근시 에러입니다.
+
+root]# curl -v &lt;a href="https://www.domain.com" target="_blank"&gt;https://www.domain.com&lt;/a&gt; [enter] 도메인명은 임의로 넣었습니다.
+* About to connect() to www.domain.com port 443 (#0)
+*   Trying 61.111.254.244... connected
+* Connected to www.domain.com (61.111.254.244) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* NSS error -12263
+* Closing connection #0
+* SSL connect error
+curl: (35) SSL connect error
+
+root]# openssl s_client -connect www.domain.com:443|openssl x509 [enter]
+11843:error:140770FC:SSL routines:SSL23_GET_SERVER_HELLO:unknown protocol:s23_clnt.c:467:
+unable to load certificate
+11844:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:666:Expecting: TRUSTED CERTIFICATE
+
+oops_firewall 는 데몬을 끈 상태로 테스트중입니다.
+iptables -F 로 모두 초기화 상태로 테스트 하였습니다.
+
+[root@tom user.d]# netstat -anp|grep http
+tcp        0      0 0.0.0.0:443                 0.0.0.0:*                   LISTEN      21332/httpd
+tcp        0      0 0.0.0.0:80                  0.0.0.0:*                   LISTEN      21332/httpd
+
+
+
+아래는 서버 설정 내역 입니다.
+이전 어느분의 문의 답변글을 참조하여,
+/etc/httpd/conf/user.d/vshost.conf 로 파일을 만들어 설정중입니다.
+
+/etc
+
+--- 파일내용 ---
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+NameVirtualHost *:443
+
+&amp;lt;VirtualHost *:443&amp;gt;
+    SSLEngine on
+    SSLCertificateFile /home1/id/ssl/ssl.crt
+    SSLCertificateKeyFile /home1/id/ssl/ssl.key.nopass
+    SSLCACertificateFile /home1/id/ssl/ssl.ca
+    SSLCertificateChainFile /home1/id/ssl/ssl.chain
+        ServerName www.domain.com
+        ServerAlias domain.com
+        DocumentRoot /home1/id/public_html
+        ErrorLog logs/domain.com-error_log
+        LogLevel debug
+        CustomLog logs/domain.com-access_log combined
+&amp;lt;/VirtualHost&amp;gt;
+&amp;lt;/IfModule&amp;gt;
+--- 파일내용 end ---
+
+
+conf.d/ssl.conf 는 기본 값을 사용중입니다.
+--- 파일내용 ---
+LoadModule  ssl_module  modules/mod_ssl.so
+
+AddType application/x-x509-ca-cert  .crt
+AddType application/x-pkcs7-crl     .crl
+
+&amp;lt;IfModule mod_ssl.c&amp;gt;
+    Listen  443
+
+    SSLPassPhraseDialog  builtin
+    SSLRandomSeed startup file:/dev/urandom  256
+    SSLRandomSeed connect builtin
+    SSLSessionCache         dbm:/var/cache/mod_ssl/ssl_scache
+    SSLSessionCacheTimeout  10
+    SSLMutex    file:/var/cache/mod_ssl/ssl_mutex
+&amp;lt;/IfModule&amp;gt;
+--- 파일내용 end ---
+
+/etc/init.d/httpd restart 로 적용시 에러 내용은 따로 없습니다.
+
+error_log 중 일부입니다. (loglevel debug)
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1834): OpenSSL: Handshake: start
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1842): OpenSSL: Loop: before/accept initialization
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1962): OpenSSL: read 11/11 bytes from BIO#7f74c3ea5540 [mem: 7f74c4dc1c80] (BIO dump follows)
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1895): +-------------------------------------------------------------------------+
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1934): | 0000: 4f 50 54 49 4f 4e 53 20-2a 20 48                 OPTIONS * H      |
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_io.c(1940): +-------------------------------------------------------------------------+
+[Thu May 26 00:39:11 2016] [debug] ssl_engine_kernel.c(1871): OpenSSL: Exit: error in SSLv2/v3 read client hello A
+[Thu May 26 00:39:11 2016] [info] [client 127.0.0.1] SSL library error 1 in handshake (server www.domain.com:443)
+[Thu May 26 00:39:11 2016] [info] SSL Library Error: 336027900 error:140760FC:SSL routines:SSL23_GET_CLIENT_HELLO:unknown protocol speaking not SSL to HTTPS port!?
+[Thu May 26 00:39:11 2016] [info] [client 127.0.0.1] Connection closed to child 51 with abortive shutdown (server www.domain.com:443)
+
+아파치는 nobody 가 아닌 apache 유저,그룹으로 설정하여 운영중입니다.
+혹시 몰라 /var/cache/mod_ssl/ 소유권을 nobody 가 아닌 apache 로 조정도 하여 보았습니다.
+
+[root@tom ~]# rpm -qa|grep httpd
+httpd-devel-2.2.31-1.an2.x86_64
+httpd-tools-2.2.31-1.an2.x86_64
+httpd-ssl-2.2.31-1.an2.x86_64
+httpd-2.2.31-1.an2.x86_64
+httpd-manual-2.2.31-1.an2.x86_64
+httpd-url-1.21-1.an2.x86_64
+httpd-conf-1.4-2.an2.noarch
+
+[root@tom conf.d]# cat LoadImbededModule.conf
+LoadModule      auth_basic_module               modules/mod_auth_basic.so
+LoadModule      authn_file_module               modules/mod_authn_file.so
+LoadModule      authn_default_module    modules/mod_authn_default.so
+LoadModule      authz_host_module               modules/mod_authz_host.so
+LoadModule      authz_groupfile_module  modules/mod_authz_groupfile.so
+LoadModule      authz_default_module    modules/mod_authz_default.so
+LoadModule      include_module                  modules/mod_include.so
+LoadModule      env_module                              modules/mod_env.so
+LoadModule      headers_module                  modules/mod_headers.so
+LoadModule      autoindex_module                modules/mod_autoindex.so
+LoadModule      rewrite_module                  modules/mod_rewrite.so
+
+LoadModule      auth_digest_module              modules/mod_auth_digest.so
+LoadModule      authn_alias_module              modules/mod_authn_alias.so
+LoadModule      authn_anon_module               modules/mod_authn_anon.so
+LoadModule      authn_dbm_module                modules/mod_authn_dbm.so
+LoadModule      authz_user_module               modules/mod_authz_user.so
+LoadModule      authz_owner_module              modules/mod_authz_owner.so
+LoadModule      authz_dbm_module                modules/mod_authz_dbm.so
+LoadModule      ldap_module                             modules/mod_ldap.so
+LoadModule      authnz_ldap_module              modules/mod_authnz_ldap.so
+LoadModule      logio_module                    modules/mod_logio.so
+LoadModule      ext_filter_module               modules/mod_ext_filter.so
+LoadModule      mime_magic_module               modules/mod_mime_magic.so
+LoadModule      expires_module                  modules/mod_expires.so
+LoadModule      deflate_module                  modules/mod_deflate.so
+#LoadModule     usertrack_module                modules/mod_usertrack.so
+#LoadModule     dav_module                              modules/mod_dav.so
+LoadModule      info_module                             modules/mod_info.so
+#LoadModule     dav_fs_module                   modules/mod_dav_fs.so
+LoadModule      vhost_alias_module              modules/mod_vhost_alias.so
+#LoadModule     negotiation_module              modules/mod_negotiation.so
+#LoadModule     actions_module                  modules/mod_actions.so
+#LoadModule     speling_module                  modules/mod_speling.so
+LoadModule      userdir_module                  modules/mod_userdir.so
+#LoadModule     proxy_module                    modules/mod_proxy.so
+#LoadModule     proxy_balancer_module   modules/mod_proxy_balancer.so
+#LoadModule     proxy_ftp_module                modules/mod_proxy_ftp.so
+#LoadModule     proxy_http_module               modules/mod_proxy_http.so
+#LoadModule     proxy_connect_module    modules/mod_proxy_connect.so
+LoadModule      cache_module                    modules/mod_cache.so
+LoadModule      suexec_module                   modules/mod_suexec.so
+LoadModule      disk_cache_module               modules/mod_disk_cache.so
+LoadModule      file_cache_module               modules/mod_file_cache.so
+LoadModule      mem_cache_module                modules/mod_mem_cache.so
+LoadModule      cgi_module                              modules/mod_cgi.so
+#LoadModule     version_module                  modules/mod_version.so
+#LoadModule proxy_ajp_module            modules/mod_proxy_ajp.so
+
+[root@tom conf.d]# cat url.conf
+LoadModule redurl_module                modules/mod_url.so
+&amp;lt;IfModule mod_url.c&amp;gt;
+        CheckURL        On
+        ServerEncoding  EUC-KR
+        ClientEncoding  UTF-8
+&amp;lt;/IfModule&amp;gt;
+
+인증서의 문제인가 싶어, 로컬에서 사설 인증서를 만들어 테스트를 해봐도, 동일하게 에러가 발생합니다.
+
+그외 관련 작동에 관여되는 환경 파일이 있다면, 좀더 올리도록 하겠습니다.
+감사합니다. (__);[/quote][/quote]
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+<pubdate>Thu, 26 May 2016 16:22:47 +0900</pubdate>
+<dc:creator>손희태</dc:creator>
+</item>
+</channel>
+</rss>
+</body></html>

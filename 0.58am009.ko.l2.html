@@ -1,0 +1,825 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Mirrored from woosum.net/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Nov 2016 23:28:27 GMT -->
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Your wish is my command</title>
+<meta content="WordPress 4.6.1" name="generator"/>
+<meta content="follow, all" name="robots"/>
+<link href="http://blog.woosum.net/wp-content/themes/idream/favicon.ico" rel="shortcut icon"/>
+<link href="http://blog.woosum.net/wp-content/themes/idream/style.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="http://blog.woosum.net/feed" rel="alternate" title="Your wish is my command RSS Feed" type="application/rss+xml"/>
+<link href="http://blog.woosum.net/xmlrpc.php" rel="pingback"/>
+<!--[if IE]><link rel="stylesheet" href="http://blog.woosum.net/wp-content/themes/idream/css/ie.css" type="text/css" media="screen" /><![endif]-->
+<!-- All in One SEO Pack 2.3.9.2 by Michael Torbert of Semper Fi Web Design[310,341] -->
+<meta content="ansible,hardware,virtualization,cloud,networking,openstack,sdn,ironic,잡담,mpls,opencontrail,haproxy,neutron,scheduler,migrate,nova,resize" name="keywords"/>
+<link href="http://blog.woosum.net/page/2" rel="next"/>
+<link href="http://blog.woosum.net/" rel="canonical"/>
+<meta content="Your wish is my command" property="og:title"/>
+<meta content="http://blog.woosum.net/" property="og:url"/>
+<meta content="http://blog.woosum.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" property="og:image"/>
+<meta content="Your wish is my command" property="og:site_name"/>
+<meta content="ansible 모듈에 신기하게도 network interface addres를 설정하는 모듈이 없다. 물론 mncli라는 모듈은 있지만 이것은 network manager를 사용하는 모듈인데, 서버에서는 network manager를 사용하지 않는 경우가 많아서 쓰기가 그렇다. 그래서 간단하게 ip 명령을 이용한 모듈을 만들어 봤다. 자신의 playbook의 library 디렉토리에 복사해서 사용하면 된다. 사용법은 아주 심플하다... - ipaddr: name=iface_name addr=10.10.10.10/32 모듈 개발은 http://docs.ansible.com/ansible/developing_modules.html 에 자세히 설명이 되어 있고, 간단하게 요약하자면.. 각 모듈은 독립적인 실행 스크립트이고 stdin으로 json parameter가 오고, stdout으로 json response를 보내면 된다. ansible.module_utils.basic.AnsibleModule 인스턴스를 만들어서 ansible과 통신하고, 성공하면 module.exit_jsoin(), 실패하면 module.fail_json(msg='')를 실행한다. check_mode를 지원하면, 변경이 필요한 경우에만 실행한다. 테스트하는 방법이 좀 그렇다. 제가 osx를 사용하는데 리눅스 대상으로 실행해야 해서 docker를 사용해서 했다. ps. interface에는 address를 복수로 설정할 수 있는데, 현 상황에서는 별로 필요없어서 넣지 않았다." property="og:description"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Your wish is my command" name="twitter:title"/>
+<meta content="ansible 모듈에 신기하게도 network interface addres를 설정하는 모듈이 없다. 물론 mncli라는 모듈은 있지만 이것은 network manager를 사용하는 모듈인데, 서버에서는 network manager를 사용하지 않는 경우가 많아서 쓰기가 그렇다. 그래서 간단하게 ip 명령을 이용한 모듈을 만들어 봤다. 자신의 playbook의 library 디렉토리에 복사해서 사용하면 된다. 사용법은 아주 심플하다... - ipaddr: name=iface_name addr=10.10.10.10/32 모듈 개발은 http://docs.ansible.com/ansible/developing_modules.html 에 자세히 설명이 되어 있고, 간단하게 요약하자면.. 각 모듈은 독립적인 실행 스크립트이고 stdin으로 json parameter가 오고, stdout으로 json response를 보내면 된다. ansible.module_utils.basic.AnsibleModule 인스턴스를 만들어서 ansible과 통신하고, 성공하면 module.exit_jsoin(), 실패하면 module.fail_json(msg='')를 실행한다. check_mode를 지원하면, 변경이 필요한 경우에만 실행한다. 테스트하는 방법이 좀 그렇다. 제가 osx를 사용하는데 리눅스 대상으로 실행해야 해서 docker를 사용해서 했다. ps. interface에는 address를 복수로 설정할 수 있는데, 현 상황에서는 별로 필요없어서 넣지 않았다." name="twitter:description"/>
+<meta content="http://blog.woosum.net/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" name="twitter:image"/>
+<!-- /all in one seo pack -->
+<link href="http://blog.woosum.net/" rel="dns-prefetch"/>
+<link href="http://s.w.org/" rel="dns-prefetch"/>
+
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link href="http://blog.woosum.net/wp-content/plugins/footnotes-for-wordpress/footnote-voodoo.css?ver=2016.0826" id="footnote-voodoo-css" media="all" rel="stylesheet" type="text/css"/>
+<link href="http://blog.woosum.net/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.5.1" id="contact-form-7-css" media="all" rel="stylesheet" type="text/css"/>
+
+
+
+
+<link href="../../blog.woosum.net/2f/wp-json/index.html" rel="https://api.w.org/"/>
+<link href="http://blog.woosum.net/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+<link href="http://blog.woosum.net/wp-includes/wlwmanifest.xml" rel="wlwmanifest" type="application/wlwmanifest+xml"/>
+<meta content="WordPress 4.6.1" name="generator"/>
+<style type="text/css">
+
+	.footnote-indicator:before {
+		content: url(http://blog.woosum.net/wp-content/plugins/footnotes-for-wordpress/footnoted.png);
+		width: 10px;
+		height: 10px;
+	}
+	ol.footnotes li {
+		background: #eeeeee url(http://blog.woosum.net/wp-content/plugins/footnotes-for-wordpress/note.png) 0px 0px repeat-x;
+	}
+</style>
+
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style><style id="syntaxhighlighteranchor" type="text/css"></style>
+<!-- Google Analytics Tracking by Google Analyticator 6.5.0: http://www.videousermanuals.com/google-analyticator/ -->
+
+
+<style>.ios7.web-app-mode.has-fixed header{ background-color: rgba(3,122,221,.88);}</style>
+
+<!-- this product is released under General Public License. Please see the attached file for details. You can also find details about the license at http://www.opensource.org/licenses/gpl-license.php -->
+
+</head><body>
+<div align="center" id="wrapper">
+<div id="layouttop"></div>
+<!-- Header Starts -->
+<div id="header">
+<div id="headerleft">
+<h1><a href="http://blog.woosum.net/">Your wish is my command</a></h1><h3>whitekid's blog</h3>
+</div>
+<div id="headerright">
+<div id="rssboxo">
+<a href="http://blog.woosum.net/feed">RSS Feed</a>
+</div>
+</div>
+</div>
+<!-- Header Ends -->
+<!-- Main nav Starts here -->
+<div id="navouter">
+<div id="nav">
+<ul id="dropmenu">
+<li class="page_item current_page_item"><a href="http://blog.woosum.net/">Home</a></li>
+<li class="page_item page-item-412"><a href="http://blog.woosum.net/wordpress-plugins-ports">www/wordpress-plugins</a></li>
+<li class="page_item page-item-530"><a href="http://blog.woosum.net/pgdbx4">pgdbx4 – dbExpress driver for PostgreSQL</a></li>
+<li class="page_item page-item-565"><a href="http://blog.woosum.net/timesync">TimeSync</a></li>
+<li class="page_item page-item-624"><a href="http://blog.woosum.net/contact">Contact to me</a></li>
+<li class="page_item page-item-207"><a href="http://blog.woosum.net/wordpress_themes">www/wordpress-themes</a></li>
+</ul>
+</div>
+</div>
+<!-- Main nav Ends -->
+<div id="outerwrapper">
+<div id="innerwrapper">
+<!-- Contents Starts here -->
+<!-- main column Starts here -->
+<div id="maincol">
+<div class="postwrap post-1569 post type-post status-publish format-standard hentry category-uncategorized tag-ansible">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">28</div>
+<div class="pmonth">Sep/16</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1569">network network ineterface address 설정하는 ansible module: ipaddr.py</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>ansible 모듈에 신기하게도 network interface addres를 설정하는 모듈이 없다. 물론 mncli라는 모듈은 있지만 이것은 network manager를 사용하는 모듈인데, 서버에서는 network manager를 사용하지 않는 경우가 많아서 쓰기가 그렇다.</p>
+<p>그래서 간단하게 ip 명령을 이용한 모듈을 만들어 봤다. 자신의 playbook의 library 디렉토리에 복사해서 사용하면 된다.</p>
+<p>사용법은 아주 심플하다...</p>
+<pre>- ipaddr: name=iface_name addr=10.10.10.10/32</pre>
+<p>모듈 개발은 <a href="http://docs.ansible.com/ansible/developing_modules.html">http://docs.ansible.com/ansible/developing_modules.html</a> 에 자세히 설명이 되어 있고, 간단하게 요약하자면..</p>
+<ul>
+<li>각 모듈은 독립적인 실행 스크립트이고 stdin으로 json parameter가 오고, stdout으로 json response를 보내면 된다.</li>
+<li>ansible.module_utils.basic.AnsibleModule 인스턴스를 만들어서 ansible과 통신하고, 성공하면 module.exit_jsoin(), 실패하면 module.fail_json(msg='')를 실행한다.</li>
+<li>check_mode를 지원하면, 변경이 필요한 경우에만 실행한다.</li>
+<li><a href="http://docs.ansible.com/ansible/developing_modules.html#testing-modules">테스트하는 방법</a>이 좀 그렇다. 제가 osx를 사용하는데 리눅스 대상으로 실행해야 해서 docker를 사용해서 했다.</li>
+</ul>
+<pre></pre>
+<p>ps. interface에는 address를 복수로 설정할 수 있는데, 현 상황에서는 별로 필요없어서 넣지 않았다.</p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/ansible" rel="tag">ansible</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1569#respond"><span class="dsq-postid" data-dsqidentifier="1569 http://blog.woosum.net/?p=1569">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1569">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1561 post type-post status-publish format-standard hentry category-uncategorized tag-hardware tag-virtualization">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">28</div>
+<div class="pmonth">Jan/15</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1561">[번역] Selecting CPU, processors and memory for virtualized environments</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>진짜 오랜만에 인터넷 둘러보다가 가상화에서 CPU/ Memory 선택에 관한 글이 있어서 번역해봅니다. <a href="http://searchservervirtualization.techtarget.com/tip/Selecting-CPU-processors-and-memory-for-virtualized-environments">http://searchservervirtualization.techtarget.com/tip/Selecting-CPU-processors-and-memory-for-virtualized-environments</a> 그런데 번역해놓고 보니깐... 이론강좌 비슷한 느낌이군요..</p>
+<hr/>
+<p>가상화 환경에서 CPU와 메모리를 선택하는 몇 가지 관점이 있다. 프로세스, 프로세스 속도, 코어의 수와 DIMM의 타입을 선택하면서 critical consideration을 동원할 것이다. 반드시 살펴봐야하는 전문적인 개요다.</p>
+<p>가상화 환경에서 하드웨어를 선택하는 이 시리즈의 첫 번째 부분은, 이미 논의한 <a href="http://searchservervirtualization.techtarget.com/tip/Blades-vs-rack-servers-Basic-purchasing-principles-still-apply">blade와 랙마운트 서버 중에 선택하기</a>이다.</p>
+<p>이제는 하드웨어 선택하는 과정을 봐야할 때고, CPU, 프로세서, 메모리를 구입할 때 고려하는 사항을 포함한다.</p>
+<h3>Selecting a CPU for virtualization deployment</h3>
+<p>CPU를 구입할 때, 첫번째 선택은 어떤 브랜드(AMD or Intel?)을 선택할 것인가 이다. 지난 몇 년 동안, 많은 성능 연구들이 이 둘을 비교했다. 지속적인 프로세서 아키택처 변화를 통해서 AMD는 가끔은 Intel보다 앞서 나갔고 반대의 경우도 있다. Intel과 AMD 각각 <a href="http://www.intel.com/technology/virtualization/index.htm">Intel Virtualization Technology(Intel VT)</a>와 <a class="broken_link" href="http://www.amd.com/us-en/0,,3715_15781,00.html?redir=SWOP08">AMD Virtualization</a>이라는 virtualization extension 기능을 추가했고, 이것은 가상 서버의 실행을 보다 빨리하려는 시도였다.</p>
+<p>Intel과 AMD 프로세서의 가장 큰 차이점은 물리 아키텍쳐이다. Intel은 front-side 버스 모델을 프로세서와 메모리 컨트럴러를 연결하는데 사용했고, 반면에 AMD는 메모리 컨트럴러를 hyper-transport를 통해서 각 프로세서에 통합하였다. 그리고 precessor family에 따라서 이 프로세서는 서로 다른 전력 소모율을 갖는다.</p>
+<p>성능의 측면에서, 비슷한 속도와 기능과 코어를 가진 벤더를 비교한다면, Intel과 AMD는 아마도 같을 것이다. 어떤 성능 연구에서는 Intel 프로세서가 성능에서 우위를 가진다고 보이고, 다른 연구에서는 반대의 결과를 보 인다. Intel과 AMD 둘 다 VMWare ESX 호스트에서 아주 잘 동작한다, 그래서 하나를 고르는데는 브랜드 선호도가 중요한 요소이다. Intel과 AMD는 계속 새로운 프로세서 패밀리를 릴리스하고 있기 때문에, 둘중에 하나를 선택할 때에는 어떤 것이 가장 최신의 기술을 가지고 있는 것인지 체크할 필요가 있다.</p>
+<p>그래서 어떤 CPU를 선택하야 하나요? 일반적으론 현재 운영중인 서버에서 많이 쓰는 브랜드를 선택하는 것도 좋은 생각이다. 이에 대한 이유는 <a href="http://searchservervirtualization.techtarget.com/tip/Troubleshooting-the-top-five-virtual-machine-migration-errors">프로세스가 다르다면 실행중인 가상머신을 하나의 호스트에서 다른 호스트로 이동할 수 없다</a>(그럼에도 <a href="http://searchservervirtualization.techtarget.com/news/1337991/AMD-demos-live-migration-between-Intel-and-AMD-processors">AMD demos live migration between Intel and AMD processors</a>를 참고한다)에 나와 있다. 예를 들어, VM이 Intel 프로세서에서 생성된 머신이 AMD 프로세서에서 동작중인 호스트로 이동하면 일반적으로 crash가 발생한다. 만일 다른 브랜드를 섞어서 사용하기로 결정한다면, 호환성을 때문에 같은 브랜드의 프로세스를 클러스터로 분리하는 것이 최상이다.</p>
+<h3>Selecting a processor: Virtualization extensions</h3>
+<p>프로세서를 구매할 때, AMD-V 또는 Intel-VT와 같은 가상화에 최적화된 모델을 선택하게 된다. 왜 가상화 확장 기능이 중요한지를 확실히 하기 위해서, CPU에서 ring이 어떻게 동작하는지 이애할 필요가 있다.</p>
+<p>X86 운영체제는 코드가 잡을 수행하는 보호 레벨(protection level)을 제공하는 protection ring을 사용한다. 이 링은 가장 권한이 많은(Ring 0)부터 가장 권한이 적은(Ring 3)로 계층적으로 구성되고, CPU에 의해서 강제되고, 프로세스에 적용된다. 가상회되지 않은 서버에서는, OS는 Ring 0에 위차하고 있고 서버의 하드웨어를 소유한다. 그리고 어플리케이션은 Ring 3에서 실행된다. 가상화된 시스템에서는, 하이퍼바이저 또는 가상 머신 모니터(Virtual Machine Monitor, VMM)이 Ring 0에서 수행된다. 따라서 VM Guest은 Ring 1에서 실행된다. 따라서 대부분의 OS는 Ring 0에서 실행되고, VMM은 권한이 있는 명령(previleged instruction)과 Ring 0을 에뮬레이션을 이용하여 Guest OS에 Ring 0를 제공하며, 이를 통해서 Guest OS가 Ring 0에서 수행되고 있다고 속인다.</p>
+<p>불행히도, 이 동작은 성능 저하를 가져오고, 이 때문에 Intel과 AMD가 이 문제를 해결하기 위해서 Intel VT와 AMD-V 확장 기능을 개발했다. 두 확장 셋은 그들의 CPU에 통합되어 있고, 따라서 VMM은 Ring -1이라고 불리는 새로운 Ring에서 실행된다. 여기서는 게스트 OS가 원래의 Ring 0에서 실행된다. 이런 CPU의 확장 기능은 성능을 향상 시킨다. VMM은 VM 게스트 OS가 Ring 0에서 실행되고 있기 때문에 Ring 0에서 실행되고 있다고 속일 필요가 더 이상 없으며, VMM과 충돌이 일어나지도 안는다. 가상 머신 호스트에서 최대한의 성능을 얻어내기 위해서 이런 가상화에 최적화된 확장 기능을 사용하는 CPU를 선택한다.</p>
+<p>또한 AMD와 Intel이 새로운 Nested Page Tables(NPT)를 지원하는, 미래의 프로세서 릴리스에 귀를 기울인다. AMD 버전은 Rapid Virtualization Index(RVI)고 Intel은 Extended Page Tables(EPT)이다. 이 <a href="http://searchservervirtualization.techtarget.com/feature/CPU-features-you-need-for-virtualization">새로운 CPU 기술</a>은 데이터베이스와 같은 커다란 어플리캐이션의 가상화의 성능 오버해드를 줄여준다.</p>
+<h3>Selecting multicore CPUs</h3>
+<p>다른 중요한 선택사항은 물리 CPU(Socket)와 CPU의 core의 갯수이다. 멀티코어 CPU는 하나의 물리 CPU 안에서 독립적으로 동작하는 다수의 코어로 구성된다. 기본적으로는 하나의 물리 CPU는 다수의 CPU로 전환된다. 예를 들어 2개의 quad-core CPU는 8개의 프로세서가 사용가능하다. CPU 브랜드와 모델에 따라서 이 코어는 가끔 <a href="http://searchstorage.techtarget.com/answer/What-is-the-relationship-between-cache-technology-CPU-and-RAM">하나의 캐쉬를 공유</a>하기도 하고, 각 코어에 분리된 Level 2 캐쉬를 가지기도 한다. 대부분의 가상화 소프트웨어 벤더들은 소켓에 가진 코어의 갯수가 아닌 소켓의 갯수에 따라서 라이센스를 판매한다. 따라서 멀티코어 프로세서는 가상화에 아주 적합하다. 새로운 서버라면 멀티코어 CPU는 거의 표준이다.</p>
+<p>또한 dual 또는 quad 코어 CPU를 선택해야할 필요도 있다. 아마도 보다 많은 코어가 좋다는 가정하에 dual-core 보다는 quad-core CPU를 선택할 것이다. 하지만 dual과 quad 코어 CPU에는 결정적인 차이가 있다. CPU 코어는 CPU 클럭 속도의 증가에 비례해서 증가하지 않는다. 3.2 GHz CPU는 1.6 GHz CPU보다 2배 빠르다. 하지만 quad-core는 단일 코어 CPU보다 4배 빠르지 않다. dual-core CPU는 단일 코어 CPU보다 대략 50% 빠르고(아마도 당신이 예상하는 100%가 아닌), quad-core CPU는 dual-core CPU보다 약 25% 빠르다. 더해서 dual-core CPU는 일반적으로 quad-core CPU보다 높은 클럭 스피드를 가진다. quad-core CPU는 과도한 별열을 가지며 결과적으로 단일 CPU와 dual-core CPU보다 높은 클럭을 가지지 않는다.</p>
+<p>일반적으로 quad-core CPU는 가상 머신 호스트로 다음 두 가지 이유로 권장된다. 첫 번째는 대부분의 가상화 소프트웨어는 서버당 코어 개수가 아닌 소켓 개수를 기반으로 라이센스가 된다. 이것은 구입한 라이센스보다 더 많은 CPU를 사용할 수 있다는 것을 의미한다. 두 번째 이유는 호스트 서버에 보다 많은 코어를 갖는 것은 하이퍼바이저 CPU 스케쥴러가 VM이 요청한 CPU 요청을 좀 더 유연하게 스케쥴링을 할 수 있게 한다.</p>
+<p>하지만, 어떤 상황에서는 quad-core CPU보다 dual-core CPU가 선호된다(예를 들어 만약 한 호스트에 6~8개 이상의 가상머신을 호스팅하지 않는 경우). dual-core CPU의 빠른 클럭 속도는 실행하는 VM의 속도를 빠르게 한다. 더해서 VM을 단일 <a href="http://searchservervirtualization.techtarget.com/tip/Four-guidelines-for-better-VM-processor-assignments">가상 프로세서(vCPU)</a>에 할당한다면, dual-core 프로세서는 보다 좋은 선택사항이 된다. 왜냐하면 하이퍼바이저에게 단일 vCPU는 멀티 vCPU보다 스케쥴링 하는게 더 쉽기 때문이다.</p>
+<h3>Choosing memory for virtualization</h3>
+<p>일반적으로 처음으로 다 써비리게되는 하드웨어 리소스가 메모리이기 때문에, 메모리에 인색하고 싶지는 않을 것이다. 호스트에 충분한 메모리가 없다면, 다른 리소스(CPU, 디스크, 네트워크 등등)가 충분해도, 호스트에 담을 수 있는 VM의 갯수에 제한을 받는다. 메모리 오버커밋(overcommit)이 가능한 가상화 소프트웨어가 있지만, 물리머신의 메모리를 다 써버린 경우 가상머신의 성능 저하때문에 권장되지 않는다(swap을 사용해서 생기는 성능 저하를 의미하는 듯).</p>
+<p>서버 메모리 종류는 서버 지원에 명시되어 있다. 따라서 서버 스펙을 체크하가나 온라인 구매 가이드를 이용해 어떤 것이 이용 가능한지 확인한다. 서버에 얼마나 많은 메모리 슬롯이 있는지, 메모리가 쌍으로 설치될 필요가 있는지 체크한다.</p>
+<p>서버에 다른 사이즈의 <a href="http://searchsolidstatestorage.techtarget.com/news/2240203388/Smart-Storage-goes-DIMM-with-memory-channel-storage">dual in-line memory modules(DIMMs)</a>을 사용할 수 있으므로(512M, 1G, 2G 등등), 서버에 필요한 메모리의 크기에 맞춰서 DIMM 사이즈를 선택해야 한다. 보다 큰 메모리 DIMM(4G, 8G)은 작은 사이즈를 사용하는 것 보다 더 비싸다. 하지만 보다 작은 메모리 슬롯을 사용해, 향후 확장을 위한 공간을 남겨 놓을 수 있다. 한 번 DIMM 사이즈를 정하면, 여기에 고정된다. 최상의 결과를 원한다면 메모리 슬롯의 최대 사이즈 DIMM을 사용한다.</p>
+<p>사이즈에 더 추가 한다면, 메모리 모듈의 최고 전송률(peak transfer rate)에 따른, 많은 다른 메모리 타입(PC2100, PC5300 등등)이 있다. 원래 "PC" 뒤의 숫자는 메모리 모듈이 데이터 전송에 지원하는 클럭 비율(rate)을 표시(예, PC133)하는데 사용되었다. 이건 나중에 최고 데이터 전송 비율(rate)을 Mbps로 바뀌었고, 따라서 PC5300으로 분류되는 메모리는 최고 데이터 전송 비율이 53000 Mbps를 의미한다. 대부분의 서버는 여러 다른 메모리 타입을 지원하고, 따라서 여유가 있다면, 사용 가능한 가장 빠른 메모리를 선택하는 것이 바람직하다.</p>
+<blockquote><p>(이 부분은 영 번영이  매끄럽지 못해서 원문도 같이 올려놓습니다.)</p>
+<p>The final memory-related decision that you'll have to make is between single, dual or quad-rank DIMMs. A memory rank is defined as a block of 64 bits, or 72 bits for error-correcting code (ECC) memory, created by using the DRAM chips on a DIMM. For example, single-rank DIMMs combine all chips into a single block, while dual-rank DIMMs split the chips into two blocks. Dual-rank DIMMs improve memory density by placing the components of two single-rank DIMMs in the space of one module, typically making them cheaper than single-rank DIMMs.</p></blockquote>
+<p>마지막 메모리 관련 결정사항은 single, dual 또는 quad-rank DIMM 중에서 하나를 선택하는 것이다. 메모리 랭크(rank)는 에러 검출 코드(error-correctiong code: ECC) 메모리(DIMM의 DRAM 칩에서 만들어지고 사용되는)에 사용되는 64 비트 또는 72 비트의 블럭으로 정의된다. 예를 들어 단일 랭크 DIMM은 모든 칩이 단일 블럭으로 구성되고, 반면에 dual-rank DIMM은 칩이 두개의 블럭으로 분리된다. daul-rank DIMM은 두 single-rank을 한 모듈의 같은 공간에 위치시켜 메모리 집적도를 항샹시킨다. 이는 일반적으로 single-rank DIMM보다 보다 가격이 싸게 된다.</p>
+<p>불행이도, 어떤 서버 칩센은 특정 개수의 랭크만 지원한다. 예를 들어 만일 서버에 있는 메모리 버스가 4개의 DIMM 슬롯을 가진다면, 칩셋은 단지 두개의 dual-rank DIMM 또는 내개의 single-rank DIMM만 지원할 수 있다. 만일 두개의 dual-rank DIMM이 설치된다면 마지막 두 슬롯은 확장할 수 없다. 만일 DIMM 슬롯에 설치된 랭크의 총 개수가 칩셋에서 지원하는 최대 갯수를 넘긴다면, 서버는 안정적으로 동작하지 않을 것이다.</p>
+<p>그래서 어떤 DIMM 타입을 선택할까요? 단일 랭크 DIMM은 서버의 최대 메모리 용량을 사용할 수 있고, 최대의 성능을 낼 수 있다. 하지만 고집적도이기 때문에 보다 비싸다. dual-rank DIMM은 보다 싸다. 하지만 전체적인 시스템 용량을 제한하고, 향후 업그레이드 옵션을 제한한다. 보다 비싼 single-rank DIMM을 최적화를 위해서 사용할 필요가 있다. 만일 안된다면 dual-rank의 DIMM도 비슷하게 잘 동작할 것이다. 어떤 서버에서는 같은 뱅크(bank)에 있지 않아도 single과 dual-rank DIMM을 섞어서 사용할 수 있다(물론 이러한 방법은 권장하지 않아도...). 그리고 최상의 결과를 위해서 모든 슬롯에 같은 랭크 타입을 선택한다.</p>
+<p>마지막으로, 시장에서는 몇가지 메모리 제조사들이 있다. 그리고 한 서버 안에서 브랜드를 섞지 않을 것이 좋다. 기존 운영중인 서버에 있는 같은 종류의 OEM 메모리를 구입하거나, 다른 벤더로 모두 교체한다. 메모리 설정과 선택은 매우 복잡하다. 따라서 항상 서버 하드웨어 벤더와 서버에 맞는 올바른 설정을 만들기 위해서 상의한다.</p>
+<p>이 시리즈의 다음 파트는 가상머신 호스트의 스토리지 옵션인, 네트워크와 스토리지 I/O 어텝터에 대해서 다룹니다.</p>
+<hr/>
+<p>원문: <a href="http://searchservervirtualization.techtarget.com/tip/Selecting-CPU-processors-and-memory-for-virtualized-environments">http://searchservervirtualization.techtarget.com/tip/Selecting-CPU-processors-and-memory-for-virtualized-environments</a></p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/hardware" rel="tag">Hardware</a>, <a href="http://blog.woosum.net/archives/tag/virtualization" rel="tag">Virtualization</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1561#respond"><span class="dsq-postid" data-dsqidentifier="1561 http://blog.woosum.net/?p=1561">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1561">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1550 post type-post status-publish format-standard hentry category-uncategorized tag-cloud tag-networking tag-openstack tag-sdn">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">1</div>
+<div class="pmonth">Jul/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1550">클라우드 네트워킹과 SDN 그리고 OpenStack</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p><iframe allowfullscreen="" frameborder="0" height="356" marginheight="0" marginwidth="0" scrolling="no" src="http://www.slideshare.net/slideshow/embed_code/36464801" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" width="427"> </iframe>
+</p><div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/whitekid/sdn-open-stack" target="_blank" title="클라우드 네트워킹과 SDN 그리고 OpenStack">클라우드 네트워킹과 SDN 그리고 OpenStack</a> </strong> from <strong><a href="http://www.slideshare.net/whitekid" target="_blank">Choe, Cheng-Dae</a></strong> </div>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/cloud" rel="tag">cloud</a>, <a href="http://blog.woosum.net/archives/tag/networking" rel="tag">networking</a>, <a href="http://blog.woosum.net/archives/tag/openstack" rel="tag">OpenStack</a>, <a href="http://blog.woosum.net/archives/tag/sdn" rel="tag">SDN</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1550#respond"><span class="dsq-postid" data-dsqidentifier="1550 http://blog.woosum.net/?p=1550">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1550">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1544 post type-post status-publish format-standard hentry category-uncategorized tag-ironic tag-openstack">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">19</div>
+<div class="pmonth">Jun/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1544">Ironic 테스트 1차 정리</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>Ironic이 아직 인큐베이팅이라서 그런지 아직 안되는게 많네요.</p>
+<p>- 이미지를 ami 형태로 가야하네요. 기존 qcow라면 이미지를 이중으로 관리해야하는..<br/>
+- 노드의 spec을 일일이 지정해야 한다는... 노드마다 spec이 다르면 지옥이겠네요<br/>
+- 당연할지 모르지만 ironic은 snapshot을 지원하지 않습니다. (SoftLayer baremetal은 되는데)<br/>
+- deploy 이미지와 부팅 이미지는 별도로 가야하는... 이중 부팅이라 어쩔 수 없죠<br/>
+- 근데 tftp로 전송되는 이미지는 생각보다 커서.. 문제가 될 듯<br/>
+- pxe에 사용되는 tftp는 직접 설정해야 하지만, tftpd-hpa와는 호환 안됨<br/>
+- 막상 설정을 마치고 배포해야 하는데 cli가 없어서 API를 직접 호출.. ㅎㅎ<br/>
+- undeploy.. 즉. 회수하고 다른 이미지로 설치하는 방법이 없음... 블루프린트도 아직 안 나왔군요<br/>
+- nova와 연계가 아직... Ironic에서 만든 노드는 nova에서 안보이고, nova에서 ironic으로 지정해서 부팅하려면 버그 투성이고 ㅠㅠ<br/>
+- neutron 과의 연계가 잘 안되네요.. 그래서 pxe 부팅을 시작하기 위해 neutron에 삽질을...<br/>
+- 특정 tenant의 네트워크에 ironic 노드를 만들 수 없어요.. 이걸 하려면 switch 설정하는 것도 ironic에 필요할텐데... 전혀 없죠^^ 여기에. sdn이 필요할까요?<br/>
+- 가상화 하는 곳과 별도의 cell로 구성이 필요<br/>
+- 물론 문서대로 하면 잘 안되고, 소스 보면서 해야 됩니다. ㅎㅎ<br/>
+- 그리고 당연히 버그도 많아요 ㅠㅠ</p>
+<p>근데 아마 가장 첫번째로 닥치는 문제는 개발환경 만들기군요 ㅎㅎ</p>
+<p>정신 건강을 위해서 아직 시도하지 않는게 좋을 듯 합니다.</p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/ironic" rel="tag">ironic</a>, <a href="http://blog.woosum.net/archives/tag/openstack" rel="tag">OpenStack</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1544#comments"><span class="dsq-postid" data-dsqidentifier="1544 http://blog.woosum.net/?p=1544">3 Comments</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1544">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1540 post type-post status-publish format-standard hentry category-uncategorized tag-25">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">3</div>
+<div class="pmonth">Jun/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1540">만일 내가 회사를 세운다면..</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>만일 내가 회사를 세운다면.. 세울 원칙..</p>
+<ul>
+<li>오늘의 결정은 오늘까지 주어진 상황에 따른 결정이다.</li>
+<li>상황이 바뀌면 오늘의 결정이 내일도 유효할 거라는 보장은 없다.</li>
+<li>현장에서 바로 판단하고 즉각 실행한다. 기준은 "회사"에 이익이 된다면....</li>
+<li>책임과 권한은 같은 말이다.</li>
+<li>모든 것은 신뢰에 바탕을 둔다. 신뢰를 저버린 사람은 같이할 수 없다.</li>
+<li>모든 회사의 이익은 공유한다.</li>
+</ul>
+<p>ps. 만일 회사를 세운다면.. 아마 10년 뒤에..??</p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/잡담" rel="tag">잡담</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1540#respond"><span class="dsq-postid" data-dsqidentifier="1540 http://blog.woosum.net/?p=1540">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1540">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1524 post type-post status-publish format-standard hentry category-uncategorized tag-cloud tag-mpls tag-networking tag-opencontrail">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">17</div>
+<div class="pmonth">May/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1524">[번역] Comparing Network Virtualization Techniques Available in the Cloud</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>아틀란타 서밋에서 <a href="https://www.youtube.com/watch?v=p6_GcXh34wg&amp;index=11&amp;list=WL">CloudScaling</a>의 발표를 보다가 <a href="http://opencontrail.org/">OpenContrail</a>에 관심이 생겨 조사해봤는데, 그들의 블로그에 클라우드 네트워킹을 이해하는데 <a href="http://opencontrail.org/comparing-network-virtualization-techniques-available-in-the-cloud/">아주 좋은 자료</a>가 있어 번역해 봤습니다. 아주 어색하니 주의하시길..</p>
+<hr/>
+<p>클라우드 네트워크를 가상화하는 데 사용되는 기술은 빠르게 진화하고 있다. 서로 다른 기술의 다른 점을 알아내고, 그들의 접근 방법의 장점과 장점을 이해하는 것은 대게 사소한 일이 아니다.</p>
+<p>여기서는 1) 레거시의 가상화된 환경에서 사용되는 네트워크 가상화 기술에 대해서 설명하고 2) 레거시와 클라우드 데이터 센터 간의 차이에 대해서 이야기하고 3) 클라우드 데이터 센터에서 사용되는 가상화 기술을 비교한다.</p>
+<p><a class="broken_link" href="http://blog.woosum.net/wp-content/uploads/2014/05/post_745_image1.png"></a><br/>
+Figure 1: Legacy Datacenter Network</p>
+<p>그림 1은 서버 가상화를 실행하는 기존의 데이터 센터를 보여준다.</p>
+<p>일반적으로 네트워크는 여러 L2 도메인으로 분할된다. 각각의 L2 도메인은 ToRs (Top of Rack) 집합으로 구성되고, 이것은 한 쌍의 Aggregation switch로 연결된다. 가상화된 서버는 ToR 스위치에 연결되어 있다. "End-of-Row" 스위치를 포함한 여러 변형도 있다. 하지만 근본적으로는 작고 잘 정의된 구간의 L2 도메인으로 분할이 된다. 이 디자인은 tree topology를 만든다. 따라서 각각의 노드는 기본적으로 심각한 over-subscribtion 상태에 놓이게 된다. 네트워크의 성능은 "capacity planning" 프로세스를 통하여 각 aggregation switch에 link, ports 등을 추가하여 관리된다. 대부분의 경우, 네트워크는 그들이 같은 아키텍처를 기반으로하는 경우에도, 데이터 센터의 다른 부분에서는 다르게 보인다.</p>
+<p><a class="broken_link" href="http://blog.woosum.net/wp-content/uploads/2014/05/post_745_image2.png"></a> Figure 2: Network Virtualization in legacy Datacenters</p>
+<p>그림 2는 네트워크 가상화가 어떻게 이러한 레거시 네트워크에서 구현되는지 보여준다. 일반적으로 Ethernet trunk(모두 또는 선택된 VLAN을 전송한다)는 ToR 스위치에서 각 가상 서버까지 연결된다. 서버 내에서 생성된 가상 머신은 하나 또는 그 이상의 VLAN에 연결된다. 그림에서 보는 것과 같이 VLAN의 구간(span)은 L2 도메인의 크기에 제한된다.</p>
+<p>대부분의 경우 L2/ L3 aggregation switch에서는 하나의 라우팅 영역이 지원된다. 모든 VLAN 간 트래픽은 aggregation switch에서 라우팅된다. 패킷 필터 (ACLs, access control list)도 일반적으로 각 VLAN 인터페이스 포트에 있는 aggregation switch에서 적용이 된다.</p>
+<p><a class="broken_link" href="http://blog.woosum.net/wp-content/uploads/2014/05/post_745_image3.png"></a> Figure 3: Multi-tenancy in legacy datacenter</p>
+<p>멀티 테넌트간에 주소 공간의 중복(overlappng-ip)을 지원하는 시나리오를 사용하기 원하는 사람들은 VRF-lite(Virtual Routing Forwarding without MPLS) 또는 정식으로 MPLS와 같이 VRF를 사용하여 aggregation 계층에 각 테넌트를 위한 독립된 라우팅 공간을 만든다.</p>
+<p>많은 경우 이 방법은 테넌트에 dedicated된 물리 방화벽과 로드밸런서 어플라이언스를 포함한다. 그림 3에서 보는 것처럼, 코어 계층은 테넌트를 여러 L2 도메인에 걸처 확장하기 위해 MPLS(LDP등 control plane 프로토콜과 같이) 활성화가 필요할 것이다.</p>
+<p><a class="broken_link" href="http://blog.woosum.net/wp-content/uploads/2014/05/post_745_image4.png"></a> Figure 4: Basic Network Virtualization in Cloud Datacenters</p>
+<p>많은 요즘 클라우드 데이터센터는 ToR 스위치에 L3(Routing)을 사용하여 만들어졌다. 이것은 원래 OSPF나 BGP 같은 L3 라우팅 프로토콜이 밀접하게 서로 맞물린 토폴로지(예, CLOS)를 쉽게 지원하고, 여러 비용이 동등한 경로로 flow를 분산하여 대칭적으로(균등하게) IP fabric의 효율적인 사용을 돕기 때문에 가능하다. 또한 IP 네트워크는 여러 데이터센터 및 기타 등등에 걸칠 수 있는 유비쿼터스(Ubiquity)의 특성 때문에 선택된다. 이러한 데이터센터에서는 L2 도메인이 부족하기 때문에 VLAN을 만드는 것은 아주 적합하지 않다. 따라서 VXLAN(또는 NVREG)와 같은 이더넷 프레임을 IP 네트워크를 통해 전송되는 IP 패킷으로 encapsulation하는 encapsulation 방법이 일부 채택되고 있다.</p>
+<p>그림 4에서 각각 같은 색의 점선은 같은 L2 네트워크를 표시한다. 각 가상화된 서버에서 실행되는 soft switch(virtual swift)만이 일반적인 L2다. L2 LAN을 떠나가는 모든 트래픽은 가상 머신에서 실행되는 소프트웨어 라우터로 보내진다. 어떤 경우에는 가상 스위치에 LAN 간에 트래픽을 스위칭하는 기능이 있을 수 있다. 하지만 게이트웨이는 일반적으로 가상머신으로 실행되는 소프트웨어 라우터이다.</p>
+<p>이러한 설정에서, 각각의 테넌트는 잠재적으로 게이트웨이로 동작하는 소프트웨어 라우터를 가진다. 그들은 필요한 용량에 따라서 추가 라우터를 얻는다. 라우터는 패킷 필터링, NAT(Network Address Translation)과 같은 정책을 구현한다.</p>
+<p><a class="broken_link" href="http://blog.woosum.net/wp-content/uploads/2014/05/post_745_image5.png"></a> Figure 5: Multi-tenant Cloud Datacenters with advanced server based capabilities</p>
+<p>그러나, 많은 소프트웨어 라우터를 운영의 복잡성을 방지 하는데 도움을 주는 기술이 있다.</p>
+<p>그림 5는 가상화된 서버 내부의 각 소프트웨어 스위치들이 어떻게 switching, routing, inline packet en(de)capsulation을 실행하는지 보여준다. 따라서 각 가상화된 서버안에 있는 커널 모듈이 직접적으로 NAT, 패킷 필터링, 외부 접속을 수행하는 multiple-VRF 라우터처럼 동작합니다. 이러한 deployment에서는 많은 소프트웨어 라우터를 생성하면서 자연스럽게 따라오는 운영 이슈에 직면하지 않습니다.</p>
+<p><a class="broken_link" href="http://blog.woosum.net/wp-content/uploads/2014/05/post_745_image6.png"></a><br/>
+Figure 6: Virtual Services within multi-tenant cloud datacenters</p>
+<p>그림 5에 설명된 기술을 활용한 deployment는 클라우드 데이터센터 안의 가상머신을 멀티 테넌트로 쉽게 추상화 할 수 있다. 각각의 테넌트는 네트워크간에 보안정책 안에서 여러 개의 가상 네트워크를 가질 수 있다. 이 테넌트는 또한 각 인스턴스 기반의 security group을 가지거나 가상 네트워크간에 필요하면 가상화된 서비스 인스턴스(예, virtual firewall, virtual DDos 방어기 등등)를 추가할 수 있다.</p>
+<p>일반적으로 이러한 데이터센터는 외부 퍼블릭 네트워크에 게이트웨이로 동작할 IP en(de)capsulation 및 MBGP(multi-protocol BGP)를 지원하는 표준 라우터가 필요하다. 따라서 이 접근법에서는 라우터 안의 ASIC의 극한의 전송 능력이 활용된다.</p>
+<p>이 접근법의 또 다른 장점은 게이트웨이 라우터의 동일한 세트를 통해 서비스 제공자 L3VPN 인프라와 쉽게 통합된다는 것이다.</p>
+<p><a class="broken_link" href="http://blog.woosum.net/wp-content/uploads/2014/05/post_745_image7.png"></a> Figure 7: Multi-tenant multi-datacenter cloud network</p>
+<p>그림 7은 네트워크 가상화 기술이 어떻게 여러 데이터센터 너머로 쉽게 멀티 테넌트 클라우드 인프라를 구성하는지 보여준다. 일반적으로 다른 데이터센터를 서로 연결하는 하부의 구성요소(underlying fabric)은 IP다. IP encapsulation을 사용하는 클라우드 가상화 기술은 쉽게 여러 데이터센터간에 확장할 수 있다.</p>
+<p>모든 데이터 센터는 일반적인 라우터 게이트웨이를 사용하여, 외부 네트워크 또는 서비스 제공 업체 L3VPN 인프라에 액세스 할 수 있다.</p>
+<h2>결론</h2>
+<p>중요한 클라우드 서비스 제공 업체와 대형 엔터프라이즈 네트워크는 구식의 L2-L3 분리에 기반에서 네트워크 scaling에 인위적인 제약조건을 두지 않는 클라우드 네트워크 가상화 기술에 관심을 기울이고 있다. 그들은 멀티 데이터센터, scale-out 방식으로 대용량으로 운영되는 멀티 테넌트 L2-L3 지원하는 기술과 솔류션을 찾고있다. 그래서 이 기술은, 오픈소스화 되는 것 뿐만 아니라 프로토콜 통신(interaction)에서도 공개 표준에 기반을 두어 명확하게 설명되는 것이 필요하다.</p>
+<p>흥미롭게도, OpenContrail과 같이 사용되는 이 기술(그림 5, 6, 7)은 이러한 요구사항중 많은 것에 만족된다. 시간은 Vendor/ Provider/ Enterprise가 자신의 전반적인 선택을 이끌어줄 어떤 전략적 기술을 선택할지 알려줄 것입니다.</p>
+<hr/>
+<p>원문: <a href="http://opencontrail.org/comparing-network-virtualization-techniques-available-in-the-cloud/">http://opencontrail.org/comparing-network-virtualization-techniques-available-in-the-cloud/</a></p>
+<hr/>
+<p>이 글을 읽고 막연하게만 생각했던 SDN이 어떤 것이고 어디서 필요한 것인지 감을 잡았고.. 앞으로 우리가 어떻게 네트워크 모델을 잡아야 하는지 길이 보이는군요.. ^^ 자 보이시나요?</p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/cloud" rel="tag">cloud</a>, <a href="http://blog.woosum.net/archives/tag/mpls" rel="tag">MPLS</a>, <a href="http://blog.woosum.net/archives/tag/networking" rel="tag">networking</a>, <a href="http://blog.woosum.net/archives/tag/opencontrail" rel="tag">OpenContrail</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1524#respond"><span class="dsq-postid" data-dsqidentifier="1524 http://blog.woosum.net/?p=1524">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1524">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1519 post type-post status-publish format-standard hentry category-uncategorized tag-25">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">15</div>
+<div class="pmonth">May/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1519">The 6 Requirements of Enterprise-grade OpenStack</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><blockquote><p>Many attempts to solve the private cloud management challenges stop at installation. Installation is just the beginning of your journey, and how easy it is doesn’t matter if your cloud is then hard to manage on a daily basis. As we all know, running a production system is not easy. In fact, private clouds are significantly more complex than traditional infrastructure approaches in many aspects. To simplify the issue, at scale, the cloud pioneers, such as Google, Amazon, and Facebook have all adopted a pod, cluster, or block based approach to designing, deploying, and managing their cloud. Google has clusters; Facebook has triplets; but it’s all ultimately the same: a Lego brick-like repeatable approach to building your cloud and datacenter.[4] Enterprise-grade OpenStack-powered cloud operating systems will need to provide a similar approach to cloud organization.</p></blockquote>
+<p><a href="http://cloudscaling.com/blog/openstack/the-6-requirements-of-enterprise-grade-openstack-part-1/">http://cloudscaling.com/blog/openstack/the-6-requirements-of-enterprise-grade-openstack-part-1/</a></p>
+<h2>OpenStack Default Networking is Bust</h2>
+<blockquote><p>A very brief explanation of the default networking models shortcomings is in order. I will keep it very simple, but am happy to follow up later with more details. The flat and multi_host networking model requires a single shared VLAN for all elastic (floating) IP addresses. This requires running spanning tree protocol (STP) across your switch fabric, a notoriously dangerous approach if you want high network uptime. I’ve asked the question at multiple conferences to a full room: “<em>How many of you think STP is evil?</em>” and have had nearly everyone in the room raise their hand.</p>
+<p>Perhaps more importantly, both flat and multi_host networking models require you to route your public IP addresses from your network edge down to the hypervisor nodes. This is really not an acceptable approach in any modern enterprise. Here’s a diagram showing multi_host mode:</p></blockquote>
+<p></p>
+<blockquote><p>By contrast, single_host mode suffers from the singular sin of trying to make a single x86 server the core networking hub through which all traffic between VLANs and the Internet runs.[2] Basically, take your high performance switch fabric and throw it in the trash because your maximum bandwidth is whatever a Linux server can push. Again, this is not an acceptable or even credible approach to networking. To be fair though, OpenStack competitors also took a similar approach to this. Here’s a diagram on single_host mode:</p></blockquote>
+<p></p>
+<p><a href="http://www.cloudscaling.com/blog/openstack/the-6-requirements-of-enterprise-grade-openstack-part-3/">http://www.cloudscaling.com/blog/openstack/the-6-requirements-of-enterprise-grade-openstack-part-3/</a></p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/잡담" rel="tag">잡담</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1519#respond"><span class="dsq-postid" data-dsqidentifier="1519 http://blog.woosum.net/?p=1519">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1519">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1517 post type-post status-publish format-standard hentry category-uncategorized tag-haproxy">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">15</div>
+<div class="pmonth">May/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1517">haproxy로 이상한 녀석들 거부하기</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>보안팀 공지가 떳다.. 공격툴로 공격하는 녀석들은 막아달라고.. 그런 툴들은 User-Agent에 친절하게 자기가 누구라고 알리기 때문에 이 녀석만 막게 해달라고 말이지...</p>
+<p>우리는 haproxy가 전면에 있기 때문에, 그 단에서 막기로 했는데, 생각보다 아주 심플하다.</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+  acl is-bad-agent hdr(Acunetix-Product) -m reg -i ^WVS
+  acl is-bad-agent hdr(User-Agent) -m reg (ZmEu|paros|nikto|dirbuster|sqlmap|openvas|w3af|Morfeus|JCE|Zollard)
+  block if is-bad-agent
+</pre>
+<p>딸랑 3줄~</p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/haproxy" rel="tag">haproxy</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1517#respond"><span class="dsq-postid" data-dsqidentifier="1517 http://blog.woosum.net/?p=1517">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1517">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1508 post type-post status-publish format-standard hentry category-uncategorized tag-neutron tag-openstack tag-scheduler">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">14</div>
+<div class="pmonth">May/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1508">network fixed-ip scheduler? IP Address가 부족해요..</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>[toc]24비트 네트워크를 할당하고 사용한다고 합시다... 그렇다면 256 - 1(Router) - 1(Boradcast) - 1 (dhcp) - 10(Reserved) = 234개의 인스턴스를 생성할 수 있습니다. 물론 LBaaS를 사용한다면 좀더 아이피를 사용할 수 있겠지요.. 뭐.. 각설하고..</p>
+<p>자... 이렇게 인스턴스가 만들어지다 보면 IP를 소진하게 되고.. IP를 다 사용하면 네트워크를 추가해야 합니다. 그렇다면 NET1, NET2 이렇게 2개의 네트워크가 생성이 되었다면  여기서 문제가 생깁니다.</p>
+<h2>인스턴스를 생성할 때 네트워크 선택이 필수 입니다.</h2>
+<p>하지만, 사용자 입장에서 어떤 네트워크에 IP가 남아있는지 확인해서, 여유있는 네트워크를 생성해야 합니다. 안그러면 당연히 에러가 나겠죠.. 그러면 인스턴스를 생성할 때 사용자가 체크해야하는 단계가 하나 생기는 겁니다.</p>
+<p>네트워크를 선택하지 않으면, Havana이전의 릴리스에서는 모든 네트워크에 연결되어 인스턴스가 생성이 됩니다(Icehouse 버전은 cli에서는 동일하게 동작하고 Horizon에서는 오류가 발생합니다). 일반적으로 특별한 이유가 없으면 이렇게 사용하지 않을 것이므로, 명시적인 사용을 하지 않는 경우가 아니라면 모든 네트워크에 연결되는 인스턴스를 생성하는 것도 좋지 않습니다. 게다가 인터페이스의 순서도 자동으로 설정이 되어 의도하지 않는 결과가 발생할 수 있는 것이죠.</p>
+<h2>네트워크 자동 선택이 필요하다.</h2>
+<p>그래서 고민고민 하다가, 사용자 입장에서는 AWS처럼 굳이 네트워크를 선택하지 않으면 자동으로 알아서 적당한 네트워크를 선택해서 만들어주면 되겠다고 생각을 했습니다.</p>
+<p>이른바 Network Scheduler 기능이 있으면 좋겠죠.. (Network Scheduler로 하면 L2, L3, LB 등등등 많기 때문에 좀 애매하지만..)</p>
+<p>당연히도 이런 기능은 nova 또는 neutron에 없습니다. (당연하죠?)</p>
+<h2>nova-api를 수정</h2>
+<p>처음에는 이러한 기능을 neutron에서 처리할 것으로 생각했지만, 소스를 분석해보니 nova-api에서 network를 지정해주지 않으면 모든 사용 가능한 네트워크에 인터페이스를 생성합니다.</p>
+<p>nova.compute.api.API._create_instance에서 requested_network로 사용자가 요청한 네트워크가 없으면 자동으로 인스턴스를 생성 가능한 네트워크로 request_network를 채워주면 되겠다는 생각에 작업해 봤습니다.</p>
+<p>nova.compute.api.API._create_instance: 에 아래처럼 request_networks가 없을 경우 scheduling을 처리할 코드를 넣고..</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def _create_instance(self, context, instance_type, ....):
+    .... foo bar ....
+    if not requested_networks:
+    	net_id = self.network_api.schedule_network_for_instance(context, max_count)
+    	if net_id: requested_networks = [(net_id, None, None)]
+</pre>
+<p>nova.compute.neutronv2.api.API.schedule_network_for_instance: 에서 실제로 선택하는 기능을 추가합니다.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def schedule_network_for_instance(self, context, num_instances):
+    neutron = neutronv2.get_client(context)
+    nets = self._get_available_networks(context, context.project_id,
+                                        neutron=neutron)
+
+    nets = sorted(nets, key=lambda x: x['name'])
+
+    quotas = neutron.show_quota(tenant_id=context.project_id)['quota']
+    ports_needed = num_instances
+    for net in nets:
+        ports = neutron.list_ports(tenant_id=context.project_id)['ports']
+        free_ports = quotas.get('port') - len(ports)
+
+        if free_ports &gt;= ports_needed:
+            return net['id']
+</pre>
+<h2>사용 방법</h2>
+<p>사용 방법은 동일합니다.</p>
+<p>자동으로 네트워크를 선택하게 하려면 아래처럼 NIC 옵션을 빼고 명령을 주면, 자동으로 네트워크를 선택해서 만들어 줍니다.</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+$ nova boot --flavor m1.tiny --image &lt;image-uuid&gt; test
+</pre>
+<p>기존에는 모든 사용 가능한 네트워크에 연결된 인스턴스를 만들었지만요..</p>
+<p>당연히 네트워크를 지정하면 해당 네트워크에 연결된 인스턴스를 만듭니다.</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+$ nova boot --flavor m1.tiny --image &lt;image-uuid&gt; --nic net-id=&lt;net-uuid&gt; test
+</pre>
+<h2>개선 방향</h2>
+<h3>scheduling 방법...</h3>
+<p>지금 scheduler는 name을 기준으로 정렬한 후 순차적으로 할당하게 되어있습니다. 아주 단순한 scheduling이죠.. 이를 여러 상황에 맞게 조졀하는 기능이 필요하겠습니다.</p>
+<h3>자동 선택 가능한 네트워크..</h3>
+<p>상황에 자동으로 선택 가능한 네트워크를 지정할 필요가 있습니다. 특정 네트워크는 개발용도, 특정 내트워크는 프러덕션 용도로 분리된 경우라면요..</p>
+<h2>추가...</h2>
+<p>이거 추적하면서 알게된 몇 가지 사항들 추가하죠..</p>
+<h3>multi subnet</h3>
+<p>network에는 subnet이 1:1 관계가 아니라 1:n의 관계입니다.</p>
+<p>아래를 보시면 test network에 subnet이 2개가 할당이 되어있습니다.</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+$ neutron net-list --name test
++--------------------------------------+------+-----------------------------------------------------+
+| id                                   | name | subnets                                             |
++--------------------------------------+------+-----------------------------------------------------+
+| 2e6c7fde-63f1-4289-8bb6-93c5e0d682f7 | test | 20e0d8cc-ff0a-410b-92d1-da5902ff851b 10.10.201.0/24 |
+|                                      |      | 37f69bb4-0cbb-45ca-8877-0a1189318316 10.10.200.0/24 |
++--------------------------------------+------+-----------------------------------------------------+
+</pre>
+<p>그렇다면 이 포스트에서 제기하는 IP 문제를 해결할 수 있다고 생각이 드실겁니다. 녜.. 물론 그렇습니다. 그런데, 이건 실제로 네트워크 상에서 구현이 될 때 약간 애매하나 것이 있습니다.</p>
+<p>위의 상황은 하나의 네트워크(VLAN) 상에 다른 서브넷의 패킷이 같이 공존하는 상황인데, 네트워크 엔지니어에게 자문을 구해보니 네트워크 상에서는 큰 문제가 없고 실제로 이렇게 운영하는 경우도 있다고 합니다.</p>
+<p>다만, 이렇게 하는 경우 switch에서 작업할 때 저렇게 port에 여려 subnet이 있다는 사실을 인지하고 작업을 진행해야하기 때문에, 작업상 실수가 일어날 가능성이 높아서, 가능은 하지만 권장은 하지 않는다고 합니다.</p>
+<p>이러한 문제로 실제로 사용하기에는 좀 그렇습니다. 하지만 네트워크 엔지니어가 문제가 없다고 하면 이런 방법도 괜찮은 방법으로 생각합니다.</p>
+<h3>multi provider network</h3>
+<p>또 다른 방법으로 multi provider network라는 기능이 있습니다.</p>
+<p>기존으 provider network은 하나의 segmentation(VLAN)을 사용할 수 있지만, multi provider network을 한 네트워크 안에서 여러 segmentation을 허용할 수  있다고 합니다.</p>
+<p>아래 명령으로 확인하면 해당 extension이 있는지 확인할 수 있습니다.</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+$ neutron ext-list | grep provider
+| provider              | Provider Network                              |
+| multi-provider        | Multi Provider Network                        |
+</pre>
+<p>네트워크 생성은 조금 복잡하게 만들어 집니다. 당연히 여러 segmentation을 넣어야되니 그렇겠죠.</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+$ neutron net-create test --segments type=dict list=true \
+   provider:network_type=vlan,provider:physical_network=default,provider:segmentation_id=200 \
+   provider:network_type=vlan,provider:physical_network=default,provider:segmentation_id=201 \
+   --shared
+
+$ neutron net-show test
++-----------------+------------------------------------------------------------------------------------------------------------+
+| Field           | Value                                                                                                      |
++-----------------+------------------------------------------------------------------------------------------------------------+
+| admin_state_up  | True                                                                                                       |
+| id              | 2e6c7fde-63f1-4289-8bb6-93c5e0d682f7                                                                       |
+| name            | test                                                                                                       |
+| router:external | False                                                                                                      |
+| segments        | {"provider:network_type": "vlan", "provider:physical_network": "default", "provider:segmentation_id": 200} |
+|                 | {"provider:network_type": "vlan", "provider:physical_network": "default", "provider:segmentation_id": 201} |
+| shared          | True                                                                                                       |
+| status          | ACTIVE                                                                                                     |
+| subnets         | 20e0d8cc-ff0a-410b-92d1-da5902ff851b                                                                       |
+|                 | 37f69bb4-0cbb-45ca-8877-0a1189318316                                                                       |
+| tenant_id       | 6b3f1bffc77345468198c85d995479a2                                                                           |
++-----------------+------------------------------------------------------------------------------------------------------------+
+</pre>
+<p>이것도 이 포스트의 문제를 해결할 수 있는 좋은 방법입니다. multi-subnet을 사용하는 것에 비해서 네트워크 엔지니어의 작업 오류를 줄 일 수 있겠죠..</p>
+<p>하지만, 당연히도(^^) 이 게 잘 되지 않습니다.</p>
+<p>이유는 ML2 Plugin에는 구현이 잘 되어있지만, OpenVSWitch Mechnism driver에는 이 지원이 빠져있습니다. (역시나...)</p>
+<p>그래서 실제 구성 및 인스턴스 생성은 잘 되는데, 외부 VLAN과 실제 연결할때 ovs flow control에서 생성할 때 지정한 200, 201 두 가지 vlan에 대한 tag mapping을 설정해 줘야하는데, 하나만 설정하는 문제가 있더군요.. (이건 명백한 버그..)</p>
+<p>그래서 이를 구현한 코드를 좀 보니깐... nicira nvp, cisco 에서 multi provider network을 위한 기능을 추가했고, 이 사람들은 OVS에 기능을 추가하지 않았군요.. ㅎㅎ</p>
+<p>뭐.. 조금 더 삽질하면 될 것 같기는 하지만. .여기서는 이만.</p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/neutron" rel="tag">neutron</a>, <a href="http://blog.woosum.net/archives/tag/openstack" rel="tag">OpenStack</a>, <a href="http://blog.woosum.net/archives/tag/scheduler" rel="tag">scheduler</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1508#comments"><span class="dsq-postid" data-dsqidentifier="1508 http://blog.woosum.net/?p=1508">1 Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1508">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div class="postwrap post-1501 post type-post status-publish format-standard hentry category-uncategorized tag-migrate tag-nova tag-openstack tag-resize">
+<div class="postmeta2">
+<div class="meta2inner">
+<div class="pday">29</div>
+<div class="pmonth">Apr/14</div>
+</div>
+</div>
+<h2 class="posttitle"><a href="http://blog.woosum.net/archives/1501">nova stop의 위험성…</a></h2>
+<div class="postmeta">by <a href="http://blog.woosum.net/archives/author/whitekid" rel="author" title="Posts by whitekid">whitekid</a> under <a href="http://blog.woosum.net/archives/category/uncategorized" rel="category tag">Uncategorized</a></div>
+<div class="clr16"></div>
+<div class="postcontent"><p>nova stop 명령은 당연히도 인스턴스를 shutdown하는 명령입니다. 근데 여기에는 약간은 당황스런 이슈가 숨어있군요.</p>
+<p>nova stop은 결국은 libvirt.destroy()를 호출하게 되는데 여기에는 아래와 같은 코멘트가 있습니다.</p>
+<blockquote><p>already and all resources used by it are given back to the hypervisor. This<br/>
+does not free the associated virDomainPtr object.<br/>
+This function may require privileged access.</p>
+<p>virDomainDestroy first requests that a guest terminate<br/>
+(e.g. SIGTERM), then waits for it to comply. After a reasonable<br/>
+timeout, if the guest still exists, virDomainDestroy will<br/>
+forcefully terminate the guest (e.g. SIGKILL) if necessary (which<br/>
+may produce undesirable results, for example unflushed disk cache<br/>
+in the guest). To avoid this possibility, it's recommended to<br/>
+instead call virDomainDestroyFlags, sending the<br/>
+VIR_DOMAIN_DESTROY_GRACEFUL flag.</p></blockquote>
+<p>If the domain is transient and has any snapshot metadata (see<br/>
+virDomainSnapshotNum()), then that metadata will automatically<br/>
+be deleted when the domain quits.</p>
+<p>SIGTERM으로 인스턴스에 죽으라는 시그널을 날려주고, 적당한 시간 이후에도 인스턴스가 그대로 살아있을 경우는 SIGKILL로 인스턴스를 강제로 죽입니다. 그런데 이 경우 unflush된 디스크 캐쉬가 발생할 수 있다는 내용이죠.. 이를 피하기 위해서는 virDomainDestroyFlags로 VIR_DOMAIN_DESTORY_GRACEFUL 플레그를 설정하라고 되어있습니다.</p>
+<p>nova.virt.driver.ComputeDriver.destroy()를 사용하는 명령, stop, migrate, resize 등은 이러한 위험성을 내포하고 있지요.</p>
+<p>이러한 문제를 해결하기 위한 버그는 <a href="https://bugs.launchpad.net/nova/+bug/1196924">Stop and Delete operations should give the Guest a chance to shutdown 등록</a>되어 있구요.. 하지만 icehouse에는 포함되지 않은 상태입니다.</p>
+<p>disk i/o가 많은 인스턴스를 migrate, resize하는 경우 주의가 필요합니다.</p>
+</div>
+<div class="clr"></div>
+<div class="roubcornrcontent">
+<span class="posttags"><a href="http://blog.woosum.net/archives/tag/migrate" rel="tag">migrate</a>, <a href="http://blog.woosum.net/archives/tag/nova" rel="tag">nova</a>, <a href="http://blog.woosum.net/archives/tag/openstack" rel="tag">OpenStack</a>, <a href="http://blog.woosum.net/archives/tag/resize" rel="tag">resize</a></span>
+<span class="postcomments"><a href="http://blog.woosum.net/archives/1501#respond"><span class="dsq-postid" data-dsqidentifier="1501 http://blog.woosum.net/?p=1501">Leave a Comment</span></a></span>
+<span class="postmore"><a href="http://blog.woosum.net/archives/1501">more...</a></span>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- Closes topPost -->
+<br/>
+<div id="nextprevious">
+<div class="alignleft"><a href="http://blog.woosum.net/page/2">« Older Entries</a></div>
+<div class="alignright"></div>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<!-- right column Starts here -->
+<div id="rightcol">
+<div id="searchboxo">
+<form action="http://blog.woosum.net/" id="searchform" method="get">
+<input class="searchinput" id="searchbox" name="s" onfocus="this.value=''" type="text" value="Search keywords"/>
+<input class="submitbutton" type="submit" value="Search"/>
+</form>
+<div class="clr"></div>
+</div>
+<!-- widget -->
+<li class="sidebaritem widget_pages" id="pages-5"><div class="sidebarbox"><h2 class="widgettitle">Pages</h2> <ul>
+<li class="page_item page-item-624"><a href="http://blog.woosum.net/contact">Contact to me</a></li>
+<li class="page_item page-item-530"><a href="http://blog.woosum.net/pgdbx4">pgdbx4 – dbExpress driver for PostgreSQL</a></li>
+<li class="page_item page-item-565"><a href="http://blog.woosum.net/timesync">TimeSync</a></li>
+<li class="page_item page-item-412"><a href="http://blog.woosum.net/wordpress-plugins-ports">www/wordpress-plugins</a></li>
+<li class="page_item page-item-207"><a href="http://blog.woosum.net/wordpress_themes">www/wordpress-themes</a></li>
+</ul>
+</div></li><li class="sidebaritem widget_search" id="search-4"><div class="sidebarbox"><form action="http://blog.woosum.net/" id="searchform" method="get">
+<input class="searchinput" id="searchbox" name="s" onfocus="this.value=''" type="text" value="Search keywords"/>
+<input class="submitbutton" type="submit" value="Search"/>
+</form></div></li><li class="sidebaritem widget_links" id="linkcat-124"><div class="sidebarbox"><h2 class="widgettitle">In this site</h2>
+<ul class="xoxo blogroll">
+<li><a href="http://wiki.woosum.net/">wiki</a></li>
+</ul>
+</div></li>
+<li class="sidebaritem widget_links" id="linkcat-2"><div class="sidebarbox"><h2 class="widgettitle">My older blogs</h2>
+<ul class="xoxo blogroll">
+<li><a href="http://whitekid.tistory.com/" rel="me">1. 이전 티스토리 블로그</a></li>
+<li><a href="http://whitekid.egloos.com/" rel="me">2. 이전 이글루스 블로그</a></li>
+</ul>
+</div></li>
+<li class="sidebaritem widget_links" id="linkcat-39"><div class="sidebarbox"><h2 class="widgettitle">My Projects</h2>
+<ul class="xoxo blogroll">
+<li><a href="https://github.com/whitekid">https://github.com/whitekid</a></li>
+<li><a href="http://code.google.com/p/wslib/" title="wslib – Woosum’s Delphi Component Library">wslib</a></li>
+</ul>
+</div></li>
+<li class="sidebaritem widget_tag_cloud" id="tag_cloud-6"><div class="sidebarbox"><h2 class="widgettitle">Tags</h2><div class="tagcloud"><a class="tag-link-129 tag-link-position-1" href="http://blog.woosum.net/archives/tag/bash" style="font-size: 16.990825688073pt;" title="14 topics">bash</a>
+<a class="tag-link-127 tag-link-position-2" href="http://blog.woosum.net/archives/tag/chef" style="font-size: 14.036697247706pt;" title="8 topics">chef</a>
+<a class="tag-link-121 tag-link-position-3" href="http://blog.woosum.net/archives/tag/cloud" style="font-size: 11.853211009174pt;" title="5 topics">cloud</a>
+<a class="tag-link-188 tag-link-position-4" href="http://blog.woosum.net/archives/tag/delphi" style="font-size: 20.45871559633pt;" title="27 topics">Delphi</a>
+<a class="tag-link-36 tag-link-position-5" href="http://blog.woosum.net/archives/tag/dragdrop" style="font-size: 8pt;" title="2 topics">Drag&amp;Drop</a>
+<a class="tag-link-6 tag-link-position-6" href="http://blog.woosum.net/archives/tag/drupal" style="font-size: 16.091743119266pt;" title="12 topics">drupal</a>
+<a class="tag-link-50 tag-link-position-7" href="http://blog.woosum.net/archives/tag/email" style="font-size: 9.5412844036697pt;" title="3 topics">email</a>
+<a class="tag-link-32 tag-link-position-8" href="http://blog.woosum.net/archives/tag/extension" style="font-size: 8pt;" title="2 topics">extension</a>
+<a class="tag-link-43 tag-link-position-9" href="http://blog.woosum.net/archives/tag/firefox" style="font-size: 8pt;" title="2 topics">Firefox</a>
+<a class="tag-link-4 tag-link-position-10" href="http://blog.woosum.net/archives/tag/freebsd" style="font-size: 16.605504587156pt;" title="13 topics">FreeBSD</a>
+<a class="tag-link-56 tag-link-position-11" href="http://blog.woosum.net/archives/tag/icalendar" style="font-size: 8pt;" title="2 topics">iCalendar</a>
+<a class="tag-link-18 tag-link-position-12" href="http://blog.woosum.net/archives/tag/indy" style="font-size: 9.5412844036697pt;" title="3 topics">Indy</a>
+<a class="tag-link-53 tag-link-position-13" href="http://blog.woosum.net/archives/tag/iphone" style="font-size: 9.5412844036697pt;" title="3 topics">iPhone</a>
+<a class="tag-link-41 tag-link-position-14" href="http://blog.woosum.net/archives/tag/jail" style="font-size: 8pt;" title="2 topics">jail</a>
+<a class="tag-link-145 tag-link-position-15" href="http://blog.woosum.net/archives/tag/kvm" style="font-size: 9.5412844036697pt;" title="3 topics">kvm</a>
+<a class="tag-link-20 tag-link-position-16" href="http://blog.woosum.net/archives/tag/madebykidd" style="font-size: 14.036697247706pt;" title="8 topics">MadeByKidd</a>
+<a class="tag-link-13 tag-link-position-17" href="http://blog.woosum.net/archives/tag/moinmoin" style="font-size: 8pt;" title="2 topics">moinmoin</a>
+<a class="tag-link-26 tag-link-position-18" href="http://blog.woosum.net/archives/tag/msoffice" style="font-size: 8pt;" title="2 topics">MSOffice</a>
+<a class="tag-link-157 tag-link-position-19" href="http://blog.woosum.net/archives/tag/nova" style="font-size: 12.752293577982pt;" title="6 topics">nova</a>
+<a class="tag-link-126 tag-link-position-20" href="http://blog.woosum.net/archives/tag/openstack" style="font-size: 22pt;" title="36 topics">OpenStack</a>
+<a class="tag-link-164 tag-link-position-21" href="http://blog.woosum.net/archives/tag/openvswitch" style="font-size: 9.5412844036697pt;" title="3 topics">openvswitch</a>
+<a class="tag-link-58 tag-link-position-22" href="http://blog.woosum.net/archives/tag/outlook" style="font-size: 8pt;" title="2 topics">Outlook</a>
+<a class="tag-link-5 tag-link-position-23" href="http://blog.woosum.net/archives/tag/ports" style="font-size: 14.036697247706pt;" title="8 topics">ports</a>
+<a class="tag-link-69 tag-link-position-24" href="http://blog.woosum.net/archives/tag/portsnap" style="font-size: 8pt;" title="2 topics">portsnap</a>
+<a class="tag-link-46 tag-link-position-25" href="http://blog.woosum.net/archives/tag/postfix" style="font-size: 9.5412844036697pt;" title="3 topics">postfix</a>
+<a class="tag-link-66 tag-link-position-26" href="http://blog.woosum.net/archives/tag/postgresql" style="font-size: 8pt;" title="2 topics">PostgreSQL</a>
+<a class="tag-link-71 tag-link-position-27" href="http://blog.woosum.net/archives/tag/proxy" style="font-size: 10.825688073394pt;" title="4 topics">proxy</a>
+<a class="tag-link-49 tag-link-position-28" href="http://blog.woosum.net/archives/tag/python" style="font-size: 16.091743119266pt;" title="12 topics">python</a>
+<a class="tag-link-133 tag-link-position-29" href="http://blog.woosum.net/archives/tag/quantum" style="font-size: 15.706422018349pt;" title="11 topics">Quantum</a>
+<a class="tag-link-33 tag-link-position-30" href="http://blog.woosum.net/archives/tag/rails" style="font-size: 8pt;" title="2 topics">rails</a>
+<a class="tag-link-60 tag-link-position-31" href="http://blog.woosum.net/archives/tag/screen" style="font-size: 12.752293577982pt;" title="6 topics">screen</a>
+<a class="tag-link-30 tag-link-position-32" href="http://blog.woosum.net/archives/tag/shell" style="font-size: 9.5412844036697pt;" title="3 topics">shell</a>
+<a class="tag-link-111 tag-link-position-33" href="http://blog.woosum.net/archives/tag/ssh" style="font-size: 10.825688073394pt;" title="4 topics">ssh</a>
+<a class="tag-link-28 tag-link-position-34" href="http://blog.woosum.net/archives/tag/stacktrace" style="font-size: 8pt;" title="2 topics">StackTrace</a>
+<a class="tag-link-8 tag-link-position-35" href="http://blog.woosum.net/archives/tag/theme" style="font-size: 8pt;" title="2 topics">theme</a>
+<a class="tag-link-12 tag-link-position-36" href="http://blog.woosum.net/archives/tag/themes" style="font-size: 8pt;" title="2 topics">themes</a>
+<a class="tag-link-21 tag-link-position-37" href="http://blog.woosum.net/archives/tag/timesync" style="font-size: 9.5412844036697pt;" title="3 topics">TimeSync</a>
+<a class="tag-link-35 tag-link-position-38" href="http://blog.woosum.net/archives/tag/tlistview" style="font-size: 9.5412844036697pt;" title="3 topics">TListView</a>
+<a class="tag-link-9 tag-link-position-39" href="http://blog.woosum.net/archives/tag/todo" style="font-size: 9.5412844036697pt;" title="3 topics">todo</a>
+<a class="tag-link-95 tag-link-position-40" href="http://blog.woosum.net/archives/tag/ubuntu" style="font-size: 16.091743119266pt;" title="12 topics">Ubuntu</a>
+<a class="tag-link-52 tag-link-position-41" href="http://blog.woosum.net/archives/tag/vim" style="font-size: 8pt;" title="2 topics">vim</a>
+<a class="tag-link-115 tag-link-position-42" href="http://blog.woosum.net/archives/tag/vmware" style="font-size: 9.5412844036697pt;" title="3 topics">vmware</a>
+<a class="tag-link-45 tag-link-position-43" href="http://blog.woosum.net/archives/tag/windows7" style="font-size: 9.5412844036697pt;" title="3 topics">Windows7</a>
+<a class="tag-link-3 tag-link-position-44" href="http://blog.woosum.net/archives/tag/wordpress" style="font-size: 12.752293577982pt;" title="6 topics">WordPress</a>
+<a class="tag-link-25 tag-link-position-45" href="http://blog.woosum.net/archives/tag/잡담" style="font-size: 16.605504587156pt;" title="13 topics">잡담</a></div>
+</div></li><li class="sidebaritem widget_archive" id="archives-5"><div class="sidebarbox"><h2 class="widgettitle">Archives</h2> <ul>
+<li><a href="http://blog.woosum.net/archives/date/2016/09">September 2016</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2015/01">January 2015</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/07">July 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/06">June 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/05">May 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/04">April 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/03">March 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/01">January 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/12">December 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/11">November 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/10">October 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/08">August 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/07">July 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/06">June 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/05">May 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/04">April 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/03">March 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2013/02">February 2013</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/12">December 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/11">November 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/10">October 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/09">September 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/07">July 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/06">June 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/05">May 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/04">April 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2012/01">January 2012</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/12">December 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/11">November 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/10">October 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/09">September 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/08">August 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/06">June 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/04">April 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/03">March 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/02">February 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2011/01">January 2011</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/12">December 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/11">November 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/10">October 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/09">September 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/08">August 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/07">July 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/06">June 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/05">May 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/04">April 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/03">March 2010</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2010/02">February 2010</a></li>
+</ul>
+</div></li><li class="sidebaritem widget_recent_comments" id="recent-comments-4"><div class="sidebarbox"><h2 class="widgettitle">Recent Comments</h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a class="url" href="http://ericksystem.weebly.com/" rel="external nofollow">ErickSystem</a></span> on <a href="http://blog.woosum.net/archives/142/comment-page-1#comment-878">ListView의 SubItem에 ProgressBar 그리기</a></li><li class="recentcomments"><span class="comment-author-link"><a class="url" href="http://ujuc.kr/" rel="external nofollow">Sungjin Kang</a></span> on <a href="http://blog.woosum.net/archives/1544/comment-page-1#comment-864">Ironic 테스트 1차 정리</a></li><li class="recentcomments"><span class="comment-author-link">kiddtm</span> on <a href="http://blog.woosum.net/archives/1544/comment-page-1#comment-863">Ironic 테스트 1차 정리</a></li><li class="recentcomments"><span class="comment-author-link"><a class="url" href="http://ujuc.kr/" rel="external nofollow">Sungjin Kang</a></span> on <a href="http://blog.woosum.net/archives/1544/comment-page-1#comment-862">Ironic 테스트 1차 정리</a></li><li class="recentcomments"><span class="comment-author-link"><a class="url" href="http://openstack.or.kr/2014/05/15/network-fixed-ip-scheduler/" rel="external nofollow">network fixed-ip scheduler | OpenStack 한국 커뮤니티</a></span> on <a href="http://blog.woosum.net/archives/1508/comment-page-1#comment-861">network fixed-ip scheduler? IP Address가 부족해요..</a></li></ul></div></li><li class="sidebaritem meta_enhanced" id="meta_enhanced-3"><div class="sidebarbox"><h2 class="widgettitle">Meta</h2><ul> <li><a href="../../blog.woosum.net/16/wp-login.htmlfd11384c8c59fb0c657012eea021bb0f?redirect_to=%2F">Log in</a></li> <li><a href="http://blog.woosum.net/feed" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li> <li><a href="https://blog-woosum-net.disqus.com/latest.rss" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li></ul></div></li>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+<div id="bottompanel">
+<div class="roundcornrrbox">
+<div class="topleftcorner"><div class="toprightcorner"></div></div>
+<div class="roundcrrcnt">
+<div class="col1">
+<h3>Recent Posts</h3>
+<ul>
+<li>
+<a href="http://blog.woosum.net/archives/1569">network network ineterface address 설정하는 ansible module: ipaddr.py </a>
+</li>
+<li>
+<a href="http://blog.woosum.net/archives/1561">[번역] Selecting CPU, processors and memory for virtualized environments </a>
+</li>
+<li>
+<a href="http://blog.woosum.net/archives/1550">클라우드 네트워킹과 SDN 그리고 OpenStack </a>
+</li>
+<li>
+<a href="http://blog.woosum.net/archives/1544">Ironic 테스트 1차 정리 </a>
+</li>
+<li>
+<a href="http://blog.woosum.net/archives/1540">만일 내가 회사를 세운다면.. </a>
+</li>
+</ul>
+</div>
+<div class="col2">
+<h3>Archives</h3>
+<ul>
+<li><a href="http://blog.woosum.net/archives/date/2016/09">September 2016</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2015/01">January 2015</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/07">July 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/06">June 2014</a></li>
+<li><a href="http://blog.woosum.net/archives/date/2014/05">May 2014</a></li>
+</ul>
+</div>
+<div class="col3">
+<h3>Tags</h3>
+<ul>
+<a class="tag-link-129 tag-link-position-1" href="http://blog.woosum.net/archives/tag/bash" style="font-size: 12.783505154639pt;" title="14 topics">bash</a>
+<a class="tag-link-127 tag-link-position-2" href="http://blog.woosum.net/archives/tag/chef" style="font-size: 10.886597938144pt;" title="8 topics">chef</a>
+<a class="tag-link-121 tag-link-position-3" href="http://blog.woosum.net/archives/tag/cloud" style="font-size: 9.4845360824742pt;" title="5 topics">cloud</a>
+<a class="tag-link-188 tag-link-position-4" href="http://blog.woosum.net/archives/tag/delphi" style="font-size: 15.010309278351pt;" title="27 topics">Delphi</a>
+<a class="tag-link-6 tag-link-position-5" href="http://blog.woosum.net/archives/tag/drupal" style="font-size: 12.20618556701pt;" title="12 topics">drupal</a>
+<a class="tag-link-4 tag-link-position-6" href="http://blog.woosum.net/archives/tag/freebsd" style="font-size: 12.536082474227pt;" title="13 topics">FreeBSD</a>
+<a class="tag-link-18 tag-link-position-7" href="http://blog.woosum.net/archives/tag/indy" style="font-size: 8pt;" title="3 topics">Indy</a>
+<a class="tag-link-20 tag-link-position-8" href="http://blog.woosum.net/archives/tag/madebykidd" style="font-size: 10.886597938144pt;" title="8 topics">MadeByKidd</a>
+<a class="tag-link-157 tag-link-position-9" href="http://blog.woosum.net/archives/tag/nova" style="font-size: 10.061855670103pt;" title="6 topics">nova</a>
+<a class="tag-link-126 tag-link-position-10" href="http://blog.woosum.net/archives/tag/openstack" style="font-size: 16pt;" title="36 topics">OpenStack</a>
+<a class="tag-link-5 tag-link-position-11" href="http://blog.woosum.net/archives/tag/ports" style="font-size: 10.886597938144pt;" title="8 topics">ports</a>
+<a class="tag-link-71 tag-link-position-12" href="http://blog.woosum.net/archives/tag/proxy" style="font-size: 8.8247422680412pt;" title="4 topics">proxy</a>
+<a class="tag-link-49 tag-link-position-13" href="http://blog.woosum.net/archives/tag/python" style="font-size: 12.20618556701pt;" title="12 topics">python</a>
+<a class="tag-link-133 tag-link-position-14" href="http://blog.woosum.net/archives/tag/quantum" style="font-size: 11.958762886598pt;" title="11 topics">Quantum</a>
+<a class="tag-link-60 tag-link-position-15" href="http://blog.woosum.net/archives/tag/screen" style="font-size: 10.061855670103pt;" title="6 topics">screen</a>
+<a class="tag-link-30 tag-link-position-16" href="http://blog.woosum.net/archives/tag/shell" style="font-size: 8pt;" title="3 topics">shell</a>
+<a class="tag-link-111 tag-link-position-17" href="http://blog.woosum.net/archives/tag/ssh" style="font-size: 8.8247422680412pt;" title="4 topics">ssh</a>
+<a class="tag-link-21 tag-link-position-18" href="http://blog.woosum.net/archives/tag/timesync" style="font-size: 8pt;" title="3 topics">TimeSync</a>
+<a class="tag-link-35 tag-link-position-19" href="http://blog.woosum.net/archives/tag/tlistview" style="font-size: 8pt;" title="3 topics">TListView</a>
+<a class="tag-link-9 tag-link-position-20" href="http://blog.woosum.net/archives/tag/todo" style="font-size: 8pt;" title="3 topics">todo</a>
+<a class="tag-link-95 tag-link-position-21" href="http://blog.woosum.net/archives/tag/ubuntu" style="font-size: 12.20618556701pt;" title="12 topics">Ubuntu</a>
+<a class="tag-link-45 tag-link-position-22" href="http://blog.woosum.net/archives/tag/windows7" style="font-size: 8pt;" title="3 topics">Windows7</a>
+<a class="tag-link-3 tag-link-position-23" href="http://blog.woosum.net/archives/tag/wordpress" style="font-size: 10.061855670103pt;" title="6 topics">WordPress</a>
+<a class="tag-link-25 tag-link-position-24" href="http://blog.woosum.net/archives/tag/잡담" style="font-size: 12.536082474227pt;" title="13 topics">잡담</a> </ul>
+</div>
+<div class="clr"></div>
+<div class="clr"></div>
+</div>
+<div class="bottomleftcorner"><div class="bottomrightcorner"></div></div>
+</div>
+</div>
+<!-- Bottom Panel ends -->
+<div class="copyr">Copyright © 1996-2010 Your wish is my command. All rights reserved.</div>
+<div class="clr16"></div>
+</div>
+</div>
+<div id="layoutbottom"></div>
+</div>
+<div align="center" id="credit">
+<abbr title="Jarrah/1.1">iDream</abbr> theme by <a href="http://www.templatesnext.org/">Templates Next</a> 
+    | Powered by <a href="http://wordpress.org/">WordPress</a>
+</div>
+<span id="bruteprotect_uptime_check_string" style="display:none;">7ads6x98y</span> 
+<!-- Powered by WPtouch: 4.3.4 -->
+
+
+
+
+
+
+
+</body>
+<!-- Mirrored from woosum.net/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Nov 2016 23:28:30 GMT -->
+</html>

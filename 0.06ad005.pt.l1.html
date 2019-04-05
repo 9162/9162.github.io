@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from www.qnap.com/i/en/qa/con_show.php?op=showone&cid=44 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 24 Apr 2016 11:04:19 GMT -->
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+<meta content="QNAP Systems, Inc." name="author"/>
+<link href="https://download.qnap.com/Origin/i/images/favicon/favicon.png" rel="shortcut icon" type="image/png"/>
+<title>Can I reduce the RAID volume capacity? :: System &amp; Disk Volume Management ::NAS :: QNAP</title>
+<meta content="QNAP designs and delivers high-quality network attached storage (NAS) and professional network video recorder (NVR) solutions to users from home, SOHO to small, medium businesses." name="description"/>
+<meta content="NAS, surveillance, network attached storage, NAS network, NAS server, nas storage, QNAP, storage, backup, sync, file backup, file sharing, photo sharing, file service, SMB, SOHO, network servers, DVR, NVR, network IP camera, network video recorder,cloud, SEO" name="keywords"/>
+<meta content="https://download.qnap.com/Origin/i/images/q_logo.jpg" property="og:image"/>
+<meta content="https://download.qnap.com/Origin/i/images/q_logo.jpg" name="twitter:image:src"/>
+<meta content="Can I reduce the RAID volume capacity? :: System &amp; Disk Volume Management ::NAS :: QNAP" property="og:title"/>
+<meta content="QNAP Systems, Inc. - Network Attached Storage (NAS)" property="og:site_name"/>
+<meta content="con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" property="og:url"/>
+<meta content="QNAP designs and delivers high-quality network attached storage (NAS) and professional network video recorder (NVR) solutions to users from home, SOHO to small, medium businesses." property="og:description"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="website" property="og:type"/>
+<meta content="Can I reduce the RAID volume capacity? :: System &amp; Disk Volume Management ::NAS :: QNAP" name="twitter:title"/>
+<meta content="QNAP designs and delivers high-quality network attached storage (NAS) and professional network video recorder (NVR) solutions to users from home, SOHO to small, medium businesses." name="twitter:description"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="qnap.com" name="twitter:site"/>
+<meta content="QNAP_nas" name="twitter:creator"/>
+<meta content="qnap.com" name="twitter:domain"/>
+<link href="https://download.qnap.com/Origin/i/images/favicon/favicon.png" rel="icon" sizes="192x192" type="image/png"/>
+<link href="https://download.qnap.com/Origin/i/images/favicon/apple-touch-icon-ipad-1x.png" rel="apple-touch-icon" sizes="76x76"/>
+<link href="https://download.qnap.com/Origin/i/images/favicon/apple-touch-icon-ipad-2x.png" rel="apple-touch-icon" sizes="120x120"/>
+<link href="https://download.qnap.com/Origin/i/images/favicon/apple-touch-icon-iphone-2x.png" rel="apple-touch-icon" sizes="152x152"/>
+<link href="https://download.qnap.com/Origin/i/images/favicon/apple-touch-icon-iphone-3x.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="https://download.qnap.com/Origin/i/images/favicon/apple-touch-icon.png" rel="apple-touch-icon"/>
+<link href="../../../../d0/i/au/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="en-AU" rel="alternate"/>
+<link href="../../../../f9/i/cz/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="cs-CZ" rel="alternate"/>
+<link href="../../../../eb/i/de/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="de-DE" rel="alternate"/>
+<link href="con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="en" rel="alternate"/>
+<link href="con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="x-default" rel="alternate"/>
+<link href="../../../../ed/i/in/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="en-IN" rel="alternate"/>
+<link href="../../../../28/i/uk/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="en-GB" rel="alternate"/>
+<link href="../../../../90/i/useng/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="en-US" rel="alternate"/>
+<link href="../../../../4d/i/es/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="es-ES" rel="alternate"/>
+<link href="../../../../f7/i/mx/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="es-MX" rel="alternate"/>
+<link href="../../../../be/i/fr/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="fr-FR" rel="alternate"/>
+<link href="../../../../7c/i/hk/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="zh-HK" rel="alternate"/>
+<link href="../../../../3c/i/it/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="it-IT" rel="alternate"/>
+<link href="../../../../a0/i/jp/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="ja-JP" rel="alternate"/>
+<link href="../../../../a9/i/kr/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="ko-KR" rel="alternate"/>
+<link href="../../../../a4/i/nl/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="nl-NL" rel="alternate"/>
+<link href="../../../../f7/i/pl/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="pl-PL" rel="alternate"/>
+<link href="../../../../92/i/pt/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="pt-PT" rel="alternate"/>
+<link href="../../../../1d/i/sv/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="sv-SE" rel="alternate"/>
+<link href="../../../../a9/i/cn/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="zh-CN" rel="alternate"/>
+<link href="../../../../46/i/cht/qa/con_show.phpdd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44" hreflang="zh-TW" rel="alternate"/>
+<!--[if lt IE 9]>
+<script language='javascript'>
+  function newHome(){
+  location.replace('https://www.qnap.com/i/en/_browser_no/');
+  }
+  setTimeout('newHome()',10);
+</script>
+<![endif]-->
+<link href="https://www.qnap.com/i/_css/_serr/layout_overall.css" rel="stylesheet"/>
+<link href="https://www.qnap.com/i/_css/main/en.css" rel="stylesheet" type="text/css"/>
+<link href="https://download.qnap.com/Origin/i/_css/txt.css" rel="stylesheet" type="text/css"/>
+<link href="https://download.qnap.com/Origin/i/_js/colorbox/colorbox.css" rel="stylesheet"/>
+<link href="https://www.qnap.com/i/_css/_other_set.css" rel="stylesheet" type="text/css"/>
+<link href="https://www.qnap.com/i/_css/_serr/font-awesome.min.css" rel="stylesheet"/>
+<link href="https://www.qnap.com/i/en/qa/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="https://www.qnap.com/i/en/qa/css/style_M.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+
+
+
+
+
+
+</head><body>
+<header class="mainHeader">
+<div class="qp-container">
+<div class="hamburger" onclick="hamburgerOpen(this)"></div>
+<h1><a href="https://www.qnap.com/i/en" target="_top">
+<span class="alway_not_there">Can I reduce the RAID volume capacity? :: System &amp; Disk Volume Management ::NAS :: QNAP</span></a></h1><nav class="mainNav">
+<h2>MAIN NAVIGATION</h2>
+<ul>
+<li onmouseout="hideMainNavSubItems(this)" onmouseover="showMainNavSubItems(this)"><a onclick="onClickMainNavTab(this, 'javascript://')">
+<span class="mainNav_icon sprite-layout-icon-a-1 sprite-lg-layout-icon-head_1"></span>
+Products</a>
+<div class="subItems">
+<div class="subItemsBlock">
+<ul class="list_l">
+<li><a href="../../../../64/i/en/product/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-32"></div>
+<div class="label"><span>Product Overview</span></div>
+</a></li>
+<li><a href="../../../../52/i/en/product/items_by_series.html23d7cfed545fef93b11edd453aba5eba?CA=1" target="_top" title="">
+<div class="image sprite-lg-layout-icon-1"></div>
+<div class="label"><span>Enterprise</span></div>
+</a></li>
+<li><a href="../../../../68/i/en/product/items_by_series.html6007bdf7e8c46b6ebef6d65848a3f4e2?CA=2" target="_top" title="">
+<div class="image sprite-lg-layout-icon-2"></div>
+<div class="label"><span>SMB</span></div>
+</a></li>
+<li><a href="../../../../c2/i/en/product/items_by_series.htmld08af8a30334e54c331fb6951eec98b5?CA=3" target="_top" title="">
+<div class="image sprite-lg-layout-icon-3"></div>
+<div class="label"><span>Home &amp; SOHO</span></div>
+</a></li>
+<li><a href="../../../../91/i/en/product/items_by_series.htmld338c922e58e3dd7b007cf8aa9061f24?CA=4" target="_top" title="">
+<div class="image sprite-lg-layout-icon-45"></div>
+<div class="label"><span>Expansion Units</span></div>
+</a></li>
+</ul>
+<ul class="list_rl">
+<li><a href="../../../../64/i/en/product/index.html" target="_top" title="">
+        Compare Products</a></li>
+<li><a href="../../../../8f/i/en/product_x_selector/index.html" target="_top" title="">
+        Choose a NAS</a></li>
+<li><a href="../../../../92/i/en/product_x_performance/index.html" target="_top" title="">
+        Product Performance</a></li>
+<li><a href="../../../../74/i/en/support/con_show.html39949555371163b6ccdbafe701943855?cid=88" target="_blank" title="">
+        Accessories</a></li></ul><ul class="list_rr">
+<li><a href="http://www.qnapsecurity.com/" target="_blank" title="">
+        NVR</a></li>
+<li><a href="http://www.qnapds.com/" target="_blank" title="">
+        Digital Signage</a></li></ul>
+</div>
+</div>
+</li>
+<li onmouseout="hideMainNavSubItems(this)" onmouseover="showMainNavSubItems(this)"><a onclick="onClickMainNavTab(this, 'javascript://')">
+<span class="mainNav_icon sprite-layout-icon-a-1 sprite-lg-layout-icon-head_2"></span>
+QTS 4.2</a>
+<div class="subItems">
+<div class="subItemsBlock">
+<ul class="list_l">
+<li><a href="../../../../64/qts/4.2/en/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-9"></div>
+<div class="label"><span>QTS Introduction</span></div>
+</a></li>
+<li><a href="../../../../21/i/en/enterprise_apply_v2/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-10"></div>
+<div class="label"><span>For Business</span></div>
+</a></li>
+<li><a href="../../../../d3/i/en/family_apply_v2/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-11"></div>
+<div class="label"><span>For Home</span></div>
+</a></li>
+<li><a href="../../../../f2/i/en/app_center/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-14"></div>
+<div class="label"><span>App Center</span></div>
+</a></li>
+<li><a href="../../../../9a/event/dev/en/index.html" target="_blank" title="">
+<div class="image sprite-lg-layout-icon-56"></div>
+<div class="label"><span>Developers</span></div>
+</a></li>
+</ul>
+<ul class="list_rl">
+<li><a href="../../../../6e/i/en/product/app_page.html" target="_top" title="">
+        Utilities</a></li>
+<li><a href="../../../../db/i/en/qts4_phone_app/index.html" target="_top" title="">
+        Mobile apps</a></li>
+<li><a href="../../../../3a/i/en/support/con_show.html568c20c442d1624930b27ef1fb3f4dea?cid=8" target="_top" title="">
+        Live Demo</a></li>
+<li><a href="../../../../../files.qnap.com/f5/news/pressresource/datasheet/QTS4.2.1_P112_(EN)_51000-023880-RS_201601_C_web.pdf" target="_blank" title="">
+        QTS Brochure</a></li></ul>
+</div>
+</div>
+</li>
+<li onmouseout="hideMainNavSubItems(this)" onmouseover="showMainNavSubItems(this)"><a onclick="onClickMainNavTab(this, 'javascript://')">
+<span class="mainNav_icon sprite-layout-icon-a-1 sprite-lg-layout-icon-head_7"></span>
+Surveillance</a>
+<div class="subItems">
+<div class="subItemsBlock">
+<ul class="list_l">
+<li><a href="../../../../93/solution/surveillance-station/en/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-59"></div>
+<div class="label"><span>Surveillance Station 5.1</span></div>
+</a></li>
+<li><a href="../../../../f4/event/station/en/index.html76e3591ef81e6ab82086bd82243df9cc?page=surveillance-station-w" target="_top" title="">
+<div class="image sprite-lg-layout-icon-99"></div>
+<div class="label"><span>Features</span></div>
+</a></li>
+<li><a href="../../../../be/i/en/product_x_grade/cat_intro.htmleede12b895536f26775305bed3a171bf?g_cat=18" target="_top" title="">
+<div class="image sprite-lg-layout-icon-75"></div>
+<div class="label"><span>Compatible IP cameras</span></div>
+</a></li>
+<li><a href="../../../../40/i/station/en/index.html2e7388f634a633656625920602e1c407?page=surveillance-choose-w" target="_top" title="">
+<div class="image sprite-lg-layout-icon-60"></div>
+<div class="label"><span>How to choose</span></div>
+</a></li>
+<li><a href="../../../../ad/i/station/en/index.html23798592e0425f0ed603bec10cd29a6f?page=surveillance-vms-w" target="_top" title="">
+<div class="image sprite-lg-layout-icon-61"></div>
+<div class="label"><span>Central Management</span></div>
+</a></li>
+</ul>
+<ul class="list_rl">
+<li><a href="../../../../e5/i/station/en/index.html7578f815d658b313e9fe356e91bba017?page=surveillance-mobile-w" target="_top" title="">
+        Mobile apps</a></li>
+<li><a href="../../../../35/i/station/en/index.html018347772b07a3873839ed2c4a6970e3?page=surveillance-solution-w" target="_top" title="">
+        Solutions</a></li>
+<li><a href="../../../../1b/i/station/en/index.html6180797a8b13b1a487744eb12fabbd10?page=surveillance-case-w" target="_top" title="">
+        Case Studies</a></li></ul>
+</div>
+</div>
+</li>
+<li onmouseout="hideMainNavSubItems(this)" onmouseover="showMainNavSubItems(this)"><a onclick="onClickMainNavTab(this, 'javascript://')">
+<span class="mainNav_icon sprite-layout-icon-a-1 sprite-lg-layout-icon-head_8"></span>
+Solutions</a>
+<div class="subItems">
+<div class="subItemsBlock">
+<ul class="list_l">
+<li><a href="../../../../b9/i/en/case_study/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-67"></div>
+<div class="label"><span>Case Studies</span></div>
+</a></li>
+<li><a href="../../../../96/i/en/solution/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-66"></div>
+<div class="label"><span>Business Solutions</span></div>
+</a></li>
+<li><a href="../../../../56/event/multimedia/en/index.html" target="_blank" title="Multimedia">
+<div class="image sprite-lg-layout-icon-100"></div>
+<div class="label"><span>Multimedia</span></div>
+</a></li>
+<li><a href="../../../../b5/i/en/industry_solutions/con_show.htmlb63f2cb9458778af50641d2a0d5478d9?op=showone&amp;cid=5" target="_top" title="">
+<div class="image sprite-lg-layout-icon-65"></div>
+<div class="label"><span>Industry Solutions</span></div>
+</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li onmouseout="hideMainNavSubItems(this)" onmouseover="showMainNavSubItems(this)"><a onclick="onClickMainNavTab(this, 'javascript://')">
+<span class="mainNav_icon sprite-layout-icon-a-1 sprite-lg-layout-icon-head_4"></span>
+Support</a>
+<div class="subItems">
+<div class="subItemsBlock">
+<ul class="list_l">
+<li><a href="../../../../f6/i/en/before_buy/con_show.phpf8766bb797caf68b324f9893774f75ad?op=showone&amp;cid=2" target="_top" title="">
+<div class="image sprite-lg-layout-icon-17"></div>
+<div class="label"><span>Customer Service</span></div>
+</a></li>
+<li><a href="../../../../81/i/en/trade_teach/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-31"></div>
+<div class="label"><span>Tutorials &amp; FAQ</span></div>
+</a></li>
+<li><a href="../../../../../start.qnap.com/53/en/index.html" target="_blank" title="">
+<div class="image sprite-lg-layout-icon-22"></div>
+<div class="label"><span>NAS Quick Setup</span></div>
+</a></li>
+<li><a href="../../../../be/i/en/product_x_down/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-18"></div>
+<div class="label"><span>Download</span></div>
+</a></li>
+<li><a href="../../../../45/i/en/compatibility/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-44"></div>
+<div class="label"><span>Compatibility</span></div>
+</a></li>
+</ul>
+<ul class="list_rl">
+<li><a href="../../../../47/i/en/support/con_show.htmlf6bb82d69dd59b44522ca61761675eb7?cid=7" target="_top" title="">
+        Warranty</a></li>
+<li><a href="../../../../e8/i/en/before_group/list.htmlb31a8aa7165f1a43daa113936f33c8b2?cat=1" target="_top" title="">
+        Community</a></li>
+<li><a href="http://helpdesk.qnap.com/" target="_blank" title="">
+        Online Support Form</a></li>
+<li><a href="../../../../16/i/en/support/con_show.htmldccad103c7bd7abc13936dc75c4e9be8?cid=11" target="_top" title="">
+        NAS User Manual</a></li></ul><ul class="list_rr">
+<li><a href="../../../../2f/i/en/support/con_show.php253483514d03b13114a4f0b01115c11c?cid=41" target="_top" title="">
+        Security Bulletins</a></li>
+<li><a href="../../../../00/i/en/webinar/index.html" target="_blank" title="Webinar">
+        Webinar</a></li></ul>
+</div>
+</div>
+</li>
+<li onmouseout="hideMainNavSubItems(this)" onmouseover="showMainNavSubItems(this)"><a onclick="onClickMainNavTab(this, 'javascript://')">
+<span class="mainNav_icon sprite-layout-icon-a-1 sprite-lg-layout-icon-head_3"></span>
+Buy</a>
+<div class="subItems">
+<div class="subItemsBlock">
+<ul class="list_l">
+<li><a href="../../../../d2/i/en/service_map/index.html" target="_top" title="">
+<div class="image sprite-lg-layout-icon-26"></div>
+<div class="label"><span>Where to Buy</span></div>
+</a></li>
+<li><a href="http://shop.qnap.com/" target="_blank" title="">
+<div class="image sprite-lg-layout-icon-28"></div>
+<div class="label"><span>Accessories Store</span></div>
+</a></li>
+<li><a href="http://license.qnap.com/?locale=en_us" target="_blank" title="">
+<div class="image sprite-lg-layout-icon-29"></div>
+<div class="label"><span>License Store</span></div>
+</a></li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+<div class="options-m-button" onclick="toggleMFuncMenu()"></div>
+<div class="func-m"><div class="func-search">
+<div class="icon" onclick="openMenuFunc(1, this)">
+<i class="fa fa-search"></i><span class="alway_not_there">Search</span></div>
+<form action="https://www.qnap.com/i/en/_search/" method="GET">
+<div class="input-text">
+<input id="menu-func-search" name="main_kw" placeholder="Search" type="text" value=""/></div>
+<input class="input-button" type="submit"/>
+</form>
+</div> <div class="func-locale">
+<div class="icon" onclick="openMenuFunc(4, this)"><i class="fa fa-globe"></i><span class="alway_not_there">Language</span></div>
+<div class="block">
+<select id="func-choose-locale" name="func-choose-locale" onchange="funcLocaleOnChangeGoTo(this)"><option selected="" value="/i/en/qa/con_show.php?op=showone&amp;cid=44">English - Global</option><option value="../../../../90/i/useng/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - US/Canada</option><option value="../../../../28/i/uk/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - UK</option><option value="../../../../d0/i/au/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - Australia</option><option value="../../../../ed/i/in/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - India</option><option value="../../../../eb/i/de/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Deutsch</option><option value="../../../../4d/i/es/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Español - Spain</option><option value="../../../../f7/i/mx/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Español - Latinoamerica</option><option value="../../../../be/i/fr/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Français</option><option value="../../../../3c/i/it/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Italiano</option><option value="../../../../a4/i/nl/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Nederlands</option><option value="../../../../1d/i/sv/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Svenska</option><option value="../../../../a9/i/cn/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">简体中文</option><option value="../../../../46/i/cht/qa/con_show.phpdd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">繁體中文 - 台灣</option><option value="../../../../7c/i/hk/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">繁體中文 - 香港</option><option value="../../../../92/i/pt/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Português</option><option value="../../../../f7/i/pl/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Polish</option><option value="http://qnap.ua/">Русский</option><option value="../../../../a0/i/jp/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">日本語</option><option value="../../../../a9/i/kr/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">한글</option><option value="../../../../f9/i/cz/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Czech</option> </select>
+</div>
+</div></div><div class="func-subscribe">
+<div class="icon" onclick="openMenuFunc(2, this)">
+<i class="fa fa-newspaper-o"></i>
+<span class="alway_not_there">Subscribe eNewsletter</span>
+</div>
+
+<form accept-charset="UTF-8" id="subscribeNewsletter" method="POST" name="frmLB317157" onsubmit="subscribeNewsletterActionHandler(this)">
+<input name="serviceURL" type="hidden" value="https://lb.benchmarkemail.com//code/lbform"/>
+<input name="successurl" type="hidden" value="javascript://"/>
+<input name="errorurl" type="hidden" value="https://lb.benchmarkemail.com//Code/Error"/>
+
+<input name="token" type="hidden" value="mFcQnoBFKMQ2G1StachmX%2BZXUawFafLCWzNBCEakTOKZ5kqONGyEzw%3D%3D"/>
+<input name="doubleoptin" type="hidden" value=""/>
+<div class="input-text"><input id="menu-func-newspaper" maxlength="100" name="fldEmail" placeholder="Subscribe Newsletter" type="text"/></div>
+<input class="input-button" name="subscribe" type="submit" value="Subscribe"/>
+</form></div><div class="func-social">
+<div class="icon" onclick="openMenuFunc(3, this)"><i class="fa fa-rss"></i><span class="alway_not_there">Follow us</span></div>
+<div class="block">
+<ul>
+<li><a href="https://www.facebook.com/QNAPSys?ref=hl" target="_blank" title="Facebook">
+<i class="fa fa-facebook-official fa-fw"></i></a></li>
+<li><a href="https://twitter.com/QNAP_nas" target="_blank" title="Twitter">
+<i class="fa fa-twitter fa-fw"></i></a></li>
+<li><a href="http://e.weibo.com/qnap?ref=http%3A%2F%2Fs.weibo.com%2Fweibo%2Fqnap" target="_blank" title="Sina">
+<i class="fa fa-weibo fa-fw"></i></a></li>
+<li><a href="https://plus.google.com/u/0/102360486351217532213/posts" target="_blank" title="Google+">
+<i class="fa fa-google-plus fa-fw"></i></a></li>
+<li><a href="https://www.youtube.com/user/QNAPTV" target="_blank" title="YouTube">
+<i class="fa fa-youtube fa-fw"></i></a></li> </ul>
+</div>
+</div>
+</div></header>
+<div class="squi-notification"><div class="message"></div></div>
+<div align="center" id="Main_Menu_wrap_false">
+<div align="center" id="Main_Menu_title_false"> </div>
+<div id="Main_Menu_body_false"></div>
+</div>
+<style type="text/css">
+@media screen and (min-width: 0px) and (max-width: 1000px){
+#Main_Menu_wrap_false{
+display:none;
+}
+}
+</style>
+<div align="center" class="wrapper" style="border:0pt solid #0000ff;">
+<div class="content">
+<!-- 內容區 start -->
+
+<div align="center" style="border:0pt solid #0000ff;
+           position:fixed;
+           bottom:0px;
+           left:0px;
+           width:100%;
+           height:1px;
+           overflow:hidden;"><br/>
+
+網頁內容高 : <input id="page_content_height_record" type="text" value=""/> <br/>
+網頁內容限制高 : <input id="page_content_height_limit_record" type="text" value=""/> <br/>
+window top value : <input id="now_page_state_record" type="text" value=""/> <br/>
+window bottom value : <input id="now_page_bottom_state_record" type="text" value=""/> <br/>
+goal point value : <input id="goal_point_value_record" type="text" value=""/> <br/>
+goal point go mark : <input id="goal_point_go_mark" type="text" value=""/> <br/>
+goal point go range : <input id="goal_point_go_range" type="text" value=""/> <br/>
+goal point name set : <input id="goal_point_name_set" type="text" value=""/> <br/>
+執行次數記錄 : <input id="do_times_record" type="text" value="0"/> <br/>
+<input onclick="go_goal_do();" type="button" value="GO"/>
+</div>
+<style type="text/css">
+
+body {
+background-image: none;
+background-color: #ffffff;
+}
+
+</style>
+<div align="center"><div class="page_wrap">
+<style type="text/css">
+/* table style2 */
+.tab2 { font-size:13px; text-align:center; margin:20px auto; border-collapse:collapse; }
+.tab2 td,.tab2 th { border:1px solid #ffffff; padding:8px; line-height:1.3em; text-align:center; }
+.tab2 td { background-color:#D3DFEE; }
+.tab2 th { background-color:#e0e0e0; color:#555; font-size:14px; }
+.tab2 tr p{ text-align:left;}
+.tab2 tr ul{ text-align:left;}
+
+/* table style3 */
+.tab3 { text-align:center; margin:20px auto; border-collapse:collapse; }
+.tab3 td, .tab3 th { border:1px solid #ffffff; padding:11px 8px; line-height:1.3em; text-align:center;  font-size:15px;}
+.tab3 td { background-color:#fff; }
+.tab3 th { background-color:#7BA0CD; color:#fff; }
+.tab3 tr.even td { background:#D3DFEE; }
+.tab3 .lt { font-weight:bold; }
+
+/* table style4 */
+.tab4 { text-align:center; margin:10px auto; border-collapse:collapse; }
+.tab4 td, .tab4 th { border:1px solid #ffffff; padding:5px; line-height:1.3em; text-align:left;  font-size:13px;}
+.tab4 td { background-color:#D3DFEE; border:1px solid #ffffff; }
+.tab4 th { background-color:#7BA0CD; color:#fff;border:1px solid #ffffff; }
+.tab4 tr.even td { background:#D3DFEE; border:1px solid #7BA0CD; }
+.tab4 .lt { font-weight:bold; }
+/* table style5 */
+.tab5 { text-align:center; margin:10px auto; border-collapse:collapse; }
+.tab5 td, .tab5 th { border:1px solid #ffffff; padding:5px; line-height:1.3em; text-align:left;  font-size:13px;}
+.tab5 td { background-color:#D3DFEE; border:1px solid #ffffff; }
+.tab5 th { background-color:#7BA0CD; color:#fff;border:1px solid #ffffff; }
+.tab5 tr.even td { background:#D3DFEE; border-top:3px solid #ffffff; border-left:1px solid #ffffff; border-right:1px solid #ffffff; border-bottom:1px solid #ffffff; }
+.tab5 .lt { font-weight:bold; }
+
+.style_block {border-radius:6px; margin:10px 20px; background-color:#DBE5F1; padding:15px; text-align:center; }
+
+#qfaq h4 {
+    color: #555555;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 26px;
+    text-align: left;
+    margin: 1em 0 0.5em;
+}
+
+/* li 裡大圖加行高、小圖不加行高、圖置中  */
+#qfaq .style03 .style03_small-img { padding-top:0px; padding-bottom:0px; display: inline;}
+</style>
+<style type="text/css">
+</style>
+
+<link href="https://www.qnap.com/css/v3/qcontent.css" rel="stylesheet" type="text/css"/>
+
+<div class="page_head_way">
+<a href="../../../../e9/i/en/qa/index.html" target="_top">Tutorials &amp; FAQ</a> &gt; 
+        <a href="../../../../e9/i/en/qa/index.html" target="_top">FAQ</a> &gt;
+        System &amp; Disk Volume Management</div><div class="page_title">Can I reduce the RAID volume capacity?</div><div class="page_content"><div id="qfaq">
+<h2>
+		Applied Models:</h2>
+<div id="faq_ans" style="background-color: #ebebeb; width: 100%; border-bottom-style: dotted; border-bottom-width: thin; border-top-style: dotted; border-top-width: thin; padding: 10px;">
+<ul>
+<li>
+<a href="../../../../64/i/en/product/index.html" target="_blank">All NAS Series</a></li>
+</ul>
+</div>
+<h2>
+		Answer:</h2>
+<p>
+		No, It is not possible to reduce the capacity of the RAID volume on the Turbo NAS. Only capacity increasing is supported.</p>
+</div>
+<div>
+	 </div></div><div style="margin:5px 15px;text-align:right;">2014/11/11</div>
+<div align="center" id="back_control_place_1" style="margin:10px 0px 15px 0px;">
+<a href="javascript:window.history.back();">Back</a>
+
+</div>
+
+
+</div></div>
+<!-- 內容區 end -->
+</div>
+</div><div style="clear:both;border:0pt solid #00ff00;"></div>
+<footer class="mainFooter">
+<div class="ftrBlock"><aside class="new-stations">
+<h2>New Stations</h2>
+<ul>
+<li><a href="../../../../f3/solution/linux-station/en/index.html" target="_top" title="Linux Station">
+<span class="ns-icon sprite-layout-ns-icon-9"></span>
+<span class="ns-label">Linux Station</span></a></li>
+<li><a href="../../../../eb/solution/ocean-ktv/en/index.html" target="_top" title="OceanKTV">
+<span class="ns-icon sprite-layout-ns-icon-10"></span>
+<span class="ns-label">OceanKTV</span></a></li>
+<li><a href="../../../../59/solution/container_station/en/index.html" target="_blank" title="Container Station">
+<span class="ns-icon sprite-layout-ns-icon-8"></span>
+<span class="ns-label">Container</span></a></li>
+<li><a href="../../../../ca/solution/qsirch/en/index.html" target="_blank" title="Qsirch">
+<span class="ns-icon sprite-layout-ns-icon-6"></span>
+<span class="ns-label">Qsirch</span></a></li>
+<li><a href="../../../../92/solution/qcenter/index.html9ed2e74b5d2cc188faba67ac5010be64?lang=en" target="_blank" title="Q'center">
+<span class="ns-icon sprite-layout-ns-icon-7"></span>
+<span class="ns-label">Q'center</span></a></li>
+<li><a href="../../../../70/event/station/en/virtualization.html" target="_blank" title="Virtualization Station">
+<span class="ns-icon sprite-layout-ns-icon-1"></span>
+<span class="ns-label">Virtualization</span></a></li>
+<li><a href="../../../../18/event/station/en/surveillance-station-s.html" target="_blank" title="Surveillance Station">
+<span class="ns-icon sprite-layout-ns-icon-3"></span>
+<span class="ns-label">Surveillance</span></a></li>
+<li><a href="../../../../ee/solution/signage-station/en/index.html" target="_blank" title="Signage Station">
+<span class="ns-icon sprite-layout-ns-icon-4"></span>
+<span class="ns-label">Signage</span></a></li>
+</ul>
+</aside><nav class="sitemap">
+<h2>SITEMAP</h2>
+<ul>
+<li>
+<p class="mapTitle">About us</p>
+<ul class="subMap">
+<li><a href="../../../../21/i/en/about/con_show.htmlf8766bb797caf68b324f9893774f75ad?op=showone&amp;cid=2" target="_top" title="">About QNAP</a></li>
+<li><a href="../../../../cb/i/en/about/con_show.phpfe685e5cc845d12ca8ae85a603d1168c?op=showone&amp;cid=1" target="_top" title="">Contact Us</a></li>
+<li><a href="../../../../dd/i/en/about/con_show.htmlf98bf46cf4a1df47e42100816d03a8ed?op=showone&amp;cid=4" target="_top" title="">Information Security Policy</a></li>
+<li><a href="../../../../b1/i/en/news/index.html" target="_top" title="">Press Releases</a></li>
+<li><a href="../../../../75/i/en/award/index.html" target="_top" title="">Awards &amp; Reviews</a></li>
+<li><a href="../../../../44/i/en/about/con_show.htmlb63f2cb9458778af50641d2a0d5478d9?op=showone&amp;cid=5" target="_top" title="">Press Resources</a></li>
+<li><a href="../../../../47/i/en/about/con_show.html88e80a11b9d83e36c5b310de5997be22?op=showone&amp;cid=6" target="_top" title="Privacy Policy">Privacy Policy</a></li>
+<li><a href="../../../../82/i/en/about/con_show.htmled6765a4b188c84be5544d8ac7d7a144?op=showone&amp;cid=7" target="_top" title="Terms of Use">Terms of Use</a></li>
+</ul>
+</li>
+<li>
+<p class="mapTitle">Other QNAP websites</p>
+<ul class="subMap">
+<li><a href="../../../../../start.qnap.com/53/en/index.html" target="_blank" title="NAS Quick Setup">NAS Quick Setup</a></li>
+<li><a href="../../../../9a/event/dev/en/index.html" target="_blank" title="">Development Platform</a></li>
+<li><a href="http://shop.qnap.com/" target="_blank" title="">Accessories Store</a></li>
+<li><a href="http://license.qnap.com/?locale=en_us" target="_blank" title="">License Store</a></li>
+<li><a href="https://www.myqnapcloud.com/" target="_blank" title="myQNAPcloud">myQNAPcloud</a></li>
+<li><a href="http://www.qnapsecurity.com/" target="_blank" title="QNAP Security">QNAP Security</a></li>
+</ul>
+</li>
+<li>
+<p class="mapTitle">Product information</p>
+<ul class="subMap">
+<li><a href="../../../../3a/i/en/support/con_show.html568c20c442d1624930b27ef1fb3f4dea?cid=8" target="_top" title="">Live Demo</a></li>
+<li><a href="../../../../45/i/en/compatibility/index.html" target="_top" title="">Compatibility</a></li>
+<li><a href="../../../../64/i/en/product/index.html" target="_top" title="">Product Overview</a></li>
+<li><a href="../../../../14/i/en/product/eol.html" target="_top" title="">Product Support Status</a></li>
+</ul>
+</li>
+<li>
+<p class="mapTitle">Solutions</p>
+<ul class="subMap">
+<li><a href="../../../../21/i/en/enterprise_apply_v2/index.html" target="_top" title="">For Business</a></li>
+<li><a href="../../../../d3/i/en/family_apply_v2/index.html" target="_top" title="">For Home</a></li>
+<li><a href="../../../../b9/i/en/case_study/index.html" target="_top" title="">Case Studies</a></li>
+<li><a href="../../../../f2/i/en/app_center/index.html" target="_top" title="">App Center</a></li>
+</ul>
+</li>
+<li>
+<p class="mapTitle">FAQ</p>
+<ul class="subMap">
+<li><a href="../../../../e9/i/en/qa/index.html" target="_top" title="">FAQ</a></li>
+<li><a href="../../../../b9/i/en/service_ask/index.html" target="_top" title="">Warranty FAQ</a></li>
+<li><a href="../../../../47/i/en/support/con_show.htmlf6bb82d69dd59b44522ca61761675eb7?cid=7" target="_top" title="">Warranty Terms and Conditions</a></li>
+<li><a href="../../../../1c/i/en/before_question/list.htmlb31a8aa7165f1a43daa113936f33c8b2?cat=1" target="_top" title="">Presale FAQ</a></li>
+<li><a href="https://sourceforge.net/projects/qosgpl/" target="_blank" title="">GPL Source</a></li>
+</ul>
+</li>
+<li>
+<p class="mapTitle">Resources</p>
+<ul class="subMap">
+<li><a href="../../../../be/i/en/product_x_down/index.html" target="_top" title="">Download</a></li>
+<li><a href="../../../../f6/i/en/before_buy/con_show.phpf8766bb797caf68b324f9893774f75ad?op=showone&amp;cid=2" target="_top" title="">Customer Service</a></li>
+<li><a href="http://helpdesk.qnap.com/" target="_blank" title="">Online Support Form</a></li>
+<li><a href="../../../../e8/i/en/before_group/list.htmlb31a8aa7165f1a43daa113936f33c8b2?cat=1" target="_top" title="">Community</a></li>
+<li><a href="../../../../c2/i/en/_sitemap.html" target="_top" title="">Site Map</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+<div class="locale">
+<div class="locale-selector">
+<div class="icon"><i class="fa fa-globe"></i><span class="alway_not_there">Language</span></div>
+<div class="block">
+<select name="func-choose-locale" onchange="funcLocaleOnChangeGoTo(this)"><option selected="" value="/i/en/qa/con_show.php?op=showone&amp;cid=44">English - Global</option><option value="../../../../90/i/useng/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - US/Canada</option><option value="../../../../28/i/uk/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - UK</option><option value="../../../../d0/i/au/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - Australia</option><option value="../../../../ed/i/in/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">English - India</option><option value="../../../../eb/i/de/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Deutsch</option><option value="../../../../4d/i/es/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Español - Spain</option><option value="../../../../f7/i/mx/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Español - Latinoamerica</option><option value="../../../../be/i/fr/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Français</option><option value="../../../../3c/i/it/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Italiano</option><option value="../../../../a4/i/nl/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Nederlands</option><option value="../../../../1d/i/sv/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Svenska</option><option value="../../../../a9/i/cn/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">简体中文</option><option value="../../../../46/i/cht/qa/con_show.phpdd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">繁體中文 - 台灣</option><option value="../../../../7c/i/hk/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">繁體中文 - 香港</option><option value="../../../../92/i/pt/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Português</option><option value="../../../../f7/i/pl/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Polish</option><option value="http://qnap.ua/">Русский</option><option value="../../../../a0/i/jp/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">日本語</option><option value="../../../../a9/i/kr/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">한글</option><option value="../../../../f9/i/cz/qa/con_show.htmldd2511e183b3e4c98d108c55c1480e8f?op=showone&amp;cid=44">Czech</option> </select>
+</div>
+</div>
+</div>
+<div class="copyright">
+<h2>COPYRIGHT INFORMATION</h2>
+			Copyright ©2016 QNAP Systems, Inc. All Rights Reserved.
+		</div>
+</footer>
+
+
+
+
+
+</body>
+<!-- Mirrored from www.qnap.com/i/en/qa/con_show.php?op=showone&cid=44 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 24 Apr 2016 11:04:19 GMT -->
+</html>

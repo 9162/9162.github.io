@@ -1,0 +1,917 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="ru_RU" xml:lang="ru_RU" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Mirrored from ru.oubk.com/sudoku/windoku-3x3-0.html?level=5&is_next=1 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Aug 2018 15:01:00 GMT -->
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta content="no" http-equiv="imagetoolbar"/>
+<meta content="a1odY6mnYsSzBEI96nKK1RVSE13lLFDpSk9yrad-zvE" name="google-site-verification"/>
+<title>Windoku - эксперт #15052801 -- OUBK Интернет судоку</title>
+<meta content="34766f4192f39e91" property="wb:webmaster"/>
+<meta content="2440303041675236375" property="qc:admins"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="../../../oubk.com/c8/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="x-default" rel="alternate"/>
+<link href="../../../en.oubk.com/fa/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="en" rel="alternate"/>
+<link href="../../../oubk.com/c8/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="zh-cn" rel="alternate"/>
+<link href="../../../oubk.com/c8/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="zh-Hans" rel="alternate"/>
+<link href="../../../zh.oubk.com/d2/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="zh-Hant" rel="alternate"/>
+<link href="../../../jp.oubk.com/22/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="jp" rel="alternate"/>
+<link href="../../../ko.oubk.com/d1/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="ko" rel="alternate"/>
+<link href="../../../de.oubk.com/4c/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="de" rel="alternate"/>
+<link href="../../../es.oubk.com/12/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="es" rel="alternate"/>
+<link href="../../../fr.oubk.com/d3/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="fr" rel="alternate"/>
+<link href="windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="ru" rel="alternate"/>
+<link href="../../../pt.oubk.com/33/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="pt" rel="alternate"/>
+<link href="../../../hi.oubk.com/a4/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1" hreflang="hi" rel="alternate"/>
+<meta content="" name="keywords"/>
+<meta content="" name="description"/>
+<link href="https://ru.oubk.com/static/style/grid1k.min.css?v=377c938f90196946c5c5403caeb6b387" rel="stylesheet" type="text/css"/>
+<link href="https://ru.oubk.com/static/style/oubk.css?v=0285651f82059e9b2ee8865eb35ccdb6" rel="stylesheet" type="text/css"/>
+
+
+<link href="https://ru.oubk.com/static/scripts/poshytip/tip-yellowsimple/tip-yellowsimple.css" rel="stylesheet" type="text/css"/>
+
+
+<!-- <link rel="Stylesheet" type="text/css" href="/static/style/puzzle/Sdk3x3.css" /> -->
+
+<style type="text/css">
+.rank_list {
+margin: 0;
+padding: 0;
+z-index: 30;
+width: 92px;
+}
+.rank_list li {
+margin: 0 !important;
+height: 22px !important;
+width: 90px !important;
+padding: 0 !important;
+list-style: none;
+border: 1px solid #5970B2 !important;
+border-left: 3px solid #31AEE3 !important;
+opacity: 0.95;
+background: #5970B2;
+float: left;
+line-height: 22px;
+font: 12px arial
+}
+.rank_list li:hover {
+opacity: 1;
+}
+.rank_list li a {
+display: block;
+margin: 0;
+padding-left: 10px;
+width: 80px;
+height: 22px;
+line-height: 22px;
+color: #FFF;
+text-align: left;
+text-decoration: none
+}
+.rank_list li a:hover {
+background: #31AEE3;
+}
+</style>
+</head><body>
+<div class="container_100">
+<div class="grid_20" style="padding-top: 10px;">
+<a href="https://ru.oubk.com/">
+
+</a>
+</div>
+<div class="grid_80">
+<div style="text-align:right; padding-right:20px; line-height:30px;"><a href="http://2048.oubk.com/" style="color:red" target="_blank">2048 игра</a>   |     <a href="https://ru.oubk.com/login">войти в систему</a> | <a href="https://ru.oubk.com/register">Подписаться</a></div>
+<ul id="menu">
+<li style="width: 140px;"><a href="https://ru.oubk.com/DailySudoku">Ежедневный судоку</a></li>
+<li style="width: 140px;"><a href="https://ru.oubk.com/pk">Мультиплеер судоку</a></li>
+<li><a href="https://ru.oubk.com/sudoku">Судоку</a></li>
+<li><a href="https://ru.oubk.com/replay">воспроизведения</a></li>
+<li><a href="https://ru.oubk.com/my">Мой OUBK</a></li>
+<li><a href="https://ru.oubk.com/SchulteGrid" style="color:red">舒尔特表</a></li>
+</ul>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="container_100 navbg">
+<div class="grid_100 nav">
+<a href="https://ru.oubk.com/">домой</a>
+<span class="divider">/</span><a href="https://ru.oubk.com/sudoku">Судоку</a>
+<span class="divider">/</span> Windoku
+</div>
+</div>
+<div class="container_100 bgfff">
+<div class="grid_69" style="background-color:#fff">
+<div class="box_bt2 mt10">
+<div class="row">
+<div class="push_10 grid_52 g69_title">
+<h2 class="center">Windoku - эксперт </h2>
+</div>
+</div>
+<div class="clear"> </div>
+<div class="row" style="margin-top:20px;">
+<div class="push_3 grid_33">
+<div class="popular1">
+<h2>Ежедневный судоку</h2>
+<div class="item">
+<div class="item-image">
+<a href="https://ru.oubk.com/DailySudoku/17750/1"></a>
+</div>
+<div class="item-info">
+<h3><a href="https://ru.oubk.com/DailySudoku/17750/1">Судоку (начинающий)</a></h3>
+<ul style="margin-top: 8px;">
+<li class="views"> 2350</li>
+<li class="comments "> 0
+</li>
+<li class="solved_num "> 279
+</li>
+</ul>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="item">
+<div class="item-image">
+<a href="https://ru.oubk.com/DailySudoku/17750/2"></a>
+</div>
+<div class="item-info">
+<h3><a href="https://ru.oubk.com/DailySudoku/17750/2">Судоку (легко)</a></h3>
+<ul style="margin-top: 8px;">
+<li class="views"> 1777</li>
+<li class="comments "> 0
+</li>
+<li class="solved_num "> 265
+</li>
+</ul>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="item">
+<div class="item-image">
+<a href="https://ru.oubk.com/DailySudoku/17750/3"></a>
+</div>
+<div class="item-info">
+<h3><a href="https://ru.oubk.com/DailySudoku/17750/3">Судоку (среда)</a></h3>
+<ul style="margin-top: 8px;">
+<li class="views"> 2812</li>
+<li class="comments "> 0
+</li>
+<li class="solved_num "> 268
+</li>
+</ul>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="item">
+<div class="item-image">
+<a href="https://ru.oubk.com/DailySudoku/17750/4"></a>
+</div>
+<div class="item-info">
+<h3><a href="https://ru.oubk.com/DailySudoku/17750/4">Судоку (жесткий)</a></h3>
+<ul style="margin-top: 8px;">
+<li class="views"> 3093</li>
+<li class="comments "> 0
+</li>
+<li class="solved_num "> 245
+</li>
+</ul>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="item">
+<div class="item-image">
+<a href="https://ru.oubk.com/DailySudoku/17750/5"></a>
+</div>
+<div class="item-info">
+<h3><a href="https://ru.oubk.com/DailySudoku/17750/5">Судоку (эксперт)</a></h3>
+<ul style="margin-top: 8px;">
+<li class="views"> 3638</li>
+<li class="comments "> 0
+</li>
+<li class="solved_num "> 116
+</li>
+</ul>
+</div>
+<div class="clear"> </div>
+</div>
+</div>
+<!--end:replay-->
+</div>
+<div class="push_3 grid_31">
+<br/>
+<div style="width:300px; height:250px; margin-left:4px;">
+
+<!-- Practice_play_A -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-5339286475788637" data-ad-slot="8237865688" style="display:inline-block;width:300px;height:250px"></ins>
+
+</div>
+</div>
+</div>
+<div class="clear"> </div>
+<div class="row center mt10">
+<link href="https://ru.oubk.com/static/style/puzzle/windoku.css?v=243be93e684f142973e3d1e701efc8c1" rel="stylesheet" type="text/css"/>
+<div class="pz">
+<table align="center" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td class="RankOut" id="n0" onclick="sd.GetN('0')" onmouseout="this.className='RankOut'" onmouseover="this.className='RankOver'" style="width: 10px; text-align: center; background-color: #ffffff; background-position: initial initial; background-repeat: initial initial; "> </td>
+<td valign="top">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="RankOut" id="n1" style="cursor:pointer; text-align:center;">1</td>
+<td class="RankOut" id="n2" style="cursor:pointer; text-align:center;">2</td>
+<td class="RankOut" id="n3" style="cursor:pointer; text-align:center;">3</td>
+<td class="RankOut" id="n4" style="cursor:pointer; text-align:center;">4</td>
+<td class="RankOut" id="n5" style="cursor:pointer; text-align:center;">5</td>
+<td class="RankOut" id="n6" style="cursor:pointer; text-align:center;">6</td>
+<td class="RankOut" id="n7" style="cursor:pointer; text-align:center;">7</td>
+<td class="RankOut" id="n8" style="cursor:pointer; text-align:center;">8</td>
+<td class="RankOut" id="n9" style="cursor:pointer; text-align:center;">9</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td style="width:10px;vertical-align:middle!important">
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr><td class="coords trh" valign="middle">A</td></tr>
+<tr><td class="coords trh" valign="middle">B</td></tr>
+<tr><td class="coords trh" valign="middle">C</td></tr>
+<tr><td class="coords trh" valign="middle">D</td></tr>
+<tr><td class="coords trh" valign="middle">E</td></tr>
+<tr><td class="coords trh" valign="middle">F</td></tr>
+<tr><td class="coords trh" valign="middle">G</td></tr>
+<tr><td class="coords trh" valign="middle">H</td></tr>
+<tr><td class="coords trh" valign="middle">I</td></tr>
+</tbody></table>
+</td>
+<td valign="top">
+<div id="mouse_parent" style="position:relative">
+<input id="mouse_var" name="mouse_var" type="hidden" value=""/>
+<table border="1" cellpadding="0" cellspacing="0" class="mouse_bg hide" id="mouse_board_div" style="position: absolute; width: 100px; z-index: 10; font-size: 20px; left: 202px; top: 96px; ">
+<tbody>
+<tr>
+<td class="mouse_mun" onclick="mouse.set(1);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">1</td>
+<td class="mouse_mun" onclick="mouse.set(2);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">2</td>
+<td class="mouse_mun" onclick="mouse.set(3);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">3</td>
+</tr>
+<tr><td class="mouse_mun" onclick="mouse.set(4);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">4</td>
+<td class="mouse_mun" onclick="mouse.set(5);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">5</td>
+<td class="mouse_mun" onclick="mouse.set(6);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">6</td>
+</tr>
+<tr><td class="mouse_mun" onclick="mouse.set(7);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">7</td>
+<td class="mouse_mun" onclick="mouse.set(8);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">8</td>
+<td class="mouse_mun" onclick="mouse.set(9);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);">9</td>
+</tr>
+<tr><td colspan="3">
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<tbody><tr>
+<td class="mouse_btn" onclick="mouse.set('');" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);" style="color:#000000;">удалять</td>
+<td class="mouse_btn" onclick="mouse.close(this);" onmouseout="mouse.out(this);" onmouseover="mouse.over(this);" style="color:#ff00ff;"></td>
+</tr></tbody>
+</table>
+</td></tr>
+</tbody>
+</table>
+</div>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="ptb" style="background-image:url(https://ru.oubk.com/static/lib/type/windoku.png); background-repeat:no-repeat;"><tr><td class="normal"><input class="K0" id="k1s1" maxlength="7" name="k1s1" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k2s1" maxlength="7" name="k2s1" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k3s1" maxlength="7" name="k3s1" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k4s1" maxlength="7" name="k4s1" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k5s1" maxlength="7" name="k5s1" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k6s1" maxlength="7" name="k6s1" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k7s1" name="k7s1" readonly="readonly" value="5"/></td><td class="normal"><input class="K0" id="k8s1" maxlength="7" name="k8s1" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k9s1" name="k9s1" readonly="readonly" value="8"/></td></tr><tr><td class="normal"><input class="K0" id="k1s2" maxlength="7" name="k1s2" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k2s2" name="k2s2" readonly="readonly" value="3"/></td><td class="normal"><input class="sr" id="k3s2" name="k3s2" readonly="readonly" value="7"/></td><td class="normal"><input class="K0" id="k4s2" maxlength="7" name="k4s2" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k5s2" maxlength="7" name="k5s2" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k6s2" maxlength="7" name="k6s2" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k7s2" maxlength="7" name="k7s2" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k8s2" maxlength="7" name="k8s2" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k9s2" maxlength="7" name="k9s2" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td></tr><tr><td class="normal"><input class="K0" id="k1s3" maxlength="7" name="k1s3" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k2s3" maxlength="7" name="k2s3" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k3s3" maxlength="7" name="k3s3" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k4s3" maxlength="7" name="k4s3" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k5s3" name="k5s3" readonly="readonly" value="3"/></td><td class="normal"><input class="K0" id="k6s3" maxlength="7" name="k6s3" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k7s3" maxlength="7" name="k7s3" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k8s3" maxlength="7" name="k8s3" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k9s3" name="k9s3" readonly="readonly" value="9"/></td></tr><tr><td class="normal"><input class="K0" id="k1s4" maxlength="7" name="k1s4" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k2s4" name="k2s4" readonly="readonly" value="4"/></td><td class="normal"><input class="K0" id="k3s4" maxlength="7" name="k3s4" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k4s4" maxlength="7" name="k4s4" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k5s4" maxlength="7" name="k5s4" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k6s4" maxlength="7" name="k6s4" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k7s4" name="k7s4" readonly="readonly" value="1"/></td><td class="normal"><input class="K0" id="k8s4" maxlength="7" name="k8s4" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k9s4" maxlength="7" name="k9s4" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td></tr><tr><td class="normal"><input class="K0" id="k1s5" maxlength="7" name="k1s5" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k2s5" maxlength="7" name="k2s5" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k3s5" maxlength="7" name="k3s5" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k4s5" name="k4s5" readonly="readonly" value="6"/></td><td class="normal"><input class="K0" id="k5s5" maxlength="7" name="k5s5" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k6s5" name="k6s5" readonly="readonly" value="4"/></td><td class="normal"><input class="K0" id="k7s5" maxlength="7" name="k7s5" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k8s5" maxlength="7" name="k8s5" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k9s5" maxlength="7" name="k9s5" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td></tr><tr><td class="normal"><input class="K0" id="k1s6" maxlength="7" name="k1s6" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k2s6" maxlength="7" name="k2s6" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k3s6" name="k3s6" readonly="readonly" value="6"/></td><td class="normal"><input class="K0" id="k4s6" maxlength="7" name="k4s6" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k5s6" maxlength="7" name="k5s6" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k6s6" maxlength="7" name="k6s6" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k7s6" maxlength="7" name="k7s6" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k8s6" name="k8s6" readonly="readonly" value="4"/></td><td class="normal"><input class="K0" id="k9s6" maxlength="7" name="k9s6" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td></tr><tr><td class="normal"><input class="sr" id="k1s7" name="k1s7" readonly="readonly" value="1"/></td><td class="normal"><input class="K0" id="k2s7" maxlength="7" name="k2s7" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k3s7" maxlength="7" name="k3s7" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k4s7" maxlength="7" name="k4s7" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k5s7" name="k5s7" readonly="readonly" value="2"/></td><td class="normal"><input class="K0" id="k6s7" maxlength="7" name="k6s7" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k7s7" maxlength="7" name="k7s7" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k8s7" maxlength="7" name="k8s7" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k9s7" maxlength="7" name="k9s7" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td></tr><tr><td class="normal"><input class="K0" id="k1s8" maxlength="7" name="k1s8" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k2s8" maxlength="7" name="k2s8" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k3s8" maxlength="7" name="k3s8" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k4s8" maxlength="7" name="k4s8" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k5s8" maxlength="7" name="k5s8" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k6s8" maxlength="7" name="k6s8" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k7s8" name="k7s8" readonly="readonly" value="8"/></td><td class="normal"><input class="sr" id="k8s8" name="k8s8" readonly="readonly" value="1"/></td><td class="normal"><input class="K0" id="k9s8" maxlength="7" name="k9s8" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td></tr><tr><td class="normal"><input class="sr" id="k1s9" name="k1s9" readonly="readonly" value="7"/></td><td class="normal"><input class="K0" id="k2s9" maxlength="7" name="k2s9" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="sr" id="k3s9" name="k3s9" readonly="readonly" value="4"/></td><td class="normal"><input class="K0" id="k4s9" maxlength="7" name="k4s9" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k5s9" maxlength="7" name="k5s9" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k6s9" maxlength="7" name="k6s9" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k7s9" maxlength="7" name="k7s9" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k8s9" maxlength="7" name="k8s9" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td><td class="normal"><input class="K0" id="k9s9" maxlength="7" name="k9s9" onblur="sd.K(this)" onclick="sd.SetN(this,this)" onfocus="sd.F(this)" onkeydown="sd.M(event,this);" onkeyup="sd.K(this);sd.CV(event,this)"/></td></tr></table>
+</td>
+</tr>
+<tr valign="top"><td onclick="sd.Sadd()" style="cursor:pointer;"> </td>
+<td style=" height:18px; overflow:hidden; width:98%;">
+<table border="0" cellpadding="0" cellspacing="0" class="pztbinfo" width="100%"><tbody>
+<tr><td style="text-align:left; padding-left:8px;">oubk.com</td>
+<td> </td>
+<td style="text-align:right; padding-right: 8px;">
+<input id="mouse_mode" name="mouse_mode" type="checkbox" value="on"/>
+<label for="mouse_mode" id="mouse_mode_txt"> режим мыши</label></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+</div>
+<input id="hid_aw" type="hidden" value="492761538537849261861235479245973186918654723376182945189426357623597814754318692"/>
+<input id="hid_exg" type="hidden" value=""/>
+<input id="hidPzId" type="hidden" value="15052801"/>
+<input id="hidPzType" type="hidden" value="windoku$3x3$0"/>
+<input id="hidRating" name="hidRating" type="hidden" value="5"/>
+<input id="hidnum" type="hidden" value="0"/>
+<input id="hidAdd" type="hidden" value="-"/>
+<input id="numTotal" name="numTotal" type="hidden" value="0"/>
+<input id="disTime" name="disTime" type="hidden" value="0"/>
+<input id="rOnly" name="rOnly" type="hidden" value="0"/>
+<input id="hidSize" type="hidden" value="0"/>
+
+</div>
+<div class="push_4 grid_63 mt10 mb10">
+<div class="grid_25">
+<span class="btn-group">
+<a class="btn btn_bg btn_left h15 btn_tool1" href="javascript:void(0);"></a><a class="btn btn_bg btn_middle h15 btn_tool2" href="javascript:void(0);"></a><a class="btn btn_bg btn_middle h15 btn_tool3" href="javascript:void(0);"></a><a class="btn btn_bg btn_right h15 btn_tool4" href="javascript:void(0);"></a>
+</span>
+</div>
+<div class="grid_35" style="position: relative;">
+<a class="btn btn_bg btn_pause" href="javascript:void(0);" onclick="sd.Pause();">пауза</a>
+<a class="btn btn_bg btn_answer" href="javascript:void(0);" onclick="sd.ShowSolution(false);" target="_blank">ответ</a>
+<!--<a href="javascript:void(0);" onclick="sd.Print();" class="btn btn_bg btn_print">打印</a>-->
+<a class="btn btn_bg btn_save" href="javascript:void(0);" onclick="Save();">Сохранить</a>
+<a class="btn " href="javascript:void(0);" onclick="sd.CheckSolution('act');">检查</a>
+</div>
+</div>
+<div class="clear"> </div>
+<div class="row mb10">
+<div class="push_1 grid_64 notice" style="position: relative; margin-bottom: 5px; margin-right: 0;"> 此题固定链接，邀请好友一起来玩吧：<span id="copyTips"></span><br/>
+<div><a href="../../86/sudoku/15052801.html">欧泊颗数独 OUBK（Windoku - эксперт）http://oubk.com/sudoku/15052801.html</a></div>
+<div style="position: absolute; top:0;right: 0; border-bottom-left-radius: 5px; -moz-border-radius-bottomleft:5px;
+border-bottom: solid 1px #FFD324;border-left: solid 1px #FFD324;background-color: #FFD324; ">
+<div data-clipboard-text="欧泊颗数独 OUBK（Windoku - эксперт）http://oubk.com/sudoku/15052801.html" id="btn_copy_txt" style="cursor: pointer;color:#ff3300; ">点击此处复制</div>
+</div>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="row">
+<div class="row todaySudokuHead">
+<div class="push_1 grid_30"><h3>Сегодня 20 Windoku (эксперт)</h3></div>
+<div class="grid_36">
+<div class="todaySudokuRank">
+<ul>
+<li><a class="" href="../../15/sudoku/windoku-3x3-0.html7e600f110462248ae8a467a343e7e4d3?level=1">начинающий</a></li>
+<li><a class="" href="../../07/sudoku/windoku-3x3-0.html6435afe7f90dfd2360eead43a61f3753?level=2">легко</a></li>
+<li><a class="" href="../../25/sudoku/windoku-3x3-0.html7054a4f727890ce010d4076e5098402c?level=3">среда</a></li>
+<li><a class="" href="../../98/sudoku/windoku-3x3-0.htmlbd840bbb219261ede8318074c649ed88?level=4">жесткий</a></li>
+<li><a class="active" href="../../03/sudoku/windoku-3x3-0.htmla1f4af9df66afd9f71c03fbd575def94?level=5">эксперт</a></li>
+</ul>
+<div class="clear"> </div>
+</div>
+</div>
+</div>
+<div class="push_1 grid_64">
+<ul class="todaySudokuList">
+<li>
+<div class="todaySudokuItem active">
+<i>1</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15052801">24'28''</span>
+</div>
+<div class="user" title="Play now"><a href="../../86/sudoku/15052801.html">
+ <span id="t20_15052801">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>2</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15053417">18'06''</span>
+</div>
+<div class="user" title="Play now"><a href="../../90/sudoku/15053417.html">
+ <span id="t20_15053417">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>3</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15055560">13'42''</span>
+</div>
+<div class="user" title="Play now"><a href="../../d7/sudoku/15055560.html">
+ <span id="t20_15055560">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>4</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15055208">14'20''</span>
+</div>
+<div class="user" title="Play now"><a href="../../33/sudoku/15055208.html">
+ <span id="t20_15055208">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>5</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15052249">16'39''</span>
+</div>
+<div class="user" title="Play now"><a href="../../e5/sudoku/15052249.html">
+ <span id="t20_15052249">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>6</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15047191">13'36''</span>
+</div>
+<div class="user" title="Play now"><a href="../../e6/sudoku/15047191.html">
+ <span id="t20_15047191">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>7</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15055730">11'10''</span>
+</div>
+<div class="user" title="Play now"><a href="../../0f/sudoku/15055730.html">
+ <span id="t20_15055730">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>8</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15046676">--'--''</span>
+</div>
+<div class="user" title="Play now"><a href="../../6d/sudoku/15046676.html">
+ <span id="t20_15046676">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>9</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15047327">32'42''</span>
+</div>
+<div class="user" title="Play now"><a href="../../c3/sudoku/15047327.html">
+ <span id="t20_15047327">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>10</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15055220">12'36''</span>
+</div>
+<div class="user" title="Play now"><a href="../../67/sudoku/15055220.html">
+ <span id="t20_15055220">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>11</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15055591">37'26''</span>
+</div>
+<div class="user" title="Play now"><a href="../../d6/sudoku/15055591.html">
+ <span id="t20_15055591">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>12</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15054408">22'59''</span>
+</div>
+<div class="user" title="Play now"><a href="../../83/sudoku/15054408.html">
+ <span id="t20_15054408">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>13</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15052641">27'24''</span>
+</div>
+<div class="user" title="Play now"><a href="../../49/sudoku/15052641.html">
+ <span id="t20_15052641">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>14</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15051171">--'--''</span>
+</div>
+<div class="user" title="Play now"><a href="../../34/sudoku/15051171.html">
+ <span id="t20_15051171">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>15</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15054836">--'--''</span>
+</div>
+<div class="user" title="Play now"><a href="../../6e/sudoku/15054836.html">
+ <span id="t20_15054836">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>16</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15044001">19'44''</span>
+</div>
+<div class="user" title="Play now"><a href="../../9b/sudoku/15044001.html">
+ <span id="t20_15044001">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>17</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15054689">19'49''</span>
+</div>
+<div class="user" title="Play now"><a href="../../0d/sudoku/15054689.html">
+ <span id="t20_15054689">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>18</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15042967">21'08''</span>
+</div>
+<div class="user" title="Play now"><a href="../../35/sudoku/15042967.html">
+ <span id="t20_15042967">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>19</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15045736">6'51''</span>
+</div>
+<div class="user" title="Play now"><a href="../../5d/sudoku/15045736.html">
+ <span id="t20_15045736">??? </span> </a></div>
+</div>
+</li>
+<li>
+<div class="todaySudokuItem ">
+<i>20</i>
+<div class="avgTime" title="平均完成时间">  
+<span id="avg20_15043148">47'32''</span>
+</div>
+<div class="user" title="Play now"><a href="../../54/sudoku/15043148.html">
+ <span id="t20_15043148">??? </span> </a></div>
+</div>
+</li>
+</ul>
+<div class="clear"> </div>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="clear"> </div>
+<div class="row">
+<div class="push_1 grid_33">
+<div class="box_line_f1f1f1 score">
+<h3>最新动态</h3>
+<ol id="lastList">
+<li>посетитель  (19'11'') <span>22 минуты назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/wjp6080">wjp6080</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7286218" target="_blank">17'55''</a></span>) <span>2 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/lail">lail</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7286089" target="_blank">11'20''</a></span>) <span>2 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/pasef001">pasef001</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7285844" target="_blank">26'35''</a></span>) <span>4 часа назад</span></li>
+<li>посетитель  (59'34'') <span>4 часа назад</span></li>
+<li>посетитель  (15'52'') <span>5 часа назад</span></li>
+<li>посетитель  (12'33'') <span>7 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/eagle906">eagle906</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7283795" target="_blank">19'15''</a></span>) <span>9 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/蜜果果儿">蜜果果儿</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7283326" target="_blank">67'18''</a></span>) <span>10 часа назад</span></li>
+<li>посетитель  (6'47'') <span>12 часа назад</span></li>
+</ol>
+<div class="score_info">
+<!--<span>First</span>&nbsp;
+<span>Prev</span>&nbsp;
+<a href="javascript:Report('next')">Next</a>&nbsp;
+<a href="javascript:Report('last')">Last</a>&nbsp; -->
+<span style="color:green">Total <strong>12</strong> Records</span>
+</div>
+</div>
+</div>
+<div class="push_2 grid_33">
+<div class="box_line_f1f1f1 score">
+<h3>总成绩</h3>
+<ol id="bestList">
+<li>посетитель  (6'47'') <span>12 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/数独老伯伯">数独老伯伯</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7282403" target="_blank">10'51''</a></span>) <span>13 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/lail">lail</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7286089" target="_blank">11'20''</a></span>) <span>2 часа назад</span></li>
+<li>посетитель  (12'33'') <span>7 часа назад</span></li>
+<li>посетитель  (15'52'') <span>5 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/wjp6080">wjp6080</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7286218" target="_blank">17'55''</a></span>) <span>2 часа назад</span></li>
+<li>посетитель  (19'11'') <span>22 минуты назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/eagle906">eagle906</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7283795" target="_blank">19'15''</a></span>) <span>9 часа назад</span></li>
+<li>посетитель  (25'26'') <span>12 часа назад</span></li>
+<li><a class="getrep tips_user_card" href="https://ru.oubk.com/pasef001">pasef001</a>   (<span class="score_tips_replay"><a href="https://ru.oubk.com/replay/7285844" target="_blank">26'35''</a></span>) <span>4 часа назад</span></li>
+</ol>
+<div class="score_info"> 
+
+<!--<span>First</span>&nbsp;
+<span>Prev</span>&nbsp;
+<a href="javascript:Report('next')">Next</a>&nbsp;
+<a href="javascript:Report('last')">Last</a>&nbsp; -->
+<span style="color:green">Total <strong>12</strong> Records</span>
+</div>
+</div>
+</div>
+</div>
+<div class="clear"> </div>
+</div>
+</div>
+<!--end:grid 69--->
+<div class="grid_31" style="background-color:#f9f9f9;">
+<div class="popular1" style="margin-left:10px;">
+<div class="box_bt2 mt10">
+<h2 class="box_h2">录像推荐</h2>
+<div class="clear"> </div>
+</div>
+</div>
+<div class="clear"> </div>
+<div class="clear"> </div>
+<div style="width:300px; height: 250px;padding-left: 10px">
+<div class="box_bt2 mt10">
+
+<!-- Practice_play_B -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-5339286475788637" data-ad-slot="3668065286" style="display:inline-block;width:300px;height:250px"></ins>
+
+</div>
+</div>
+<div id="killer_tips" style="width:300px;padding-left: 10px; display: none;">
+<div class="box_bt2 mt10">
+<h2 class="box_h2">提示</h2>
+<div id="kill_tips_txt" style="padding: 10px;"></div>
+</div>
+</div>
+<div class="clear"> </div>
+<div class="avatar_list">
+<div class="box_bt2">
+<h2 class="box_h2">
+
+他们最近做了
+
+</h2>
+<!--
+<ul style="padding:2px">
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+<li>
+<div class="avatar_pic">
+<a href="#"><img width="50" height="50" src="/static/avatars/1/1_xstn.jpg"></a>
+</div>
+<div class="avatar_name"><a href="#">Randy.ran</a></div>
+</li>
+
+</ul>
+-->
+<ul style="padding:2px">
+<li>
+<div class="avatar_pic">
+<a href="../../c7/sudoku/45006137.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../c7/sudoku/45006137.html">
+17 ключ судоку</a></div>
+<div class="avatar_name">17'01''</div>
+<div class="avatar_name">жесткий</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../b5/sudoku/249662.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../b5/sudoku/249662.html">
+Судоку</a></div>
+<div class="avatar_name">10'11''</div>
+<div class="avatar_name">жесткий</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../57/sudoku/91934.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../57/sudoku/91934.html">
+Судоку</a></div>
+<div class="avatar_name">17'47''</div>
+<div class="avatar_name">жесткий</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../b3/sudoku/43669.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../b3/sudoku/43669.html">
+Судоку</a></div>
+<div class="avatar_name">18'02''</div>
+<div class="avatar_name">начинающий</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../0b/sudoku/30000702.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../0b/sudoku/30000702.html">
+Последовательный судоку</a></div>
+<div class="avatar_name">14'28''</div>
+<div class="avatar_name">эксперт</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../f2/sudoku/5025517.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../f2/sudoku/5025517.html">
+Убийца судоку</a></div>
+<div class="avatar_name">40'16''</div>
+<div class="avatar_name">эксперт</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../5a/sudoku/5023393.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../5a/sudoku/5023393.html">
+Убийца судоку</a></div>
+<div class="avatar_name">16'47''</div>
+<div class="avatar_name">эксперт</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../73/sudoku/5003003.html">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../73/sudoku/5003003.html">
+Убийца судоку</a></div>
+<div class="avatar_name">9'47''</div>
+<div class="avatar_name">эксперт</div>
+</li>
+</ul>
+<div class="clear"> </div>
+</div>
+<div class="clear"> </div>
+<div class="box_bt2">
+<h2 class="box_h2">下一题是？</h2>
+<ul style="padding:2px">
+<li>
+<div class="avatar_pic">
+<a href="../../fb/sudoku/windoku-3x3-0.html65b9cb64f9baf9f126abd5204ee10ca3?level=1&amp;is_next=1">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../15/sudoku/windoku-3x3-0.html7e600f110462248ae8a467a343e7e4d3?level=1"> <!---&amp;is_next=1--->
+Windoku</a></div>
+<div class="avatar_name">начинающий</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../6a/sudoku/windoku-3x3-0.html15fd6e3a375d60568bdce1860587231d?level=2&amp;is_next=1">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../07/sudoku/windoku-3x3-0.html6435afe7f90dfd2360eead43a61f3753?level=2"> <!---&amp;is_next=1--->
+Windoku</a></div>
+<div class="avatar_name">легко</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../c7/sudoku/windoku-3x3-0.html5d58b1bc99a0be952c9663baf1a56456?level=3&amp;is_next=1">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../25/sudoku/windoku-3x3-0.html7054a4f727890ce010d4076e5098402c?level=3"> <!---&amp;is_next=1--->
+Windoku</a></div>
+<div class="avatar_name">среда</div>
+</li>
+<li>
+<div class="avatar_pic">
+<a href="../../51/sudoku/windoku-3x3-0.html60bd9da2ac3868895177290de559bd90?level=4&amp;is_next=1">
+
+</a>
+</div>
+<div class="avatar_name"><a href="../../98/sudoku/windoku-3x3-0.htmlbd840bbb219261ede8318074c649ed88?level=4"> <!---&amp;is_next=1--->
+Windoku</a></div>
+<div class="avatar_name">жесткий</div>
+</li>
+</ul>
+<div class="clear"> </div>
+</div>
+<div class="clear"> </div>
+</div>
+<div class="clear"> </div>
+<div style="width:300px; height: 250px;margin-left:10px;">
+<div class="box_bt2 mt10">
+
+<!-- Practice_play_C -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-5339286475788637" data-ad-slot="9574998081" style="display:inline-block;width:300px;height:250px"></ins>
+
+</div>
+</div>
+</div>
+<!--end:grid 31--->
+<div class="clear"> </div>
+</div>
+<!--
+<script src="/static/scripts/boxy/js/jquery.boxy.js?v=c3ca7bdaf94b8745bb18fbe70a5c19c5"></script>
+<link rel="stylesheet" href="/static/scripts/boxy/css/boxy.css?v=7f7185ea718b5439cddff29ed9265ed1" type="text/css"/>-->
+
+<link href="https://ru.oubk.com/static/scripts/jquery.impromptu/jquery-impromptu.css?v=f7239b5a9072dccf8ae870a91733fd90" rel="stylesheet" type="text/css"/>
+<!--
+<script src="/static/scripts/html2canvas.min.js"></script>
+-->
+
+
+<div class="container_100 mt10" style="background-color:#fff; ">
+<div class="grid_90 push_5 footer">
+<a href="../../../en.oubk.com/fa/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">English</a>  
+<a href="../../../oubk.com/c8/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">中文(简体)</a>  
+<a href="../../../zh.oubk.com/d2/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">中文(繁體)</a>  
+<a href="../../../jp.oubk.com/22/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">日本語</a>  
+<a href="../../../ko.oubk.com/d1/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">한국의</a>  
+<a href="../../../de.oubk.com/4c/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">Deutsch</a>  
+<a href="../../../es.oubk.com/12/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">Español</a>  
+<a href="../../../fr.oubk.com/d3/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">Français</a>  
+<a href="windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">Русский</a>  
+<a href="../../../pt.oubk.com/33/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">Português</a>  
+<a href="../../../hi.oubk.com/a4/sudoku/windoku-3x3-0.htmlf6ffd4271216fee5ad27b9f09b1a8164?level=5&amp;is_next=1">हिन्दी</a>
+</div>
+<div class="grid_90 push_5 " style="text-align: center;">
+copyright 2005-2018 oubk.com Email: randy@oubk.com,skyhuner@oubk.com(蓝天)
+</div>
+<!--"\u65e5\u672c\u8a9e".decode('unicode_escape') -->
+<div class="clear"> </div>
+</div>
+</body>
+<div class="hide">
+
+</div>
+<!-- Mirrored from ru.oubk.com/sudoku/windoku-3x3-0.html?level=5&is_next=1 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Aug 2018 15:01:00 GMT -->
+</html>

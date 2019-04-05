@@ -1,0 +1,53 @@
+<html><body><p>function findingNemo(id) {
+				var request = new HTTPRequest("POST", "/plugin/finding/");
+				var	obj = document.getElementById("findingNemoContent" + id);
+				request.onSuccess = function() {
+					try {
+						if (obj != null) obj.innerHTML = this.getText("/response/findingNemoBlock");
+					} catch(e) { }
+				}
+				request.send("idkey="+id);
+			}
+			
+			function findingNemoPopup(url, name) {
+				try {
+					var left = Math.floor((screen.availWidth - 250) / 2);
+					var top = Math.floor((screen.availHeight - 100) / 2);
+					try { findingNemoImagePopup.close(); } catch(e) { }
+					findingNemoImagePopup = window.open("", "", "width=250, height=100, left=" + left + ", top=" + top + ", scrollbars=no, resizable=yes");
+					findingNemoImagePopup.document.open("text/html", "replace");
+					findingNemoImagePopup.document.write(
+						'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+\r\n' +
+						'\r\n' +
+						'	</p>\r\n' +
+						'		<meta content="text/html; charset=utf-8" http-equiv="content-type"/>\r\n' +
+						'		<title>' + name + ' 어린이 </title>\r\n' +
+						'		<style type="text/css">\r\n' +
+						'			html, body { width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; text-align: center; line-height: 0; }\r\n' +
+						'			#Container { width: 100%; height: 100%; overflow: auto; }\r\n' +
+						'			#NemoImage { text-align: center; }\r\n' +
+						'			#BottomInfo {line-height:130%; padding:4px 0 2px 0;border-top:1px solid #ffffff;background-color:#40707B;color:#ffffff;text-align:center;font-size:9pt; }\r\n' +
+						'		</style>\r\n' +
+						'		\r\n' +
+						'	\r\n' +
+						'	\r\n' +
+						'		<div id="Container" title="' + name + ' 실종 어린이">' +
+						((navigator.userAgent.indexOf("Safari") &gt; -1) ?
+						'			<div id="NemoImage"></div>' :
+						'			<div id="NemoImage"></div>') +
+						'			<div id="BottomInfo">제보전화 : 02) 777-0182</div>' +
+						'		</div>' +
+						'	\r\n' +
+						''
+					);
+					findingNemoImagePopup.document.close();
+					if(findingNemoImagePopup.document.focus)
+						findingNemoImagePopup.document.focus();
+				}
+				catch(e) {
+					window.open(url, "_blank");
+				}
+
+			}
+		</body></html>
